@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Introduction to Data Structures &amp; Algorithms</title>
+</head>
+
+<body>
+<p><a href="..\lab.htm">Return to Workshops</a>
+<h1>Creating new environment variables</h1>
+<p>After installing the software, the JDK directory will have the structure shown below.</p>
+<center>
+  <img src="images/environment-directories.gif" width="282" height="208" />
+</center>
+<p>The bin directory contains both the compiler and the launcher.</p>
+<h2>Update the PATH Environment Variable (Microsoft Windows)</h2>
+<p>You can run Java applications just fine without setting the PATH environment variable. Or, you can optionally set it as a convenience.</p>
+<p>Set the PATH environment variable if you want to be able to conveniently run the executables (javac.exe, java.exe, javadoc.exe, and so on) from any directory without having to type the full path of the command. If you do not set the PATH variable, you need to specify the full path to the executable every time you run it, such as:</p>
+<div>
+  <pre>C:\Java\jdk1.7.0\bin\javac MyClass.java  </pre>
+</div>
+<p>The PATH environment variable is a series of directories separated by semicolons (;). Microsoft Windows looks for programs in the PATH directories in order, from left to right. You should have only one bin directory for the JDK in the path at a time (those following the first are ignored), so if one is already present, you can update that particular entry.</p>
+<p>The following is an example of a PATH environment variable:</p>
+<div>
+  <pre>C:\Java\jdk1.7.0\bin;C:\Windows\System32\;C:\Windows\;C:\Windows\System32\Wbem  </pre>
+</div>
+<p>It is useful to set the PATH environment variable permanently so it will persist after rebooting. To make a permanent change to the PATH variable, use the <strong>System</strong> icon in the Control Panel. The precise procedure varies depending on the version of Windows:</p>
+<strong>Windows XP</strong>
+<ol>
+  <li>Select <strong>Start</strong>, select <strong>Control Panel</strong>. double click <strong>System</strong>, and select the <strong>Advanced</strong> tab.</li>
+  <li>Click <strong>Environment Variables</strong>. In the section <strong>System Variables</strong>, find the PATH environment variable and select it. Click <strong>Edit</strong>. If the PATH environment variable does not exist, click New.</li>
+  <li>In the <strong>Edit System Variable</strong> (or <strong>New System Variable</strong>) window, specify the value of the PATH environment variable. Click <strong>OK</strong>. Close all remaining windows by clicking <strong>OK</strong>.</li>
+</ol>
+<strong>Windows Vista:</strong>
+<ol>
+  <li>From the desktop, right click the <strong>My Computer</strong> icon.</li>
+  <li>Choose <strong>Properties</strong> from the context menu.</li>
+  <li>Click the <strong>Advanced</strong> tab (<strong>Advanced system settings</strong> link in Vista).</li>
+  <li>Click <strong>Environment Variables</strong>. In the section <strong>System Variables</strong>, find the PATH environment variable and select it. Click <strong>Edit</strong>. If the PATH environment variable does not exist, click New.</li>
+  <li>In the <strong>Edit System Variable</strong> (or <strong>New System Variable</strong>) window, specify the value of the PATH environment variable. Click <strong>OK</strong>. Close all remaining windows by clicking <strong>OK</strong>.</li>
+</ol>
+<strong>Windows 7:</strong>
+<ol>
+  <li>From the desktop, right click the <strong>Computer</strong> icon.</li>
+  <li>Choose <strong>Properties</strong> from the context menu.</li>
+  <li>Click the <strong>Advanced system settings</strong> link.</li>
+  <li>Click <strong>Environment Variables</strong>. In the section <strong>System Variables</strong>, find the PATH environment variable and select it. Click <strong>Edit</strong>. If the PATH environment variable does not exist, click New.</li>
+  <li>In the <strong>Edit System Variable</strong> (or <strong>New System Variable</strong>) window, specify the value of the PATH environment variable. Click <strong>OK</strong>. Close all remaining windows by clicking <strong>OK</strong>.</li>
+</ol>
+<div>
+  <hr />
+  <strong>Note:</strong> You may see a PATH environment variable similar to the following when editing it from the Control Panel:
+  <div>
+    <pre>%JAVA_HOME%\bin;%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem  </pre>
+  </div>
+  Variables enclosed in percentage signs (%) are existing environment variables. If one of these variables is listed in the <strong>Environment Variables</strong> window from the Control Panel (such as JAVA_HOME), then you can edit its value. If it does not appear, then it is a special environment variable that the operating system has defined. For example, SystemRoot is the location of the Microsoft Windows system folder. To obtain the value of a environment variable, enter the following at a command prompt. (This example obtains the value of the SystemRoot environment variable):
+  <div>
+    <pre>echo %SystemRoot% </pre>
+  </div>
+</div>
+<div></div>
+</body>
+</html>

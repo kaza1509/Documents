@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>06-Package and Exception Handling</h1>
+<ul><li>
+  <div><a href="#1">Packages</a></div>
+</li>
+  <li>
+    <a href="#2">Exception Handling</a>
+    
+      <ul>
+        <li>try block</li>
+        <li>catch  block</li>
+        <li>finally  block</li>
+      
+    
+        <li>custom  exception class</li>
+      </ul>
+    
+  </li>
+  <li>
+    <a href="#3">Assertions</a>  </li>
+</ul>
+<h2><a name="1" id="1"></a>1. Package </h2>
+<p> A <em>package</em> is a grouping of related types providing access protection and name space management. Note that <em>types</em> refers to classes, interfaces, enumerations, and annotation types. Enumerations and annotation types are special kinds of classes and interfaces, respectively, so <em>types</em> are often referred to in this lesson simply as <em>classes and interfaces</em>.</p>
+<pre>//<em>in the Draggable.java file</em>  
+package graphics;  
+public interface Draggable {      
+. . .  
+}</pre>
+<h3>Importing a Package Member</h3>
+<p>To import a specific member into the current file, put an import statement at the beginning of the file before any type definitions but after the package statement, if there is one. </p>
+<div>
+  <pre>import graphics.Rectangle; </pre>
+</div>
+<p>Now you can refer to the Rectangle class by its simple name.</p>
+<div>
+  <pre>Rectangle myRectangle = new Rectangle();  </pre>
+</div>
+<h3>Importing an Entire Package</h3>
+<p>To import all the types contained in a particular package, use the import statement with the asterisk (*) wildcard character.</p>
+<div>
+  <pre>import graphics.*;  </pre>
+</div>
+<p>Now you can refer to any class or interface in the graphics package by its simple name.</p>
+<div>
+  <pre>Circle myCircle = new Circle();  Rectangle myRectangle = new Rectangle(); </pre>
+</div>
+<h2><a name="2" id="2">2. Exceptions (finally Block, user exception...)</a></h2>
+<ol>
+  <li><a>When a program is executing something occurs that is not quite normal from the point of view of the goal at hand.</a></li>
+  <li><a>For example:</a>
+      <ul>
+        <li><a>a user might type an invalid filename;</a></li>
+        <li><a>a file might contain corrupted data;</a></li>
+        <li><a>a network link could fail;</a></li>
+        <li><a>…</a></li>
+      </ul>
+  </li>
+  <li><a>Circumstances of this type are called <em>exception conditions </em>in Java and are represented using objects (All exceptions descend from the java.lang.<strong>Throwable</strong>).</a></li>
+</ol>
+<p><a> </a></p>
+<p><a><strong>Catching Exceptions</strong><br />
+  try {<br />
+  // Exception-throwing code<br />
+  }<br />
+  catch (Exception_type name) {<br />
+  // Exception-handling code<br />
+}</a></p>
+<p><a><strong>Multiple catch blocks</strong></a></p>
+<ol>
+  <li><a>try block may contain code that throws different exception types. This can even happen if the block contains only a single line of code, because a method is allowed to throw different types to indicate different kinds of trouble.</a></li>
+</ol>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td width="493" valign="top"><p><a>File myFile = getMyFile();<br />
+        String s = getStringAndHopeForAllDigits();<br />
+        try {<br />
+        System.out.println(&quot;About to call.&quot;);<br />
+        int x = Integer.parseInt(s);<br />
+        myFile.getCanonicalFile();<br />
+        System.out.println(&quot;Call succeeded.&quot;);<br />
+        }<br />
+        catch (NumberFormatException xceptn) {<br />
+        System.out.println(&quot;Bad text! &quot; + xceptn.xceptn.printStackTrace();<br />
+        }<br />
+        catch (IOException xceptn) {<br />
+        System.out.println(&quot;File stress! &quot; +  xceptn.printStackTrace();<br />
+        }<br />
+        System.out.println(&quot;Life goes on.&quot;);</a></p></td>
+    </tr>
+  </tbody>
+</table>
+<p><a><strong>The <em>finally </em>Block</strong></a></p>
+<ol>
+  <li><a>The last catch block associated with a try block may be followed by a finally block.</a></li>
+  <li><a>The finally block’s code is guaranteed to execute in nearly all circumstances excepts:</a></li>
+  <ol>
+    <li><a>The death of the current thread</a></li>
+    <li><a> Execution of System.exit()</a></li>
+    <li><a> Turning off the computer</a></li>
+  </ol>
+</ol>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td width="518" valign="top"><p><a>File myFile = getMyFile();<br />
+        String s = getStringAndHopeForAllDigits();<br />
+        try {<br />
+        System.out.println(&quot;About to call.&quot;);<br />
+        int x = Integer.parseInt(s);<br />
+        myFile.getCanonicalFile();<br />
+        System.out.println(&quot;Call succeeded.&quot;);<br />
+        }<br />
+        catch (NumberFormatException xceptn) {<br />
+        System.out.println(&quot;Bad text! &quot; + xceptn.xceptn.printStackTrace();<br />
+        }<br />
+        catch (IOException xceptn) {<br />
+        System.out.println(&quot;File stress! &quot; +  xceptn.printStackTrace();<br />
+        }<br />
+        finally {<br />
+        System.out.println(&quot;In the finally block.&quot;);<br />
+        }<br />
+        System.out.println(&quot;Life goes on.&quot;);</a></p></td>
+    </tr>
+  </tbody>
+</table>
+<p><a><strong>Declaring Exceptions</strong><br />
+There is a way to call exception-throwing methods without enclosing the calls in try blocks. A method declaration may end with the throws keyword, followed by an exception type, or by multiple exception types followed by commas.</a></p>
+<p><a>private int throwsOne() throws ArithmeticException   {…}</a></p>
+<p><a>private int throwsTwo() throws IOException, AWTException   {…}<br />
+Of course, methods that call throwsOne() or throwsTwo() must either enclose those calls in try blocks or declare that they, too, throw the exception types.</a></p>
+<p><a><strong>Two Kinds of Exception</strong></a></p>
+<ol>
+  <li><a><em>Checked exception</em></a>
+      <blockquote>
+        <p><a>Must be handled by either the try-catch mechanism or the throws-declaration mechanism.</a></p>
+      </blockquote>
+  </li>
+  <li><a>Runtime exception</a>
+      <blockquote>
+        <p><a>The right time to deal with runtime exceptions is when you’re designing, developing, and debugging your code. Since runtime exceptions <u>should never be thrown in finished code.</u></a></p>
+      </blockquote>
+  </li>
+</ol>
+<p><a>There is some difference there for checked and unchecked Exception<br />
+  Suppose <strong>checked exception</strong> means it shows the <strong>compile time exception</strong><br />
+  ex: NoSuchMethod exception, NoSuch Field Exception , ClassNot Found Exception <br />
+  where as in <strong>Unchecked Exception</strong> shows <strong>Runtime</strong> Only<br />
+  ex: Nullpointer Exception, Number Format Exception<br />
+  Checked exceptions should always be caught  <br />
+  Runtime exceptions don’t have to be caught.<br />
+  Errors should never be caught. <br />
+  The stack trace is recorded when the exception is constructed. <br />
+It is never appropriate for application programmers to construct and throw errors.</a></p>
+<p><a><strong>The Exception Inheritance Hierarchy</strong><br />
+    <img src="images/05-Flow Control, Assertions and Exception Handling_clip_image004.jpg" width="461" height="242" /><br />
+  <strong>The Exception Inheritance Hierarchy – in more details</strong><br />
+</a><img src="images/05-Flow Control, Assertions and Exception Handling_clip_image006.jpg" width="612" height="360" /></p>
+<p><a><strong>Throwing Exceptions</strong></a></p>
+<ol>
+  <li><a>The methods that you write <strong><u>can</u></strong> throw exceptions.</a></li>
+  <li><a>To throw your own exception, first decide whether the exception should be checked at runtime. Then choose the appropriate exception type.</a></li>
+  <li><a>If you find a class whose name describes the situation you want to signal, use that class. If you don’t, you’ll have to create your own exception class.</a></li>
+</ol>
+<p><a>For example:<br />
+  IOException x = new IOException(&quot;Phaser bank lockup.&quot;);<br />
+throw x;</a></p>
+<ol>
+  <li><a>All checked exception types thrown from a method must be represented in the method’s “throws” list.</a></li>
+</ol>
+<p><a><strong>Creating Your Own Exception Classes</strong></a></p>
+<ol>
+  <li><a>Decide whether you want a checked or a runtime exception.</a>
+      <ul>
+        <li><a>Checked exceptions should extend java.lang.Exception or one of its subclasses.</a></li>
+        <li><a>Runtime exceptions should extend java.lang.RuntimeException or one of its subclasses</a></li>
+      </ul>
+  </li>
+  <li><a>The argument list of these constructors should include</a>
+      <ul>
+        <li><a> A message</a></li>
+        <li><a> A cause</a></li>
+        <li><a> A message and a cause</a></li>
+      </ul>
+  </li>
+</ol>
+<p><a><strong>Exception Occurrence</strong></a></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td width="419" valign="top"><a><br />
+        class ThrowStatement extends Exception  {<br />
+        public static void exp(int ptr) {<br />
+        if (ptr == 0)<br />
+        <strong>throw new NullPointerException();</strong><br />
+        }           <br />
+        public static void main(String[] args) {<br />
+        int i = 0;<br />
+        ThrowStatement.exp(i);<br />
+        }<br />
+      }</a></td>
+    </tr>
+  </tbody>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td width="493" valign="top"><p><a  >java.lang.NullPointerException<br />
+        at ThrowStatement.exp(ThrowStatement.java:4)<br />
+        at ThrowStatement.main(ThrowStatement.java:8)</a></p></td>
+    </tr>
+  </tbody>
+</table>
+<p><a  ><strong>Exceptions and Overriding</strong></a></p>
+<p><a  >When you extend a class and override a method, the Java compiler <u>insists</u> that all exception classes thrown by the <u>new method</u> must be the <u>same as</u>, or <u>subclasses</u> of, the exception classes thrown by the <u>original method</u>. In other words, an overriden method in a sub class must not throw Exceptions not thrown in the base class. Thus if  the overriding method does not throw  exceptions, the program will compile without complain.</a></p>
+<h2><a  ></a><a name="3" id="3"></a><a  >3. Assertions</a></h2>
+<ul>
+  <li><a >A new facility called assertions was introduced in the Java 1.4 release. Assertions provide a convenient mechanism for <u>verifying</u> that a class’s methods are called correctly.</a></li>
+  <li><a  >This mechanism can be enabled or disabled at runtime.</a></li>
+  <li><a  >The intention is that assertions typically will be enabled <u>during development</u> and disabled in the <u>field</u>.</a></li>
+  <li><a  >An assertion has a Boolean expression that, if evaluated as false, indicates a bug in the code. This mechanism provides a way to detect when a program starts falling into an inconsistent state. Assertions are excellent for documenting assumptions and invariants about a class. Here is a simple example of assertion:</a></li>
+</ul>
+<p><a  >            BankAccount acct = null; // ... // Get a BankAccount object<br />
+  // ... // Check to ensure we have one <br />
+  <strong>assert acct != null;</strong></a></p>
+<ul>
+  <li><a  >This asserts that acct is not null. If acct is null, an AssertionError is thrown. Any line that executes after the assert statement can safely assume that acct is not null.</a></li>
+  <li><a  >Using assertions helps developers write code that is more correct, more readable, and easier to maintain. Thus, assertions improve the odds that the behavior of a class matches the expectations of its clients.</a></li>
+</ul>
+<p><a ><strong>Assertions syntax</strong><br />
+      <strong><em>assert Expression1;</em></strong><br />
+  or<br />
+  <strong><em>assert Expression1:Expression2;</em></strong><br />
+  Where:</a></p>
+<ol>
+  <li><a  ><em>Expression1 </em>must have boolean type. <em>Expression2 </em>may have any type.</a></li>
+  <li><a  >If assertions are <u>disabled at runtime</u> (the <u>default</u> state), the assert statement <u>does absolutely nothing</u>.</a></li>
+  <li><a  >If assertions are enabled at runtime (via a command-line argument to the JVM), then <em>Expression1 </em>is evaluated.</a>
+      <ul>
+        <li><a >If its value is true, no further action is taken. If its value is false, then an AssertionError is thrown. If <em>Expression2 </em>is present, it is passed into the constructor of the AssertionError, where it is converted to a String and used as the error’s message</a></li>
+      </ul>
+  </li>
+</ol>
+<p><a  ><strong>Assertions and Compilation</strong><br />
+  1.4 compiler<br />
+  javac -source 1.4 UsefulApplication.java</a></p>
+<ol>
+  <ul>
+    <li><a  >(<em>If the flag was omitted, the 1.4 compiler treated source code as if the assert keyword did not exist; thus assert could be used as an identifier</em>.)</a></li>
+  </ul>
+</ol>
+<p><a  >1.5 compiler<br />
+  no longer necessary to compile with a -source flag</a></p>
+<p><a  ><strong>Runtime Enabling of Assertions</strong></a></p>
+<ol>
+  <li><a  >Assertions are disabled by default. To enable assertions at runtime, use the</a></li>
+</ol>
+<p><a  >             -enableassertions or -ea flag on the Java command line, as in the following example:</a></p>
+<p><a  >java -ea UsefulApplication<br />
+  java - enableassertions UsefulApplication</a></p>
+<p><a  ><strong>Using Assertions</strong></a></p>
+<p><a  >Assertions are commonly used to check:</a></p>
+<ol>
+  <ol>
+    <li><a  ><em>preconditions</em>,</a></li>
+    <li><a  ><em>postconditions</em>, and</a></li>
+    <li><a  ><em>class invariants</em></a></li>
+  </ol>
+</ol>
+<p><a  >Precondition</a></p>
+<ul>
+  <li><a  >A precondition is a constraint that must be met on entry of a method.</a></li>
+  <li><a  >If a method’s preconditions are not met, the method should terminate at once before it can do any damage.</a></li>
+</ul>
+<p><a  >Postcondition</a></p>
+<ul>
+  <li><a  >A postcondition is a constraint that must be met on return from a method. If a method’s postconditions are not met, the method should not be allowed to return.</a></li>
+</ul>
+<p><a  >Class invariant</a></p>
+<ul>
+  <li><a  >A class invariant is a constraint on a class’s state that must be met before and after execution of any non-private method of a class.</a></li>
+</ul>
+<p><a  ><strong>Using Assertions Sample</strong></a></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td width="456" valign="top"><a  ><br />
+        private Book reserveACopy(String title, Member member) {<br />
+        assert isValidTitle(title);</a>
+          <p><a  >            Book book = getAvailableCopy(title);<br />
+            reserve(book, member);</a></p>
+        <p><a  >            assert bookIsInStock(book);<br />
+          return book;<br />
+          }</a></p></td>
+    </tr>
+  </tbody>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

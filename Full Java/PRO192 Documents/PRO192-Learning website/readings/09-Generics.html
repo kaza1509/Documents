@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>09-Generics
+</h1>
+<ul>
+  <li><a href="#1">Why use Generics</a></li>
+  <li><a href="#2">Type parameter naming conventions</a></li>
+  <li><a href="#3">Type Parameter Naming Conventions</a></li>
+  <li><a href="#4">Multiple Type Parameters</a></li>
+  <li><a href="#5">Generic Methods</a></li>
+  <li><a href="#6">Upper Bounded Wildcards</a></li>
+  <li><a href="#7">Lower Bounded Wildcards</a></li>
+  <li><a href="#8">Generic collections</a> </li>
+</ul>
+<h3><a name="1" id="1"></a>1. Why use Generics? </h3>
+<p>In a nutshell, generics enable <em>types</em> (classes and interfaces) to be parameters when defining classes, interfaces and methods. Much like the more familiar <em>formal parameters</em> used in method declarations, type parameters provide a way for you to re-use the same code with different inputs. The difference is that the inputs to formal parameters are values, while the inputs to type parameters are types. </p>
+<h3><a name="2" id="2"></a>2. Generic Types </h3>
+<p>A <em>generic type</em> is a generic class or interface that is parameterized over types. The following Box class will be modified to demonstrate the concept.</p>
+<pre>class name&lt;T1, T2, ..., Tn&gt; { /* ... */ }</pre>
+<pre>public class Box&lt;T&gt; {      
+// T stands for &quot;Type&quot;      
+private T t;        
+public void set(T t) { 
+this.t = t; 
+}      
+public T get() { return t; }  
+}
+
+</pre>
+<h3><a name="3" id="3"></a>3. Type Parameter Naming Conventions</h3>
+<p>The most commonly used type parameter names are:</p>
+<ul>
+  <li>E - Element (used extensively by the Java Collections Framework)</li>
+  <li>K - Key</li>
+  <li>N - Number</li>
+  <li>T - Type</li>
+  <li>V - Value</li>
+  <li>S,U,V etc. - 2nd, 3rd, 4th types</li>
+</ul>
+<h3><a name="4" id="4"></a>4.<a> Multiple Type Parameters</a></h3>
+<p>As mentioned previously, a generic class can have multiple type parameters. For example, the generic OrderedPair class, which implements the generic Pair interface:</p>
+<div>
+  <pre>public interface Pair&lt;K, V&gt; {      
+public K getKey();      
+public V getValue();  
+}
+
+
+</pre>
+  <div id="PageTitle">
+    <h3>5<a name="5" id="5"></a>. Generic Methods</h3>
+  </div>
+  <div id="PageContent">
+    <p><em>Generic methods</em> are methods that introduce their own type parameters. This is similar to declaring a generic type, but the type parameter's scope is limited to the method where it is declared. Static and non-static generic methods are allowed, as well as generic class constructors.</p>
+    <div>
+      <pre>public class Util {      <strong>
+public static &lt;K, V&gt; boolean compare(Pair&lt;K, V&gt; p1, Pair&lt;K, V&gt; p2)</strong> {          
+return p1.getKey().equals(p2.getKey()) &amp;&amp; p1.getValue().equals(p2.getValue());      
+}  
+}
+
+</pre>
+      <div id="div">
+        <h3><a name="6" id="6"></a>6. Upper Bounded Wildcards</h3>
+      </div>
+      <div id="div2">
+        <p>You can use an upper bounded wildcard to relax the restrictions on a variable. For example, say you want to write a method that works on List&lt;Integer&gt;, List&lt;Double&gt;, <em>and</em> List&lt;Number&gt;; you can achieve this by using an upper bounded wildcard.</p>
+        <p>To declare an upper-bounded wildcard, use the wildcard character ('?'), followed by the extends keyword, followed by its <em>upper bound</em>. </p>
+        <div>
+          <pre>public static void process(List<strong>&lt;? extends Foo&gt;</strong> list) { /* ... */ }  </pre>
+        </div>
+        <p>The upper bounded wildcard, &lt;? extends Foo&gt;, where Foo is any type, matches Foo and any subtype of Foo. The process method can access the list elements as type Foo:</p>
+        <div>
+          <pre>public static void process(List&lt;? extends Foo&gt; list) {      for (Foo elem : list) {          // ...      }  }</pre>
+        </div>
+      </div>
+      <div id="div3">
+        <h3><a name="7" id="7"></a>7. Lower Bounded Wildcards</h3>
+      </div>
+      <div id="div4">
+        <p>The <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/generics/upperBounded.html">Upper Bounded Wildcards</a> section shows that an upper bounded wildcard restricts the unknown type to be a specific type or a subtype of that type and is represented using the extends keyword. In a similar way, a <em>lower bounded</em> wildcard restricts the unknown type to be a specific type or a <em>super type</em> of that type.</p>
+        <p>A lower bounded wildcard is expressed using the wildcard character ('?'), following by the super keyword, followed by its <em>lower bound</em>: &lt;? super A&gt;.</p>
+        <div></div>
+        <div>
+          <pre>public static void addNumbers(List&lt;? super Integer&gt; list) {      for (int i = 1; i &lt;= 10; i++) {          list.add(i);      }  }
+</pre>
+          <h3><a name="8" id="8"></a><a>8. Generic Collections</a></h3>
+          <ol>
+            <li><a><em>Generic collections </em>(or just <em>generics</em>) are collections whose members are of a <u>single type</u> that is known to the compiler.</a></li>
+            <li><a>Generics was introduced from JDK 5.0</a></li>
+          </ol>
+          <p><a><strong>No Generics</strong><br />
+            Vector myVec;<br />
+            myVec = new Vector();<br />
+            myVec.add(myDragon);<br />
+            // … and later …<br />
+          Dragon myOtherDragon=<strong>(Dragon)</strong>myVec.get(0);</a></p>
+          <p><a><strong>With Generics</strong><br />
+            Vector&lt;Dragon&gt; myVec;<br />
+          myVec = new Vector&lt;Dragon&gt;();</a></p>
+          <p><a>//<em>compiler make sure that myDragon is Dragon type</em><br />
+            myVec.add(myDragon); <br />
+            //<em> … and later …</em><br />
+          Dragon myOtherDragon=myVec.get(0);//<em>no cast</em></a></p>
+          <p><a><strong>Generic Collections Benefits</strong><br />
+          Generics provide two substantial benefits:</a></p>
+          <ol>
+            <li><a> Objects retrieved from generic collections need not be cast.</a></li>
+            <li><a> The compiler ensures that objects of the wrong type are not stored in generics.</a></li>
+          </ol>
+          <p><a><strong>Declare a generics type</strong><br />
+            public class Library<strong>&lt;E&gt;</strong> { <br />
+            private List<strong>&lt;E&gt;</strong> resources = new ArrayList<strong>&lt;E&gt;</strong>(); <br />
+            public void addMedia(<strong>E</strong> x) { <br />
+            resources.add(x); <br />
+            } <br />
+            public <strong>E</strong> retrieveLast() { <br />
+            int size = resources.size(); <br />
+            if (size &gt; 0) { <br />
+            return resources.get(size - 1); <br />
+            } return null; <br />
+            } <br />
+          }</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

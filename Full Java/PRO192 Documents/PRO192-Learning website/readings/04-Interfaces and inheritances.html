@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>04-Interfaces and Inheritances </h1>
+<ul>
+  <li><a href="#1">Interface</a></li>
+  <li><a href="#2">Inheritance</a></li>
+  <li><a href="#3">final class and method</a></li>
+  <li><a href="#4">abstract class and method  </a></li>
+</ul>
+<h2><a name="1" id="1"></a>1. Interfaces </h2>
+ <p>In the Java programming language, an <em>interface</em> is a reference type, similar to a class, that can contain <em>only</em> constants, method signatures, default methods, static methods, and nested types. Method bodies exist only for default methods and static methods. Interfaces cannot be instantiated—they can only be <em>implemented</em> by classes or <em>extended</em> by other interfaces. Extension is discussed later in this lesson. </p>
+ <p>An interface declaration consists of modifiers, the keyword interface, the interface name, a comma-separated list of parent interfaces (if any), and the interface body. For example:</p>
+ <div>
+   <pre>public interface GroupedInterface extends Interface1, Interface2, Interface3 {        
+// constant declarations            
+// base of natural logarithms      
+double E = 2.718282;         
+// method signatures      
+void doSomething (int i, double x);      
+int doSomethingElse(String s);  
+}  </pre>
+ </div>
+ <p>The public access specifier indicates that the interface can be used by any class in any package. </p>
+ <p>An interface can extend other interfaces, just as a class subclass or extend another class.</p>
+ <h3>The Interface Body</h3>
+ <p>The interface body can contain <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/IandI/abstract.html">abstract methods</a>, <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html">default methods</a>, and <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html#static">static methods</a>. </p>
+ <div id="div">
+   <h3>Implementing an Interface</h3>
+ </div>
+ <div id="div2">
+   <p>To declare a class that implements an interface, you include an implements clause in the class declaration. Your class can implement more than one interface, so the implements keyword is followed by a comma-separated list of the interfaces implemented by the class. By convention, the implements clause follows the extends clause, if there is one.</p>
+   <h3>A Sample Interface, IMath </h3>
+   <div>
+     <pre>public interface IMath {               
+   
+public int doAdd(int x, int y);  
+}</pre>
+   </div>
+   <h3>Implementing the Relatable Interface</h3>
+   <p>Here is the MyMat class that was presented in the <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/javaOO/objectcreation.html">Creating Objects</a> section, rewritten to implement Relatable.</p>
+   <div>
+     <pre>public class MyMath       implements IMath {
+@Override
+public int doAdd(int x, int y) {
+return x + y;
+}
+
+}</pre>
+   </div>
+ </div>
+ <h2><a name="2" id="1"></a>2. Inheritance </h2>
+ <h3><a>Implementing Object-Oriented Relationships</a></h3>
+ <ul>
+   <li><a>There are two phrases that are commonly used when describing a class in plain English:</a></li>
+   <ul>
+     <li><a>“is a”: describe the superclass</a></li>
+     <li><a>“has a.”:describe the member variables</a></li>
+   </ul>
+   <li><a>For example, consider this description:</a></li>
+   <ul>
+     <li><a>“A home is a house that has a family and a pet.”</a></li>
+   </ul>
+ </ul>
+ <p><a> </a></p>
+ <p><a>public class Home extends House {<br />
+   Family inhabitants;<br />
+   Pet thePet;<br />
+}</a></p>
+ <p><strong>Definitions:</strong> A class that is derived from another class is called a <em>subclass</em> (also a <em>derived class</em>, <em>extended class</em>, or <em>child class</em>). The class from which the subclass is derived is called a <em>superclass</em> (also a <em>base class</em> or a <em>parent class</em>).<br />
+   <br />
+   Excepting Object, which has no superclass, every class has one and only one direct superclass (single inheritance). In the absence of any other explicit superclass, every class is implicitly a subclass of Object.<br />
+   <br />
+ Classes can be derived from classes that are derived from classes that are derived from classes, and so on, and ultimately derived from the topmost class, Object. Such a class is said to be <em>descended</em> from all the classes in the inheritance chain stretching back to Object.</p>
+ <p align="center"><img src="images/05-classes-object.gif" width="553" height="287" /></p>
+ <p align="center">All Classes in the Java Platform are Descendants of Object</p>
+ <h3>Object Reference Conversion</h3>
+ <ul>
+   <li>Object reference variables, like primitive values, participate in <u>assignment</u> conversion, <u>method call</u> conversion, and <u>casting</u>. (There is no arithmetic promotion of object references, because references cannot be arithmetic operands.)</li>
+ </ul>
+ <p><strong>The rules for object reference assignment conversion</strong><br />
+   <img src="images/04-Converting and Casting_clip_image004.jpg" width="588" height="340" /></p>
+ <p><strong>Conversion sample</strong><br />
+   <img src="images/04-Converting and Casting_clip_image006.jpg" width="433" height="240" /><img src="images/04-Converting and Casting_clip_image008.jpg" width="192" height="156" /></p>
+ <h3>Object Reference Casting</h3>
+ <ul>
+   <li>Object reference casting is like primitive casting.</li>
+   <li>Any kind of conversion that is allowed for assignments or method calls is allowed for explicit casting.</li>
+ </ul>
+ <p>Lemon lem = new Lemon();<br />
+Citrus cit = (Citrus)lem;</p>
+ <h3><a>Methods, Overloading and Overriding</a></h3>
+ <ul>
+   <li><a>A method name can be re-used anywhere, as long as certain conditions are met:</a></li>
+   <ul>
+     <li><a>In an unrelated class</a></li>
+     <li><a>In the class that defines the original method, or a subclass of that class.</a></li>
+   </ul>
+</ul>
+ <p><a>Overloading Method Names</a></p>
+ <ul>
+   <li><a>In Java, a method is uniquely identified by the <u>combination of</u> its fully qualified <u>class name</u>, the <u>method name</u>, and the exact <u>sequence of its argument</u> types.</a></li>
+   <li><a>What Is Overloading For?</a></li>
+ </ul>
+ <p><a>Method Overriding</a></p>
+ <ul>
+   <li><a>When you extend one class to produce a new one, you inherit and have access to certain non-private methods of the original class. Sometimes, however, you might need to <u>modify the behavior</u> of one of these methods to suit your new class.</a></li>
+   <li><a>What Is Overriding For?</a></li>
+ </ul>
+ <p><a>Method Overriding and exceptions<br />
+An overriding method may throw an unlimited number of exception types, provided all types are the same as, or are descended from, the types that appear in the overridden version’s declared list of thrown exception types.</a></p>
+ <p><a>incorrect:<br />
+   class A  {void thu() throws IOException   {   } }<br />
+class B extends A {  void thu() throws Exception  {  } }</a></p>
+ <p><a>correct:<br />
+   class A  {void thu() throws Exception   {   } }<br />
+   class B extends A {  void thu() throws IOException  {  } }<br />
+   class A  {void thu() throws EOFException   {   } }<br />
+   class B extends A {  void thu() throws IOException  {  } }<br />
+   class A  {void thu() throws Exception {   } }<br />
+class B extends A {  void thu() {  } }</a></p>
+ <p><a>Late Binding</a></p>
+ <ul>
+   <li><a>Method call decision to be made at runtime by JVM.</a></li>
+ </ul>
+ <p><a>Invoking Overridden Methods</a></p>
+ <table border="1" cellspacing="0" cellpadding="0">
+   <tbody>
+     <tr>
+       <td width="556" valign="top"><a><br />
+         class Rectangle {<br />
+         private int x, y, w, h;<br />
+         public String toString() {<br />
+         return “x = “ + x + “, y = “ + y +  “, w = “ + w + “, h = “ + h;<br />
+         }<br />
+         }<br />
+         class DecoratedRectangle <em>extends</em> Rectangle {<br />
+         private int borderWidth;<br />
+         public String toString() {<br />
+         return super.toString() + “, borderWidth = “ + borderWidth;<br />
+         }<br />
+       }</a></td>
+     </tr>
+   </tbody>
+ </table>
+ <p><a>Variable-Length Argument Lists</a></p>
+ <ul>
+   <li><a>Release 5.0 allows a method to declare that its argument list includes a variable number of args of a particular type.</a></li>
+ </ul>
+ <p><a>void fun (String … a) {/*statements*/}<br />
+   void foo(float x, int ...a)<br />
+   {for(int i=0;i&lt;a.length;i++)<br />
+   System.out.println(a[i]);<br />
+   }<br />
+   public static void main(String args[])<br />
+   {foo(1,2,3);<br />
+   System.out.println();<br />
+}</a></p>
+ <h3><a>Constructors and Subclassing</a></h3>
+ <ul>
+   <li><a>A constructor is invoked with a call of the form new MyClass(arg1, arg2, ...)</a></li>
+   <li><a>If you do not explicitly code any constructors for a class, the compiler automatically creates a default constructor that does nothing except invoke the superclass’ default constructor.</a></li>
+   <li><a>You can pass control to a constructor in the parent class by using the keyword super.</a></li>
+ </ul>
+ <table border="1" cellspacing="0" cellpadding="0">
+   <tbody>
+     <tr>
+       <td width="444" valign="top"><p><a>class Base {<br />
+         public Base(String s) {<br />
+         // initialize this object using s<br />
+         }<br />
+         public Base(int i) {<br />
+         // initialize this object using i<br />
+         }<br />
+         }</a></p>
+           <p><a> class Derived extends Base {<br />
+             public Derived(String s) {<br />
+             // pass control to Base constructor at line 2<br />
+             super(s);<br />
+             }<br />
+             public Derived(int i) {<br />
+             // pass control to Base constructor at line 5<br />
+             super(i);<br />
+             }<br />
+         }</a></p></td>
+     </tr>
+   </tbody>
+ </table>
+ <p><a>Overloading Constructors</a></p>
+ <table border="1" cellspacing="0" cellpadding="0">
+   <tbody>
+     <tr>
+       <td width="444" valign="top"><a><br />
+         public class AnyClass {<br />
+         public AnyClass(int a, String b, float c, Date d) {<br />
+         // complex processing to initialize<br />
+         // based on arguments<br />
+         }<br />
+         public AnyClass(int a) {<br />
+         this(a, “default”, 0.0F, new Date());<br />
+         }<br />
+       }</a></td>
+     </tr>
+   </tbody>
+ </table>
+ <div id="PageTitle">
+   <h3>Polymorphism</h3>
+ </div>
+ <div id="PageContent">
+   <p>Subclasses of a class can define their own unique behaviors and yet share some of the same functionality of the parent class.</p>
+   <p>class Animal {</p>
+   <p>...</p>
+   <p>public void speak() {</p>
+   <p>... </p>
+   <p>} </p>
+   <p>class Dog extends Animal {</p>
+   <p>@Override</p>
+   <p>public void speak() {</p>
+   <p>} </p>
+   <p>}</p>
+   <p>//Main method</p>
+   <p>Animal a = new Animal();</p>
+   <p>a.speak();</p>
+   <p><strong>a = new Dog();</strong></p>
+   <p><strong>a.speak();  </strong></p>
+   <p>The Java virtual machine (JVM) calls the appropriate method for the object that is referred to in each variable. It does not call the method that is defined by the variable's type. This behavior is referred to as <em>virtual method invocation</em> and demonstrates an aspect of the important polymorphism features in the Java language.</p>
+</div>
+ <div>
+   <p>If your method overrides one of its superclass's methods, you can invoke the overridden method through the use of the keyword super. You can also use super to refer to a hidden field (although hiding fields is discouraged). Consider this class, Superclass:</p>
+   <div>
+     <pre>public class Superclass {        
+public void printMethod() {          
+System.out.println(&quot;Printed in Superclass.&quot;);      
+}  
+}  </pre>
+   </div>
+   <p>Here is a subclass, called Subclass, that overrides printMethod():</p>
+   <div>
+     <pre>public class Subclass extends Superclass {        
+// overrides printMethod in Superclass     
+ public void printMethod() {          
+super.printMethod();          
+System.out.println(&quot;Printed in Subclass&quot;);      
+}      
+public static void main(String[] args) {          
+Subclass s = new Subclass();          
+s.printMethod();          
+}  
+}
+
+
+With super(), the superclass no-argument constructor is called. With super(parameter list), the superclass constructor with a matching parameter list is called.</pre>
+   </div>
+ </div>
+ <div id="div3">
+   <h3><a name="3" id="3"></a>3. Writing Final Classes and Methods</h3>
+</div>
+ <div id="div4">
+   <p>You can declare some or all of a class's methods <em>final</em>. You use the final keyword in a method declaration to indicate that the method cannot be overridden by subclasses. The Object class does this—a number of its methods are final.</p>
+   <p>You might wish to make a method final if it has an implementation that should not be changed and it is critical to the consistent state of the object. For example, you might want to make the getFirstPlayer method in this ChessAlgorithm class final:</p>
+   <div>
+     <pre>class ChessAlgorithm {      
+enum ChessPlayer { WHITE, BLACK }      
+...      
+<strong>final</strong> ChessPlayer getFirstPlayer() {          
+return ChessPlayer.WHITE;      
+}      
+...  
+}</pre>
+   </div>
+   <p>Methods called from constructors should generally be declared final. If a constructor calls a non-final method, a subclass may redefine that method with surprising or undesirable results.</p>
+ </div>
+ <div id="div5">
+   <h3><a name="4" id="4"></a>4.Abstract Methods and Classes</h3>
+ </div>
+ <div id="div6">
+   <p>An <em>abstract class</em> is a class that is declared abstract—it may or may not include abstract methods. Abstract classes cannot be instantiated, but they can be subclassed.</p>
+   <p>An <em>abstract method</em> is a method that is declared without an implementation (without braces, and followed by a semicolon), like this:</p>
+   <div>
+     <pre>abstract void moveTo(double deltaX, double deltaY);  </pre>
+   </div>
+   <p>If a class includes abstract methods, then the class itself <em>must</em> be declared abstract, as in:</p>
+   <div>
+     <pre>public abstract class GraphicObject {     // declare fields     // declare nonabstract methods     abstract void draw();  }  </pre>
+   </div>
+   <p>When an abstract class is subclassed, the subclass usually provides implementations for all of the abstract methods in its parent class. However, if it does not, then the subclass must also be declared abstract.</p>
+   <div>
+     <hr />
+     <strong>Note:</strong> Methods in an <em>interface</em> (see the <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html">Interfaces</a> section) that are not declared as default or static are <em>implicitly</em> abstract, so the abstract modifier is not used with interface methods. (It can be used, but it is unnecessary.)
+     <hr />
+     <h3><a>Abstract Classes Compared to Interfaces</a></h3>
+   </div>
+   <p>Abstract classes are similar to interfaces. You cannot instantiate them, and they may contain a mix of methods declared with or without an implementation. However, with abstract classes, you can declare fields that are not static and final, and define public, protected, and private concrete methods. </p>
+   <p>With interfaces, all fields are automatically public, static, and final, and all methods that you declare or define (as default methods) are public. In addition, you can extend only one class, whether or not it is abstract, whereas you can implement any number of interfaces.</p>
+    <h3>An Abstract Class Example</h3>
+    <p>In an object-oriented drawing application, you can draw circles, rectangles, lines, Bezier curves, and many other graphic objects. These objects all have certain states (for example: position, orientation, line color, fill color) and behaviors (for example: moveTo, rotate, resize, draw) in common. Some of these states and behaviors are the same for all graphic objects (for example: position, fill color, and moveTo). Others require different implementations (for example, resize or draw). All GraphicObjects must be able to draw or resize themselves; they just differ in how they do it. This is a perfect situation for an abstract superclass. You can take advantage of the similarities and declare all the graphic objects to inherit from the same abstract parent object (for example, GraphicObject) as shown in <span id="figure:classes-graphicObject.gif">the following figure.</span></p>
+   <center>
+     <p><img src="images/05-classes-graphicObject.gif" width="372" height="80" /></p>
+     <p>Classes Rectangle, Line, Bezier, and Circle Inherit from GraphicObject</p>
+   </center>
+   <pre>abstract class GraphicObject {      
+int x, y;      
+...      
+void moveTo(int newX, int newY) {          
+...      
+}      
+abstract void draw();      
+abstract void resize();  
+}</pre>
+   <p>Each nonabstract subclass of GraphicObject, such as Circle and Rectangle, must provide implementations for the draw and resize methods:</p>
+   <div>
+     <pre>class Circle extends GraphicObject {      
+void draw() {          
+...      
+}      
+void resize() {          
+...      
+}  
+}  
+class Rectangle extends GraphicObject {      
+void draw() {          
+...      
+}      
+void resize() {          
+...      
+}  
+</pre>
+   }</div>
+   <h3>When an Abstract Class Implements an Interface</h3>
+   <p>In the section on <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/IandI/createinterface.html">Interfaces</a>, it was noted that a class that implements an interface must implement <em>all</em> of the interface's methods. It is possible, however, to define a class that does not implement all of the interface's methods, provided that the class is declared to be abstract. For example,</p>
+   <div>
+     <pre>abstract class X implements Y {    
+// implements all but one method of Y  
+}    
+class XX extends X {    
+// implements the remaining method in Y  
+}  </pre>
+   </div>
+   <p>In this case, class X must be abstract because it does not fully implement Y, but class XX does, in fact, implement Y.</p>
+   <h3>Class Members</h3>
+   <p>An abstract class may have static fields and static methods. You can use these static members with a class reference (for example, AbstractClass.staticMethod()) as you would with any other class.</p>
+ </div>
+ <h2>&nbsp;</h2>
+<div> </div>
+</body>
+</html>

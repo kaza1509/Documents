@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>03-More on Classes </h1>
+<ul>
+  <li><a href="#1">Returning values from methods.</a></li>
+  <li><a href="#2">The this keyword.</a></li>
+  <li><a href="#3">Access control.</a></li>
+  <li><a href="#4">Understanding class members</a> </li>
+  <li><a href="#5">Initializing Fields</a></li>
+  <li><a href="#6">Nested class</a> </li>
+</ul>
+<h2><a name="1" id="1"></a>1. Returning values from methods </h2>
+<h3> 1.1. Return a value from method</h3>
+<p>A method returns to the code that invoked it when it</p>
+<ul>
+  <li>completes all the statements in the method,</li>
+  <li>reaches a return statement, or</li>
+  <li>throws an exception (covered later),</li>
+</ul>
+<pre>  // a method for computing the area of the rectangle      
+public int getArea() {          
+return width * height;      
+}</pre>
+<h3>1.2. Returning a Class or Interface</h3>
+<p><img src="images/04-classes-hierarchy.gif" width="146" height="153" /></p>
+<div>
+  <pre>public Number returnANumber() {     
+ ...  
+}  </pre>
+</div>
+<p>The returnANumber method can return an ImaginaryNumber but not an Object. ImaginaryNumber is a Number because it's a subclass of Number. However, an Object is not necessarily a Number — it could be a String or another type.</p>
+<h2><a name="2" id="1"></a>2. Using this keyword </h2>
+<p>this is a reference to the <em>current object</em> — the object whose method or constructor is being called. You can refer to any member of the current object from within an instance method or a constructor by using this.</p>
+<h3>Using this with a Field</h3>
+<p>The most common reason for using the this keyword is because a field is shadowed by a method or constructor parameter.</p>
+<p>For example:</p>
+<div>
+  <pre>public class Point {      
+public int x = 0;      
+public int y = 0;          <strong>      
+//constructor      
+public Point(int a, int b) {          
+x = a;          
+y = b;      
+}</strong>  
+}  </pre>
+</div>
+<p>but it could have been written like this:</p>
+<div>
+  <pre>public class Point {      
+public int x = 0;      
+public int y = 0;          <strong>      
+//constructor      
+public Point(int x, int y) {          
+this.x = x;          
+this.y = y;      
+}</strong>  
+}  </pre>
+</div>
+<p>Each argument to the constructor shadows one of the object's fields — inside the constructor <strong>x</strong> is a local copy of the constructor's first argument. To refer to the Point field <strong>x</strong>, the constructor must use this.x.</p>
+<h3>Using this with a Constructor</h3>
+<p>From within a constructor, you can also use the this keyword to call another constructor in the same class. Doing so is called an <em>explicit constructor invocation</em>. Here's another Rectangle class, with a different implementation from the one in the <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/javaOO/objects.html">Objects</a> section.</p>
+<div>
+  <pre>public class Rectangle {      
+private int x, y;      
+private int width, height;                
+public Rectangle() {          <strong>
+this(0, 0, 1, 1);</strong>      
+}     
+public Rectangle(int width, int height) {          <strong>
+this(0, 0, width, height);</strong>      
+}      
+public Rectangle(int x, int y, int width, int height) {          
+this.x = x;          
+this.y = y;          
+this.width = width;          
+this.height = height;      
+}      
+...  
+}</pre>
+</div>
+<h2><a name="3" id="3"></a>3. Controlling Access to Members of a Class</h2>
+<p>Access level modifiers determine whether other classes can use a particular field or invoke a particular method. There are two levels of access control:</p>
+<ul>
+  <li>At the top level—public, or <em>package-private</em> (no explicit modifier).</li>
+  <li>At the member level—public, private, protected, or <em>package-private</em> (no explicit modifier).</li>
+</ul>
+<p>A class may be declared with the modifier public, in which case that class is visible to all classes everywhere. If a class has no modifier (the default, also known as <em>package-private</em>), it is visible only within its own package (packages are named groups of related classes — you will learn about them in a later lesson.)</p>
+<p>The following table shows the access to members permitted by each modifier.</p>
+<table border="1" summary="This table defines levels of access conferred by a modifier">
+  <caption id="accesscontrol-levels">
+    Access Levels
+  </caption>
+  <tbody>
+    <tr>
+      <th id="h1">Modifier</th>
+      <th id="h2">Class</th>
+      <th id="h3">Package</th>
+      <th id="h4">Subclass</th>
+      <th id="h5">World</th>
+    </tr>
+    <tr>
+      <td headers="h1">public</td>
+      <td headers="h2">Y</td>
+      <td headers="h3">Y</td>
+      <td headers="h4">Y</td>
+      <td headers="h5">Y</td>
+    </tr>
+    <tr>
+      <td headers="h1">protected</td>
+      <td headers="h2">Y</td>
+      <td headers="h3">Y</td>
+      <td headers="h4">Y</td>
+      <td headers="h5">N</td>
+    </tr>
+    <tr>
+      <td headers="h1">no modifier</td>
+      <td headers="h2">Y</td>
+      <td headers="h3">Y</td>
+      <td headers="h4">N</td>
+      <td headers="h5">N</td>
+    </tr>
+    <tr>
+      <td headers="h1">private</td>
+      <td headers="h2">Y</td>
+      <td headers="h3">N</td>
+      <td headers="h4">N</td>
+      <td headers="h5">N</td>
+    </tr>
+  </tbody>
+</table>
+<p>Let's look at a collection of classes and see how access levels affect visibility. <span id="figure:classes-access.gif">The following figure</span> shows the four classes in this example and how they are related.</p>
+<center>
+  <p><img src="images/04-classes-access.gif" width="281" height="124" /></p>
+  <p>Classes and Packages of the Example Used to Illustrate Access Levels</p>
+</center>
+<p><span id="table:accesscontrol-levels">The following table</span> shows where the members of the Alpha class are visible for each of the access modifiers that can be applied to them.</p>
+<table border="1" summary="This table shows the visibility levels for each of the access modifiers">
+  <caption id="visibility">
+    Visibility
+  </caption>
+  <tbody>
+    <tr>
+      <th id="h101">Modifier</th>
+      <th id="h102">Alpha</th>
+      <th id="h103">Beta</th>
+      <th id="h104">Alphasub</th>
+      <th id="h105">Gamma</th>
+    </tr>
+    <tr>
+      <td headers="h101">public</td>
+      <td headers="h102">Y</td>
+      <td headers="h103">Y</td>
+      <td headers="h104">Y</td>
+      <td headers="h105">Y</td>
+    </tr>
+    <tr>
+      <td headers="h101">protected</td>
+      <td headers="h102">Y</td>
+      <td headers="h103">Y</td>
+      <td headers="h104">Y</td>
+      <td headers="h105">N</td>
+    </tr>
+    <tr>
+      <td headers="h101">no modifier</td>
+      <td headers="h102">Y</td>
+      <td headers="h103">Y</td>
+      <td headers="h104">N</td>
+      <td headers="h105">N</td>
+    </tr>
+    <tr>
+      <td headers="h101">private</td>
+      <td headers="h102">Y</td>
+      <td headers="h103">N</td>
+      <td headers="h104">N</td>
+      <td headers="h105">N</td>
+    </tr>
+  </tbody>
+</table>
+<div>
+  <hr />
+  <strong>Tips on Choosing an Access Level:</strong> 
+  <p>If other programmers use your class, you want to ensure that errors from misuse cannot happen. Access levels can help you do this.</p>
+  <ul>
+    <li>Use the most restrictive access level that makes sense for a particular member. Use private unless you have a good reason not to.</li>
+    <li>Avoid public fields except for constants. (Many of the examples in the tutorial use public fields. This may help to illustrate some points concisely, but is not recommended for production code.) Public fields tend to link you to a particular implementation and limit your flexibility in changing your code.</li>
+  </ul>
+</div>
+<h2><a name="4" id="4"></a>4. Understanding class members </h2>
+<ul>
+  <li>
+    <h3>Class Variables</h3>
+  </li>
+</ul>
+<p>&nbsp; </p>
+<div>
+  <pre>public class Bicycle {                
+private int cadence;      
+private int gear;      
+private int speed;                
+// <strong>add an instance variable for the object ID</strong>      
+private int id;            
+// <strong>add a class variable for the</strong>      
+// <strong>number of Bicycle objects instantiated</strong>      
+private <strong>static</strong> int numberOfBicycles = 0;         
+ ...  
+}  </pre>
+</div>
+<p>Class variables are referenced by the class name itself, as in</p>
+<div>
+  <pre>Bicycle.numberOfBicycles</pre>
+  <ul>
+    <li>
+      <h3>Class methods </h3>
+    </li>
+  </ul>
+  <p>The Java programming language supports static methods as well as static variables. Static methods, which have the static modifier in their declarations, should be invoked with the class name, without the need for creating an instance of the class, as in</p>
+  <div>
+    <pre>ClassName.methodName(args)</pre>
+    <ul>
+      <li>
+        <h3>Constants</h3>
+      </li>
+    </ul>
+    <p>The static modifier, in combination with the final modifier, is also used to define constants. The final modifier indicates that the value of this field cannot change.</p>
+    <p>For example, the following variable declaration defines a constant named PI, whose value is an approximation of pi (the ratio of the circumference of a circle to its diameter):</p>
+    <div>
+      <pre>static final double PI = 3.141592653589793;</pre>
+    </div>
+  </div>
+  <h2><a name="5" id="5"></a>5. Initializing Fields</h2>
+  <p>&nbsp;</p>
+</div>
+<div>
+  <pre>public class BedAndBreakfast {        
+// initialize to 10      
+public static int capacity = 10;        
+// initialize to false      
+private boolean full = false;  
+} 
+
+
+Instance variables can be initialized in constructors, where error handling or other logic can be used. To provide the same capability for class variables, the Java programming language includes <em>static initialization blocks</em>.</pre>
+</div>
+<div>
+  <hr />
+  <strong>Note:</strong> It is not necessary to declare fields at the beginning of the class definition, although this is the most common practice. It is only necessary that they be declared and initialized before they are used.
+  <hr />
+</div>
+<h3>Static Initialization Blocks</h3>
+<p>A <em>static initialization block</em> is a normal block of code enclosed in braces, { }, and preceded by the static keyword. Here is an example:</p>
+<div>
+  <pre>static {      
+// whatever code is needed for initialization goes here  
+}  </pre>
+</div>
+<div>
+  <pre>class Whatever {      
+public static varType myVar = initializeClassVariable();                
+private static varType initializeClassVariable() {            
+// initialization code goes here      
+}  
+}  </pre>
+</div>
+<p>The advantage of private static methods is that they can be reused later if you need to reinitialize the class variable.</p>
+<h3>Initializing Instance Members</h3>
+<p>Initializer blocks for instance variables look just like static initializer blocks, but without the static keyword:</p>
+<div>
+  <pre>{      
+// whatever code is needed for initialization goes here  
+}  
+</pre>
+  <h2><a name="6" id="6"></a>6. Nested class </h2>
+  <div id="PageTitle"></div>
+  <div id="PageContent">
+    <p>The Java programming language allows you to define a class within another class. Such a class is called a <em>nested class</em> and is illustrated here:</p>
+    <div>
+      <pre>class OuterClass {      
+...      
+class NestedClass {          
+...      
+}  
+}</pre>
+      <h3>Static Nested Classes</h3>
+      <p>As with class methods and variables, a static nested class is associated with its outer class. And like static class methods, a static nested class cannot refer directly to instance variables or methods defined in its enclosing class: it can use them only through an object reference.</p>
+      <div>
+        <hr />
+        <strong>Note:</strong> A static nested class interacts with the instance members of its outer class (and other classes) just like any other top-level class. In effect, a static nested class is behaviorally a top-level class that has been nested in another top-level class for packaging convenience.
+        <hr />
+      </div>
+      <p>Static nested classes are accessed using the enclosing class name:</p>
+      <div>
+        <pre>OuterClass.StaticNestedClass  </pre>
+      </div>
+      <p>For example, to create an object for the static nested class, use this syntax:</p>
+      <div>
+        <pre>OuterClass.StaticNestedClass nestedObject =       new OuterClass.StaticNestedClass();  </pre>
+      </div>
+      <h3>Inner Classes</h3>
+      <p>As with instance methods and variables, an inner class is associated with an instance of its enclosing class and has direct access to that object's methods and fields. Also, because an inner class is associated with an instance, it cannot define any static members itself.</p>
+      <p>Objects that are instances of an inner class exist <em>within</em> an instance of the outer class. Consider the following classes:</p>
+      <div>
+        <pre>class OuterClass {      
+...      
+class InnerClass {          
+...      
+}  
+}    </pre>
+      </div>
+      <p>An instance of InnerClass can exist only within an instance of OuterClass and has direct access to the methods and fields of its enclosing instance.</p>
+      <p>To instantiate an inner class, you must first instantiate the outer class. Then, create the inner object within the outer object with this syntax:</p>
+      <div>
+        <pre>OuterClass.InnerClass innerObject = outerObject.new InnerClass(); </pre>
+      </div>
+      <p>There are two special kinds of inner classes: <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/javaOO/localclasses.html">local classes</a> and <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">anonymous classes</a>.</p>
+      <h3><a><strong>Shadowing</strong></a>
+      </h3>
+      <p>If a declaration of a type (such as a member variable or a parameter name) in a particular scope (such as an inner class or a method definition) has the same name as another declaration in the enclosing scope, then the declaration <em>shadows</em> the declaration of the enclosing scope. You cannot refer to a shadowed declaration by its name alone. The following example, <a target="_blank" href="https://docs.oracle.com/javase/tutorial/java/javaOO/examples/ShadowTest.java" onclick="showCode('../../displayCode.html', 'examples/ShadowTest.java'); return false;">ShadowTest</a>, demonstrates this:</p>
+      <pre>public class ShadowTest {        
+public int x = 0;        
+class FirstLevel {            
+public int x = 1;            
+void methodInFirstLevel(int x) {              
+System.out.println(&quot;x = &quot; + x);              
+System.out.println(&quot;this.x = &quot; + this.x);              
+System.out.println(&quot;ShadowTest.this.x = &quot; + ShadowTest.this.x);          
+}      
+}        
+public static void main(String... args) {          
+ShadowTest st = new ShadowTest();          
+ShadowTest.FirstLevel fl = st.new FirstLevel();          
+fl.methodInFirstLevel(23);      
+}  
+}  </pre>
+      <p>The following is the output of this example:</p>
+      <pre>x = 23  this.x = 1  ShadowTest.this.x = 0</pre>
+      <p>This example defines three variables named x: the member variable of the class ShadowTest, the member variable of the inner class FirstLevel, and the parameter in the method methodInFirstLevel. The variable x defined as a parameter of the method methodInFirstLevel shadows the variable of the inner class FirstLevel. Consequently, when you use the variable x in the method methodInFirstLevel, it refers to the method parameter. To refer to the member variable of the inner class FirstLevel, use the keyword this to represent the enclosing scope:</p>
+      <pre>System.out.println(&quot;this.x = &quot; + this.x);</pre>
+      <p>Refer to member variables that enclose larger scopes by the class name to which they belong. For example, the following statement accesses the member variable of the class ShadowTest from the method methodInFirstLevel:</p>
+      <pre>System.out.println(&quot;ShadowTest.this.x = &quot; + ShadowTest.this.x);</pre>
+    </div>
+  </div>
+  <pre>&nbsp;
+  </pre>
+</div>
+</body>
+</html>

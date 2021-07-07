@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1> 10-IO and Streams</h1>
+<ul>
+  <li><a href="#1">Text,  UTF, and Unicode</a>
+  <li><a href="#2">File class</a>
+  <li><a href="#3">The <em>RandomAccessFile </em>Class</a>
+  <li><a href="#4">Streams,  Readers, and Writers</a>
+    <ul>
+      <li><a href="#5">Low-Level Streams</a>
+      <li><a href="#6">High-Level Streams</a>
+      <li><a href="#7">Readers and Writers</a>
+    </ul>
+  <li><a href="#8">Object  Streams and Serialization</a>
+</ul>
+<h2><a name="1"><a name="1" id="1"></a>1. Text, UTF, and Unicode</h2>
+<p><strong>java.io package: </strong>Java&rsquo;s  Input/Output (I/O) structure is substantially based on the concept of streams,  which are classes that help you read and write files and networks.</p>
+<p>Clearly, 8 bits are not enough to represent all the  characters of all the communities of our planet. The Unicode standard was  developed as a way to map characters to 16-bit values. Using 16 bits means that  there are 65,536 possible characters that can be represented, so almost all  languages can be fully encoded. (Chinese, Japanese, and Korean, which have huge  numbers of characters, are not completely represented.)<br />
+  Unicode is the encoding of the future, but it does not  address a problem of the present: there are billions of files in the world that  use pre-Unicode 8-bit mappings. Moreover, 8-bit characters are the norm for  network communication. No modern programming language can succeed if it ignores  all these 8-bit characters, so Java uses a double strategy:<br />
+  _</p>
+<ul>
+  <li>Programs may use UTF to read and write Unicode.</li>
+  <li>_</li>
+  <li>Programs may use readers and writers to convert  between internal Unicode and external</li>
+  <li>8-bit encodings.</li>
+  <li>UTF stands for UCS Transformation Format, and  UCS in turn stands for Universal Character Set.</li>
+  <li>Unicode: 16-bits character</li>
+</ul>
+<p>Java&rsquo;s various reader and writer classes allow Java  applications to take advantage of 8-bit text in files and on the Web. They are  presented in the &ldquo;Streams, Readers, and Writers&rdquo; section later on in this  chapter.</p>
+<h2><a name="2" id="2"></a>2. File class</h2>
+<p>Java&rsquo;s java.io.<strong>File</strong> and java.io.<strong>RandomAccessFile</strong> classes provide functionality for  navigating the local file system, describing files and directories, and  accessing files in non-sequential order. (Accessing files sequentially is done  with streams, readers, and writers, which are described later in this chapter.)  All file access begins with the creation of an instance of one of these  classes.</p>
+<ul>
+  <li>File class represents the name of a file or  directory that <u>might</u> exist on the host machine&rsquo;s file system. </li>
+  <li>Constructor:     File(String  pathname);</li>
+  <li>Constructing an instance of File does <u>not</u> create a file on the local file system.</li>
+</ul>
+<p><strong>The major methods  that support navigation are as follows:</strong><br />
+  <strong>boolean exists() </strong>Returns true if the  file or directory exists; otherwise returns false<br />
+  <strong>String getAbsolutePath() </strong>Returns the absolute (that  is, not relative) path of the file or directory.<br />
+  <strong>String getName() </strong>Returns the name of the file or  directory. The name is the last element of the path.<br />
+  <strong>boolean isDirectory() </strong>Returns true  if the File object describes a directory that exists on the  file system.<br />
+  <strong>boolean isFile() </strong>Returns true if the File  object describes a file that exists on the file system.<br />
+  <strong>String [] list() </strong>Returns an array containing the  names of the files and directories within the File instance, which File  must describe a directory, not a file.</p>
+<p><strong>Some non-navigation  methods are as follows:</strong><br />
+  <strong>boolean canRead() </strong>Returns true if the  file or directory may be read.<br />
+  <strong>boolean canWrite() </strong>Returns true if the  file or directory may be modified.<br />
+  <strong>boolean createNewFile() </strong>Creates a new empty disk  file as described by the current object,<br />
+  if such a file does not already exist. Returns true  if the file was created.<br />
+  <strong>boolean delete() </strong>Attempts to delete the file or  directory.<br />
+  <strong>long length() </strong>Returns the length of the file.</p>
+<p><strong>Example for using  File class</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="406" valign="top"><br />
+      import java.io.*;<br />
+      public class Main {<br />
+      public static void    main(String[] args) throws Exception<br />
+      {<br />
+      File f = new    File(&quot;data\\test.dat&quot;);<br />
+      if(f.exists())<br />
+      {System.out.println(&quot; &quot; + f.getName() + &quot; already    exists&quot;);<br />
+      System.out.println(&quot; it will be deleted&quot;);<br />
+      f.delete();<br />
+      }<br />
+      else<br />
+      {System.out.println(&quot; &quot; + f.getName() + &quot; does not    exist,&quot;);<br />
+      System.out.println(&quot; it will be created&quot;);<br />
+      f.createNewFile();<br />
+      }
+      <p>     System.out.println();<br />
+        }<br />
+        }</p></td>
+  </tr>
+</table>
+<h2><a name="3"><a name="3" id="3"></a>3. The RandomAccessFile Class</h2>
+<p>One way to read or modify a file is to use the java.io.RandomAccessFile  class. This class presents a model of files that is incompatible with  the stream/reader/writer model described later<br />
+  in this chapter. The stream/reader/writer model was  developed for general I/O, whereas the<br />
+  RandomAccessFile class takes advantage of a  particular behavior of files that is not found in<br />
+  general I/O devices.<br />
+  With a random-access file, you can seek to a desired  position within a file and then read or<br />
+  write a desired amount of data. The RandomAccessFile class  provides methods that support<br />
+  seeking, reading, and writing.<br />
+  The constructors for the class are as follows:<br />
+  RandomAccessFile(String <em>file</em>, String <em>mode</em>)<br />
+  RandomAccessFile(File <em>file</em>, String <em>mode</em>)<br />
+  The <em>mode </em>string should be either  &ldquo;r&rdquo;  or &ldquo;rw&rdquo;. Use &ldquo;r&rdquo; to open the file for  reading only, and use<br />
+  &ldquo;rw&rdquo; to open for both reading and writing. <br />
+  To summarize, random-access files offer the following  functionality:</p>
+<ul>
+  <li>_ Seeking to any position within a file</li>
+  <li>_ Reading  and writing single or multiple bytes</li>
+  <li>_ Reading  and writing groups of bytes, treated as higher-level data types</li>
+  <li>_ Closing</li>
+</ul>
+<p><strong>Some methods:</strong></p>
+<table border="1" cellspacing="0" cellpadding="0" width="100%">
+  <tr>
+    <td width="12%" valign="top"><br />
+      &nbsp;void </td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#close%28%29">close</a></strong>() <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Closes this    random access file stream and releases any system resources associated with    the stream.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;byte</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#readByte%28%29">readByte</a></strong>() <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reads a signed    eight-bit value from this file.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;double</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#readDouble%28%29">readDouble</a></strong>() <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reads a double from this file.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;float</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#readFloat%28%29">readFloat</a></strong>() <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reads a float from this file.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;int</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#readInt%28%29">readInt</a></strong>() <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reads a signed    32-bit integer from this file.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;void</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#seek%28long%29">seek</a></strong>(long&nbsp;pos) <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sets the    file-pointer offset, measured from the beginning of this file, at which the    next read or write occurs.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;void</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#writeByte%28int%29">writeByte</a></strong>(int&nbsp;v) <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writes a byte to the file as a one-byte value.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;void</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#writeBytes%28java.lang.String%29">writeBytes</a></strong>(<a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/lang/String.html" title="class in java.lang">String</a>&nbsp;s) <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writes the string    to the file as a sequence of bytes.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;void</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#writeDouble%28double%29">writeDouble</a></strong>(double&nbsp;v) <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Converts the    double argument to a long    using the doubleToLongBits    method in class Double,    and then writes that long    value to the file as an eight-byte quantity, high byte first.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;void</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#writeFloat%28float%29">writeFloat</a></strong>(float&nbsp;v) <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Converts the    float argument to an int    using the floatToIntBits    method in class Float, and    then writes that int value    to the file as a four-byte quantity, high byte first.</p></td>
+  </tr>
+  <tr>
+    <td width="12%" valign="top"><p align="right">&nbsp;void</p></td>
+    <td width="87%"><p><strong><a href="http://docs.oracle.com/javase/1.4.2/docs/api/java/io/RandomAccessFile.html#writeInt%28int%29">writeInt</a></strong>(int&nbsp;v) <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Writes an int to the file as four bytes, high    byte first.</p></td>
+  </tr>
+</table>
+<p><strong>Examples:</strong><br />
+  Read file line by line</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="593" valign="top"><br />
+      import java.io.*;<br />
+      public class Main {<br />
+      public static void    main(String[] args) throws Exception<br />
+      {<br />
+      RandomAccessFile    f = new RandomAccessFile(&quot;main.java&quot;,&quot;r&quot;);<br />
+      String s;<br />
+      while((s=f.readLine())!=null)<br />
+      System.out.println(s);<br />
+      System.out.println();<br />
+      }<br />
+      } </td>
+  </tr>
+</table>
+<p>Read formatted file:</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="593" valign="top"><br />
+      import java.io.*;<br />
+      import java.util.*;<br />
+      //=============================<br />
+      public class Main<br />
+      {public static void    main(String [] args)<br />
+      {String fname    =&quot;Employee.txt&quot;, fname2 = &quot;Employee2.txt&quot;;<br />
+      RandomAccessFile    f,f2;<br />
+      String s =    &quot;&quot;;<br />
+      String    s1,s2,s3,s4;<br />
+      StringTokenizer    sk;<br />
+      try <br />
+      {f = new    RandomAccessFile(fname, &quot;r&quot;);<br />
+      f2 = new    RandomAccessFile(fname2, &quot;rw&quot;);<br />
+      while((s =    f.readLine()) != null )<br />
+      {sk = new    StringTokenizer(s,&quot;|&quot;);<br />
+      s1 =    sk.nextToken();<br />
+      s2 =    sk.nextToken();<br />
+      s3 =    sk.nextToken();<br />
+      s4 =    sk.nextToken();<br />
+      System.out.println(s1 + &quot; &quot; + s2+    &quot; &quot; + s3 + &quot; &quot; + s4);<br />
+      f2.writeBytes(s1 + &quot; &quot; + s2+ &quot; &quot; + s3 + &quot;    &quot; + s4 + &quot;\n&quot;);      <br />
+      }<br />
+      f.close();<br />
+      f2.close();<br />
+      }<br />
+      catch(Exception    e)<br />
+      {System.out.println(e.getMessage());<br />
+      //System.out.println(&quot;Error !&quot;);<br />
+      }
+      <p>    }<br />
+        }</p>
+      <p>/*<br />
+        Content of the Employee.txt:</p>
+      <p>007  |  Hung     |  25   |  800<br />
+        003  |  Tuyet |     27   |  500<br />
+        010  |  Quang |     19   |  700<br />
+        002  |  An       |  34   |  900<br />
+        004  |  Giang |     29   | 1200<br />
+        008  |  Huy      |  27   |  600<br />
+        012  |  Quoc     |  21   | 1100</p>
+      <p>*/</p></td>
+  </tr>
+</table>
+<p>Read and write numbers:</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="593" valign="top"><br />
+      import java.io.*;<br />
+      class Main<br />
+      {<br />
+      public static void    main(String[] args) throws Exception<br />
+      {RandomAccessFile    f = new RandomAccessFile(&quot;test.txt&quot;,&quot;rw&quot;);<br />
+      f.writeInt(5);<br />
+      f.writeDouble(15.5);<br />
+      f.writeBytes(&quot;ABC XYZ&quot;);<br />
+      f.close();<br />
+      f = new    RandomAccessFile(&quot;test.txt&quot;,&quot;r&quot;);<br />
+      int k; double    x;String s;<br />
+      k = f.readInt();<br />
+      x =    f.readDouble();<br />
+      s =    f.readLine();<br />
+      f.close();<br />
+      System.out.println(&quot; k = &quot; + k + &quot;, x = &quot; + x); <br />
+      System.out.println(&quot; s = &quot; + s); <br />
+      }<br />
+      } </td>
+  </tr>
+</table>
+<h2><a name="4"><a name="4" id="4"></a>4. Streams, Readers, and Writers</h2>
+<p>Java&rsquo;s stream, reader, and writer classes view input and  output as ordered sequences of bytes. Of course, dealing strictly with bytes  would be tremendously bothersome, because data appears sometimes as bytes,  sometimes as ints, sometimes as floats, and so on. You have  already seen how the RandomAccessFile class allows you to read and write  all of Java&rsquo;s primitive data<br />
+  types. The readInt() method, for example,  reads four bytes from a file, pieces them together, and returns an int.  Java&rsquo;s general I/O classes provide a similar structured approach:</p>
+<ul>
+  <li>A <strong>low-level  output stream</strong> receives bytes and writes bytes to an output device.</li>
+  <li>A <strong>high-level  filter output stream</strong> receives general-format data, such as primitives, and  writes bytes to a low-level output stream or to another filter output stream.</li>
+  <li>A writer is similar to a filter output stream  but is specialized for writing Java strings in units of Unicode characters.</li>
+  <li>A low-level input stream reads bytes  from an input device and returns bytes to its caller.</li>
+  <li>A high-level filter input stream reads bytes  from a low-level input stream, or from another filter input stream, and returns  general-format data to its caller.</li>
+  <li>A reader is similar to a filter input stream but  is specialized for reading UTF strings in units of Unicode characters.</li>
+</ul>
+<p>The stream, reader, and writer classes are not very  complicated. The easiest way to review them is to begin with the low-level  streams.</p>
+<h3><a name="5" id="5"></a>4.1. Low-Level Streams</h3>
+<p><em>Low-level input streams </em>have methods that read input  and return the input as bytes. <em>Lowlevel</em><br />
+  <em>output streams </em>have methods that are passed bytes and  write the bytes as output. The<br />
+  FileInputStream and FileOutputStream classes are  excellent examples. The two most common file input stream constructors are<br />
+  _ FileInputStream(String <em>pathname</em>)<br />
+  _ FileInputStream(File <em>file</em>)<br />
+  After a file input stream has been constructed, you can call  methods to read a single byte, an<br />
+  array of bytes, or a portion of an array of bytes. The  functionality is similar to the byte-input<br />
+  methods you have already seen in the RandomAccessFile class:<br />
+  The following code fragment illustrates the use of these  methods by reading a single byte into byte b, then enough bytes to fill byte  array bytes[], and finally 20 bytes into the first 20  locations of byte array morebytes[]:</p>
+<p>byte b;<br />
+  byte bytes[] = new byte[100];<br />
+  byte morebytes[] = new byte[50];<br />
+  try {<br />
+  FileInputStream fis = new  FileInputStream(&ldquo;fname&rdquo;);<br />
+  b = (byte) fis.read(); // Single  byte<br />
+  fis.read(bytes); // Fill the  array<br />
+  fis.read(morebytes, 0, 20); //  1st 20 elements<br />
+  fis.close();<br />
+  }<br />
+  catch (IOException e) { }</p>
+<p>In addition to the two classes described earlier, the java.io  package has other low-level input and output stream classes:<br />
+  <strong>InputStream </strong><strong>and </strong><strong>OutputStream </strong>These  are the superclasses of the other low-level stream<br />
+  classes. They can be used for reading and writing network  sockets.<br />
+  <strong>ByteArrayInputStream </strong><strong>and </strong><strong>ByteArrayOutputStream </strong>These classes read and write arrays<br />
+  of bytes. Byte arrays are certainly not  hardware I/O devices, but the classes are useful when you<br />
+  want to process or create sequences of bytes.<br />
+  <strong>PipedInputStream </strong><strong>and </strong><strong>PipedOutputStream </strong>These  classes provide a mechanism for synchronized<br />
+  communication between threads.<strong></strong></p>
+<h3><a name="6"><a name="6" id="6"></a>4.2. High-Level Streams</h3>
+<p>It is all very well to read bytes from input devices and  write bytes to output devices, if bytes are<br />
+  the unit of information you are interested in. However, more  often than not the bytes to be read<br />
+  or written constitute higher-level information such as an int  or a String.<br />
+  Java supports high-level I/O with high-level streams. The  most common of these (and the ones covered in this chapter) extend from the  superclasses FilterInputStream and FilterOutputStream. <em>High-level  input streams </em>do not read from input devices such as files or  sockets; rather, they read from other streams. <em>High-level output streams </em>do  not write to output devices but to other streams.<br />
+  A good example of a high-level input stream is the data  input stream. This class has only one constructor:</p>
+<p>DataInputStream(InputStream <em>instream</em>)</p>
+<p>The constructor requires you to pass in an input stream.  This instance might be a file input<br />
+  stream (because FileInputStream extends InputStream),  an input stream from a socket,<br />
+  or any other kind of input stream. When the instance of DataInputStream  is called on to<br />
+  deliver data, it will make some number of read()  calls on <em>instream</em>, process the bytes, and<br />
+  return an appropriate value. The commonly used input methods  of the DataInputStream<br />
+  class are as follows:<br />
+  double readDouble () throws  IOException<br />
+  float readFloat () throws IOException<br />
+  int readInt() throws IOException<br />
+  String readUTF() throws IOException<br />
+  There is, of course, a close()  method.</p>
+<p>The following code fragment illustrates a small input chain:<br />
+  try {<br />
+  // Construct the chain<br />
+  FileInputStream fis = new  FileInputStream(&ldquo;fname&rdquo;);<br />
+  DataInputStream dis = new  DataInputStream(fis);<br />
+  // Read<br />
+  double d = dis.readDouble();<br />
+  int i = dis.readInt();<br />
+  String s = dis.readUTF();<br />
+  // Close the chain<br />
+  dis.close(); // Close dis first,  because it<br />
+  fis.close(); // was created last<br />
+  }<br />
+  catch (IOException e) { }</p>
+<p><strong>A chain of input  streams</strong></p>
+<p><img src="images\09-IO and Streams_clip_image002.jpg" alt="" width="254" height="362" /></p>
+<p>The following code fragment illustrates a small output  chain:<br />
+  try {<br />
+  // Create the chain<br />
+  FileOutputStream fos = new FileOutputStream(&ldquo;txt&rdquo;);<br />
+  DataOutputStream dos = new DataOutputStream(fos);<br />
+  // Write<br />
+  dos.writeDouble(123.456);<br />
+  dos.writeInt(55);<br />
+  dos.writeUTF(&ldquo;The moving finger  writes&rdquo;);<br />
+  // Close the chain<br />
+  dos.close();<br />
+  fos.close();<br />
+  }<br />
+  catch (IOException e) { }</p>
+<h3><a name="7" id="7"></a>4.3. Readers and Writers</h3>
+<p><em>Readers </em>and <em>writers </em>are like input and output  streams: The low-level varieties communicate with I/O devices, and the  high-level varieties communicate with low-level varieties. What makes readers  and writers different is that they are exclusively oriented to Unicode  characters.</p>
+<p><strong>A longer chain</strong><br />
+  <img src="images\09-IO and Streams_clip_image004.jpg" alt="" width="474" height="521" border="0" /></p>
+<p>A good example of a low-level reader is the FileReader  class. Its commonly used constructors<br />
+  are<br />
+  _ FileReader(String <em>pathname</em>)<br />
+  _ FileReader(File <em>file</em>)<br />
+  Of course, any file passed into these constructors must  genuinely contain UTF strings.<br />
+  The corresponding writer is the FileWriter class:<br />
+  _ FileWriter(String <em>pathname</em>)<br />
+  _ FileWriter(File <em>file</em>)<br />
+  The other low-level reader and writer classes are as  follows:<br />
+  <strong>CharArrayReader </strong><strong>and </strong><strong>CharArrayWriter </strong>Read  and write char arrays.<br />
+  <strong>PipedReader </strong><strong>and </strong><strong>PipedWriter </strong>Provide  a mechanism for thread communication.<br />
+  <strong>StringReader </strong><strong>and </strong><strong>StringWriter </strong>Read  and write strings.</p>
+<p>The following code fragment chains a line number reader onto  a file reader. The code prints each line of the file, preceded by a line  number:</p>
+<p>1. try  {<br />
+  2.  FileReader fr = new FileReader(&ldquo;data&rdquo;);<br />
+  3.  LineNumberReader lnr = new LineNumberReader(fr);<br />
+  4.  String s;<br />
+  5.<br />
+  6.  while ((s = lnr.readLine()) != null) {<br />
+  7.  System.out.println(lnr.getLineNumber() +<br />
+  8. &ldquo; :  &ldquo; + s);<br />
+  9. }<br />
+  10.  lnr.close();<br />
+  11.  fr.close();<br />
+  12. }<br />
+  13.  catch (IOException x) { }</p>
+<p><strong>A  chain of readers</strong><strong> </strong><br />
+  <img src="images\09-IO and Streams_clip_image006.jpg" alt="" width="237" height="390" border="0" /></p>
+<h2><a name="8"><a name="8" id="8"></a>5. Object Streams and Serialization</h2>
+<p>As you have seen, data input and output streams allow you to  read and write primitives and strings, rather than individual bytes. Object  streams go one step beyond data streams by allowing you to read and write  entire objects.</p>
+<p><strong>Serialization</strong></p>
+<ul>
+  <li>The process of writing an object is called <em>serialization.</em></li>
+  <li>To serialize an object, first create an instance  of java.io.ObjectOutputStream.  This class, like DataOutputStream, expects to be chained onto a  lower-level byte-oriented stream such as a file output stream or a socket&rsquo;s  output stream.</li>
+  <li>It is only an object&rsquo;s data that is serialized,  not its class definition.</li>
+  <li>When an object output stream serializes an  object that contains references to other object, every referenced object is  serialized along with the original object.</li>
+  <li>Not all data is written. </li>
+  <ul>
+    <li>Static fields are not </li>
+    <li>Transient fields are also not serialized</li>
+  </ul>
+</ul>
+<p>The method below uses an object stream to store a string  buffer in a file named sbuf.ser.</p>
+<p>void  writeStringBuffer(StringBuffer writeMe)<br />
+  throws IOException {<br />
+  FileOutputStream fos = new  FileOutputStrem(&ldquo;sbuf.ser&rdquo;);<br />
+  ObjectOutputStream oos = new  ObjectOutputStream(fos);<br />
+  oos.writeObject(writeMe);<br />
+  oos.close();<br />
+  fos.close();<br />
+  }</p>
+<p><strong>DeSerialization</strong></p>
+<ul>
+  <li>DeSerializationis to convert a  serialized representation into a replica of the original object.</li>
+  <li>Use   java.io.ObjectInputStream to deserialize an object.</li>
+  <li>When an object is serialized, it will probably  be deserialized by a different JVM. </li>
+  <li>Any JVM that tries to deserialize an object must  have access to that object&rsquo;s class definition.</li>
+</ul>
+<p>The .ser filename suffix is conventional for files  containing serialized objects. To read the stored object back into a program,  you can do the following:</p>
+<p>StringBuffer readStringBuffer()<br />
+  throws IOException,  ClassNotFoundException {<br />
+  FileInputStream fis = new  FileInputStream (&ldquo;sbuf.ser&rdquo;);<br />
+  ObjectInputStream ois = new  ObjectInputStream(fis);<br />
+  StringBuffer sb =  (StringBuffer)ois.readObject();<br />
+  ois.close();<br />
+  fis.close();<br />
+  return sb;<br />
+  }</p>
+<p>Notice that the value returned by readObject() is  of type Object,  so it must be cast. The<br />
+  object read in is identical to the one that was written out  in the previous code example.</p>
+</body>
+</html>

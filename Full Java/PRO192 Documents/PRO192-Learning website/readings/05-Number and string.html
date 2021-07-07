@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>05-Numbers and Strings </h1>
+<ul>
+  <li><a href="#1">Numbers</a></li>
+  <li><a href="#2">Strings</a></li>
+</ul>
+<h2><a name="1" id="1"></a>1. Numbers </h2>
+<p>All of the numeric wrapper classes are subclasses of the abstract class Number:</p>
+<p><img src="images/06-objects-numberHierarchy.gif" width="327" height="149" /></p>
+<p>The following table lists the instance methods that all the subclasses of the Number class implement.</p>
+<table border="1" cellpadding="4" cellspacing="3" summary="This table lists methods implemented by all subclasses of Number">
+  <caption>
+    Methods Implemented by all Subclasses of Number
+  </caption>
+  <tbody>
+    <tr>
+      <th id="h1">Method</th>
+      <th id="h2">Description</th>
+    </tr>
+    <tr>
+      <td headers="h1">byte byteValue()<br />
+        short shortValue()<br />
+        int intValue()<br />
+        long longValue()<br />
+        float floatValue()<br />
+        double doubleValue()</td>
+      <td headers="h2">Converts the value of this Number object to the primitive data type returned.</td>
+    </tr>
+    <tr>
+      <td headers="h1">int compareTo(Byte anotherByte)<br />
+        int compareTo(Double anotherDouble)<br />
+        int compareTo(Float anotherFloat)<br />
+        int compareTo(Integer anotherInteger)<br />
+        int compareTo(Long anotherLong)<br />
+        int compareTo(Short anotherShort)</td>
+      <td headers="h2">Compares this Number object to the argument.</td>
+    </tr>
+    <tr>
+      <td headers="h1">boolean equals(Object obj)</td>
+      <td headers="h2">Determines whether this number object is equal to the argument.<br />
+        The methods return true if the argument is not null and is an object of the same type and with the same numeric value.<br />
+        There are some extra requirements for Double and Float objects that are described in the Java API documentation.</td>
+    </tr>
+  </tbody>
+</table>
+<p>Each Number class contains other methods that are useful for converting numbers to and from strings and for converting between number systems. The following table lists these methods in the Integer class. Methods for the other Number subclasses are similar:</p>
+<div id="PageTitle">
+  <h3>Formatting Numeric Print Output</h3>
+</div>
+<div id="PageContent">
+  <ul>
+    <li></li>
+    printf and format method
+  </ul>
+  
+  <div>
+    <pre>System.out.format(.....);  </pre>
+  </div>
+  <div>
+    <pre>public PrintStream format(String format, Object... args)  </pre>
+  </div>
+  <p>where format is a string that specifies the formatting to be used and args is a list of the variables to be printed using that formatting. A simple example would be</p>
+  <div>
+    <pre>System.out.format(&quot;The value of &quot; + &quot;the float variable is &quot; +       &quot;%f, while the value of the &quot; + &quot;integer variable is %d, &quot; +       &quot;and the string is %s&quot;, floatVar, intVar, stringVar);   </pre>
+  </div>
+  <p>The first parameter, format, is a format string specifying how the objects in the second parameter, args, are to be formatted. The format string contains plain text as well as <em>format specifiers</em>, which are special characters that format the arguments of Object... args. (The notation Object... args is called <em>varargs</em>, which means that the number of arguments may vary.)</p>
+  <p>Format specifiers begin with a percent sign (%) and end with a <em>converter</em>. The converter is a character indicating the type of argument to be formatted. In between the percent sign (%) and the converter you can have optional flags and specifiers. There are many converters, flags, and specifiers, which are documented in <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/Formatter.html">java.util.Formatter</a></p>
+  <p>Here is a basic example:</p>
+  <div>
+    <pre>int i = 461012;  System.out.format(&quot;The value of i is: %d%n&quot;, i);  </pre>
+  </div>
+  <p>The %d specifies that the single variable is a decimal integer. The %n is a platform-independent newline character. The output is:</p>
+  <div>
+    <pre>The value of i is: 461012  </pre>
+  </div>
+  <p>The printf and format methods are overloaded. Each has a version with the following syntax:</p>
+  <div>
+    <pre>public PrintStream format(Locale l, String format, Object... args)  </pre>
+  </div>
+  <p>To print numbers in the French system (where a comma is used in place of the decimal place in the English representation of floating point numbers), for example, you would use:</p>
+  <div>
+    <pre>System.out.format(Locale.FRANCE,      &quot;The value of the float &quot; + &quot;variable is %f, while the &quot; +      &quot;value of the integer variable &quot; + &quot;is %d, and the string is %s%n&quot;,       floatVar, intVar, stringVar);   </pre>
+  </div>
+  An Example
+  <p>The following table lists some of the converters and flags that are used</p>
+  <table width="70%" border="1" cellpadding="4" cellspacing="3" summary="Converters and flags that are used in the sample program TestFormat.java">
+    <caption>&nbsp;
+    </caption>
+    <tbody>
+      <tr>
+        <th id="h1" width="10%">Converter</th>
+        <th id="h2" width="10%">Flag</th>
+        <th id="h3" width="50%">Explanation</th>
+      </tr>
+      <tr>
+        <td headers="h1">d</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A decimal integer.</td>
+      </tr>
+      <tr>
+        <td headers="h1">f</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A float.</td>
+      </tr>
+      <tr>
+        <td headers="h1">n</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A new line character appropriate to the platform running the application. You should always use %n, rather than \n.</td>
+      </tr>
+      <tr>
+        <td headers="h1">tB</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—locale-specific full name of month.</td>
+      </tr>
+      <tr>
+        <td headers="h1">td, te</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—2-digit day of month. td has leading zeroes as needed, te does not.</td>
+      </tr>
+      <tr>
+        <td headers="h1">ty, tY</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—ty = 2-digit year, tY = 4-digit year.</td>
+      </tr>
+      <tr>
+        <td headers="h1">tl</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—hour in 12-hour clock.</td>
+      </tr>
+      <tr>
+        <td headers="h1">tM</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—minutes in 2 digits, with leading zeroes as necessary.</td>
+      </tr>
+      <tr>
+        <td headers="h1">tp</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—locale-specific am/pm (lower case).</td>
+      </tr>
+      <tr>
+        <td headers="h1">tm</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—months in 2 digits, with leading zeroes as necessary.</td>
+      </tr>
+      <tr>
+        <td headers="h1">tD</td>
+        <td headers="h2"> </td>
+        <td headers="h3">A date &amp; time conversion—date as %tm%td%ty</td>
+      </tr>
+      <tr>
+        <td headers="h1"> </td>
+        <td headers="h2">08</td>
+        <td headers="h3">Eight characters in width, with leading zeroes as necessary.</td>
+      </tr>
+      <tr>
+        <td headers="h1"> </td>
+        <td headers="h2">+</td>
+        <td headers="h3">Includes sign, whether positive or negative.</td>
+      </tr>
+      <tr>
+        <td headers="h1"> </td>
+        <td headers="h2">,</td>
+        <td headers="h3">Includes locale-specific grouping characters.</td>
+      </tr>
+      <tr>
+        <td headers="h1"> </td>
+        <td headers="h2">-</td>
+        <td headers="h3">Left-justified..</td>
+      </tr>
+      <tr>
+        <td headers="h1"> </td>
+        <td headers="h2">.3</td>
+        <td headers="h3">Three places after decimal point.</td>
+      </tr>
+      <tr>
+        <td headers="h1"> </td>
+        <td headers="h2">10.3</td>
+        <td headers="h3">Ten characters in width, right justified, with three places after decimal point.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p> long n = 461012;</p>
+  <p> System.out.format(&quot;%d%n&quot;, n);      //  --&gt;  &quot;461012&quot;        </p>
+  <p>System.out.format(&quot;%08d%n&quot;, n);    //  --&gt;  &quot;00461012&quot;        </p>
+  <p>System.out.format(&quot;%tB %te, %tY%n&quot;, c, c, c); // --&gt;  &quot;May 29, 2006&quot;          </p>
+  <p>System.out.format(&quot;%tl:%tM %tp%n&quot;, c, c, c);  // --&gt;  &quot;2:34 am&quot;          System.out.format(&quot;%tD%n&quot;, c);    // --&gt;  &quot;05/29/06&quot;</p>
+  <div></div>
+  <div></div>
+  <h3>The DecimalFormat Class
+  </h3>
+  <p> DecimalFormat myFormatter = new DecimalFormat(pattern);        </p>
+  <p>String output = myFormatter.format(value);        </p>
+  <p>System.out.println(value + &quot;  &quot; + pattern + &quot;  &quot; + output);     }       </p>
+  <p>...</p>
+  <p>customFormat(&quot;###,###.###&quot;, 123456.789);        </p>
+  <p>customFormat(&quot;###.##&quot;, 123456.789);        </p>
+  <p>customFormat(&quot;000000.000&quot;, 123.78);        customFormat(&quot;$###,###.###&quot;, 12345.67);       }  } </p>
+  <div></div>
+  <p>The output is:</p>
+  <div>
+    <pre>123456.789  ###,###.###  123,456.789  
+123456.789  ###.##  123456.79  
+123.78  000000.000  000123.780  
+12345.67  $###,###.###  $12,345.67  </pre>
+  </div>
+  <p>The following table explains each line of output.</p>
+  <table width="100%" border="1" cellpadding="4" cellspacing="3" summary="DecimalFormatDemo.java output">
+    <caption>
+      DecimalFormat.java Output
+    </caption>
+    <tbody>
+      <tr>
+        <th id="h101">Value</th>
+        <th id="h102">Pattern</th>
+        <th id="h103">Output</th>
+        <th id="h104">Explanation</th>
+      </tr>
+      <tr>
+        <td headers="h101">123456.789</td>
+        <td headers="h102">###,###.###</td>
+        <td headers="h103">123,456.789</td>
+        <td headers="h104">The pound sign (#) denotes a digit, the comma is a placeholder for the grouping separator, and the period is a placeholder for the decimal separator.</td>
+      </tr>
+      <tr>
+        <td headers="h101">123456.789</td>
+        <td headers="h102">###.##</td>
+        <td headers="h103">123456.79</td>
+        <td headers="h104">The value has three digits to the right of the decimal point, but the pattern has only two. The format method handles this by rounding up.</td>
+      </tr>
+      <tr>
+        <td headers="h101">123.78</td>
+        <td headers="h102">000000.000</td>
+        <td headers="h103">000123.780</td>
+        <td headers="h104">The pattern specifies leading and trailing zeros, because the 0 character is used instead of the pound sign (#).</td>
+      </tr>
+      <tr>
+        <td headers="h101">12345.67</td>
+        <td headers="h102">$###,###.###</td>
+        <td headers="h103">$12,345.67</td>
+        <td headers="h104">The first character in the pattern is the dollar sign ($). Note that it immediately precedes the leftmost digit in the formatted output.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div></div>
+<h2>2. <a name="2" id="2"></a>String</h2>
+<h3>Creating Strings</h3>
+<p>The most direct way to create a string is to write:</p>
+<div>
+  <pre>String greeting = &quot;Hello world!&quot;;  </pre>
+</div>
+<p>In this case, &quot;Hello world!&quot; is a <em>string literal</em>—a series of characters in your code that is enclosed in double quotes. </p>
+<p>The String class has thirteen constructors that allow you to provide the initial value of the string using different sources, such as an array of characters:</p>
+<div>
+  <pre>char[] helloArray = { 'h', 'e', 'l', 'l', 'o', '.' };  
+String helloString = new String(helloArray);  System.out.println(helloString);
+or
+String fs;  fs = String.format(&quot;The value of the float &quot; +                     
+&quot;variable is %f, while &quot; +                     
+&quot;the value of the &quot; +                      
+&quot;integer variable is %d, &quot; +                     
+&quot; and the string is %s&quot;,                     
+floatVar, intVar, stringVar);  
+
+
+</pre>
+  <h3>Converting Strings to Numbers</h3>
+  <pre>float a = (Float.valueOf(args[0])).floatValue();               
+float b = (Float.valueOf(args[1])).floatValue();</pre>
+  <h3>Converting Numbers to Strings</h3>
+  <pre>int i;  
+double d;  
+String s3 = Integer.toString(i);   
+String s4 = Double.toString(d);
+
+</pre>
+  <h3>Getting Characters and Substrings by Index</h3>
+  <div>
+    <pre>String anotherPalindrome = &quot;Niagara. O roar again!&quot;;   char aChar = anotherPalindrome.charAt(9);  </pre>
+    <img src="images/06-objects-charAt.gif" width="639" height="105" /></div>
+  <p>Indices begin at 0, so the character at index 9 is 'O', as illustrated in the following figure:</p>
+  <p><img src="images/06-objects-substring.gif" width="588" height="113" /></p>
+  <pre>String anotherPalindrome = &quot;Niagara. O roar again!&quot;;   
+String roar = anotherPalindrome.substring(11, 15); </pre>
+  <p>For more detail, check out <a href="https://docs.oracle.com/javase/tutorial/java/data/manipstrings.html">here</a> </p>
+  <div id="div"></div>
+  <div id="div2">
+    <p><strong>The <em>StringBuffer </em>and <em>StringBuilder </em>Classes</strong></p>
+    <p>Java’s StringBuffer and StringBuilder classes represent strings that can be dynamically modified. They are nearly the same, there is only one difference between them:</p>
+    <ol>
+      <ol>
+        <li>StringBuffer is threadsafe.</li>
+        <li>StringBuilder (introduced in 5.0) is not threadsafe (no guarantee of synchronization).</li>
+      </ol>
+    </ol>
+    <p>The StringBuffer class does not override the version of equals() that it inherits from Object. Thus the method returns true only when comparing references to the same single object. If two distinct instances encapsulate identical strings, equals() will return false.</p>
+    <p><strong>String Concatenation the Easy Way</strong></p>
+    <p>2 ways:</p>
+    <ol>
+      <ol>
+        <li>String.concat() method of the String class and the StringBuffer.append().</li>
+        <li>Overloaded + operator.</li>
+      </ol>
+    </ol>
+  </div>
+  <div id="div3">
+    <h3>Autoboxing and Unboxing</h3>
+  </div>
+  <div id="div4">
+    <p><em>Autoboxing</em> is the automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes. For example, converting an int to an Integer, a double to a Double, and so on. If the conversion goes the other way, this is called <em>unboxing</em>.</p>
+    <p>Here is the simplest example of autoboxing:</p>
+    <div>
+      <pre>Character ch = 'a';  </pre>
+    </div>
+    <div></div>
+    <p>Converting an object of a wrapper type (Integer) to its corresponding primitive (int) value is called unboxing. The Java compiler applies unboxing when an object of a wrapper class is:</p>
+    <ul>
+      <li>Passed as a parameter to a method that expects a value of the corresponding primitive type.</li>
+      <li>Assigned to a variable of the corresponding primitive type.</li>
+    </ul>
+    <div></div>
+    <p>Autoboxing and unboxing lets developers write cleaner code, making it easier to read. The following table lists the primitive types and their corresponding wrapper classes, which are used by the Java compiler for autoboxing and unboxing:</p>
+    <table border="1" summary="table listing primitive types and the corresponding wrapper classes">
+      <tbody>
+        <tr>
+          <th id="h1">Primitive type</th>
+          <th id="h2">Wrapper class</th>
+        </tr>
+        <tr>
+          <td headers="h1">boolean</td>
+          <td headers="h2">Boolean</td>
+        </tr>
+        <tr>
+          <td headers="h1">byte</td>
+          <td headers="h2">Byte</td>
+        </tr>
+        <tr>
+          <td headers="h1">char</td>
+          <td headers="h2">Character</td>
+        </tr>
+        <tr>
+          <td headers="h1">float</td>
+          <td headers="h2">Float</td>
+        </tr>
+        <tr>
+          <td headers="h1">int</td>
+          <td headers="h2">Integer</td>
+        </tr>
+        <tr>
+          <td headers="h1">long</td>
+          <td headers="h2">Long</td>
+        </tr>
+        <tr>
+          <td headers="h1">short</td>
+          <td headers="h2">Short</td>
+        </tr>
+        <tr>
+          <td headers="h1">double</td>
+          <td headers="h2">Double</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>&nbsp;</p>
+</div>
+<p>&nbsp;</p>
+</body>
+</html>

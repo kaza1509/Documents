@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>08-Algorithms</h1>
+<ul>
+  <li><a href="#1">Sorting</a></li>
+  <li><a href="#2">Shuffling</a></li>
+  <li><a href="#3">Routine Data Manipulation</a></li>
+  <li><a href="#4">Searching</a></li>
+  <li><a href="#5">Composition</a></li>
+  <li><a href="#6">Finding Extreme Values</a></li>
+  </ul>
+<h2><a name="1"></h2>
+The <em>polymorphic algorithms</em> described here are pieces of reusable functionality provided by the Java platform. All of them come from the <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html">Collections</a> class, and all take the form of static methods whose first argument is the collection on which the operation is to be performed. The great majority of the algorithms provided by the Java platform operate on <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a> instances, but a few of them operate on arbitrary <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html">Collection</a> instances. 
+<h2><a name="1" id="1"></a>1. Sorting</h2>
+<p>The sort algorithm reorders a List so that its elements are in ascending order according to an ordering relationship. Two forms of the operation are provided. The simple form takes a List and sorts it according to its elements' <em>natural ordering</em>. If you're unfamiliar with the concept of natural ordering, read the <a target="_top" href="https://docs.oracle.com/javase/tutorial/collections/interfaces/order.html">Object Ordering</a> section.</p>
+<pre>// Make a List of all anagram groups above size threshold.  
+List&lt;List&lt;String&gt;&gt; winners = new ArrayList&lt;List&lt;String&gt;&gt;();  
+for (List&lt;String&gt; l : m.values())      
+if (l.size() &gt;= minGroupSize)          
+winners.add(l);   
+ // Sort anagram groups according to size  
+Collections.sort(winners, new Comparator&lt;List&lt;String&gt;&gt;() {      
+public int compare(List&lt;String&gt; o1, List&lt;String&gt; o2) {          
+return o2.size() - o1.size();      
+}
+}
+);  
+
+
+</pre>
+<h2><a name="2" id="2"></a>2. Shuffling</h2>
+<p>The shuffle algorithm does the opposite of what sort does, destroying any trace of order that may have been present in a List. That is, this algorithm reorders the List based on input from a source of randomness such that all possible permutations occur with equal likelihood, assuming a fair source of randomness. This algorithm is useful in implementing games of chance. For example, it could be used to shuffle a List of Card objects representing a deck. Also, it's useful for generating test cases.</p>
+<p>This operation has two forms: one takes a List and uses a default source of randomness, and the other requires the caller to provide a <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/Random.html">Random</a> object to use as a source of randomness. The code for this algorithm is used as an example in the <a target="_top" href="https://docs.oracle.com/javase/tutorial/collections/interfaces/list.html#shuffle">List section</a>.<a></a></p>
+<h2><a name="3" id="3"></a>3. Routine Data Manipulation</h2>
+<p>The Collections class provides five algorithms for doing routine data manipulation on List objects, all of which are pretty straightforward:</p>
+<ul>
+  <li>reverse — reverses the order of the elements in a List.</li>
+  <li>fill — overwrites every element in a List with the specified value. This operation is useful for reinitializing a List.</li>
+  <li>copy — takes two arguments, a destination List and a source List, and copies the elements of the source into the destination, overwriting its contents. The destination List must be at least as long as the source. If it is longer, the remaining elements in the destination List are unaffected.</li>
+  <li>swap — swaps the elements at the specified positions in a List.</li>
+  <li>addAll — adds all the specified elements to a Collection. The elements to be added may be specified individually or as an array.</li>
+</ul>
+<h2><a name="4" id="4"></a>4. Searching</h2>
+<p>The binarySearch algorithm searches for a specified element in a sorted List. This algorithm has two forms. The first takes a List and an element to search for (the &quot;search key&quot;). This form assumes that the List is sorted in ascending order according to the natural ordering of its elements. The second form takes a Comparator in addition to the List and the search key, and assumes that the List is sorted into ascending order according to the specified Comparator. The sort algorithm can be used to sort the List prior to calling binarySearch.</p>
+<p>The return value is the same for both forms. If the List contains the search key, its index is returned. If not, the return value is (-(insertion point) - 1), where the insertion point is the point at which the value would be inserted into the List, or the index of the first element greater than the value or list.size() if all elements in the List are less than the specified value. This admittedly ugly formula guarantees that the return value will be &gt;= 0 if and only if the search key is found. It's basically a hack to combine a boolean (found) and an integer (index) into a single int return value.</p>
+<p>The following idiom, usable with both forms of the binarySearch operation, looks for the specified search key and inserts it at the appropriate position if it's not already present.</p>
+<div>
+  <pre>int pos = Collections.binarySearch(list, key);  
+if (pos &lt; 0)     
+l.add(-pos-1, key);  </pre>
+</div>
+<h2><a name="5" id="5"></a>5. Composition</h2>
+<p>The frequency and disjoint algorithms test some aspect of the composition of one or more Collections:</p>
+<ul>
+  <li>frequency — counts the number of times the specified element occurs in the specified collection</li>
+  <li>disjoint — determines whether two Collections are disjoint; that is, whether they contain no elements in common</li>
+</ul>
+<p><a></a></p>
+<h2><a name="6" id="6"></a>6. Finding Extreme Values</h2>
+<p>The min and the max algorithms return, respectively, the minimum and maximum element contained in a specified Collection. Both of these operations come in two forms. The simple form takes only a Collection and returns the minimum (or maximum) element according to the elements' natural ordering. The second form takes a Comparator in addition to the Collection and returns the minimum (or maximum) element according to the specified Comparator.</p>
+<br />
+</body>
+</html>

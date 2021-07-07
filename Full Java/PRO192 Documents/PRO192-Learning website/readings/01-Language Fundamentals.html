@@ -1,0 +1,531 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>01-Language basics </h1>
+<ul>
+  <li><a href="#1">Variables and Naming </a></li>
+  <li><a href="#2">Operators</a></li>
+  <li><a href="#3">Keywords and Identifiers</a></li>
+  <li><a href="#4">Primitive Data Types</a></li>
+  <li><a href="#5">Literals</a></li>
+  <li><a href="#6">Arrays</a></li>
+  <li><a href="#7">Importing</a></li>
+  <li><a href="#8">Class Fundamentals</a></li>
+  <li><a href="#9">Argument Passing: By Reference or by Value</a></li>
+  <li><a href="#10">Garbage Collection</a></li>
+  <li><a href="#11">Control flow statments </a></li>
+</ul>
+<h2><a name=""><a name="1"><a name="1" id="1"></a>1. Variables and Naming</h2>
+<ul>
+  <li>Variables
+    <ul>
+      <li><strong>Instance Variables (Non-Static Fields)</strong> Technically speaking, objects store their individual states in &quot;non-static fields&quot; </li>
+      <li><strong>Class Variables (Static Fields)</strong> A <em>class variable</em> is any field declared with the static modifier; this tells the compiler that there is exactly one copy of this variable in existence, regardless of how many times the class has been instantiated. </li>
+      <li><strong>Local Variables</strong> Similar to how an object stores its state in fields, a method will often store its temporary state in <em>local variables</em>. </li>
+      <li><strong>Parameters</strong>  </li>
+    </ul>
+  </li>
+  <li>Naming
+    <ul>
+      <li>Variable names are case-sensitive. A variable's name can be any legal identifier — an unlimited-length sequence of Unicode letters and digits, beginning with a letter, the dollar sign &quot;$&quot;, or the underscore character &quot;_&quot;. </li>
+      <li>Subsequent characters may be letters, digits, dollar signs, or underscore characters. </li>
+      <li>If the name you choose consists of only one word, spell that word in all lowercase letters. If it consists of more than one word, capitalize the first letter of each subsequent word, e.g gearRatio, currentGear...</li>
+    </ul>
+  </li>
+</ul>
+<h2> &nbsp;&nbsp;<a name="2" id="2"></a>2.  Operators</h2>
+<ul>
+  <li>Operators in Java, in Descending Order of  Precedence</li>
+</ul>
+<table border="1" cellspacing="0" cellpadding="0" width="601">
+  <tr>
+    <td width="205" valign="top"><p align="center"><strong>Operator Type</strong></p></td>
+    <td width="396" valign="top"><p align="center"><strong>Operator    Precedence</strong></p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>postfix</p></td>
+    <td width="396"><p>expr++ expr--</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>prefix</p></td>
+    <td width="396"><p>++expr  --expr</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>unary</p></td>
+    <td width="396"><p>++expr –expr +expr -expr ~ !</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>multiplicative </p></td>
+    <td width="396"><p>* / %</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>additive</p></td>
+    <td width="396"><p>+ -</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>shift</p></td>
+    <td width="396"><p>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>relational</p></td>
+    <td width="396"><p>&lt; &gt; &lt;= &gt;= instanceof</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>equality</p></td>
+    <td width="396"><p>&ldquo;==&rdquo; !=</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>bitwise AND</p></td>
+    <td width="396"><p>&amp;</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>bitwise exclusive OR</p></td>
+    <td width="396"><p>^</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>bitwise inclusive OR</p></td>
+    <td width="396"><p>|</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>logical AND</p></td>
+    <td width="396"><p>&amp;&amp;</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>logical OR</p></td>
+    <td width="396"><p>||</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>ternary</p></td>
+    <td width="396"><p>? :</p></td>
+  </tr>
+  <tr>
+    <td width="205"><p>assignment</p></td>
+    <td width="396"><p>&ldquo;=&rdquo; += -= *= /= %= &amp;= ^= |= &lt;&lt;= &gt;&gt;=    &gt;&gt;&gt;=</p></td>
+  </tr>
+</table>
+<h2><a name="2">2.1. Evaluation Order</h2>
+<ul>
+  <li>In Java, the order of evaluation of operands in  an expression is fixed. </li>
+  <li>Consider this code fragment:</li>
+</ul>
+<p>int [] a = { 4, 4 };<br />
+  int b = 1;<br />
+  a[b] = b = 0;<br />
+  System.out.println(a[0] +  &quot;  &quot; +a[1]);<br />
+  The output will be    4     0, which means that a[1] =  0, a[0] unchanged.<br />
+  It is generally better style to keep expressions <u>simple</u> and to use redundant <u>bracketing</u> to make it <u>clear</u> how any  particular expression should be evaluated.</p>
+<h2><a name="3">2.2. Bitwise and Bit Shift Operators  in Java</h2>
+<p>In Java  the bitwise and bit shift operators are used to manipulate the contents of  variables at a bit level according to <strong>binary </strong>format. These operators  perform bitwise and bit shift operations on integral type variables. There are  different types of bitwise and bit shift operators available in the Java  language summarized&nbsp; in the table.</p>
+<table border="1" cellspacing="0" cellpadding="0" width="64%">
+  <tr>
+    <td width="15%"><p align="center"><strong>Symbol</strong></p></td>
+    <td width="51%"><p align="center"><strong>Name of the Operator</strong></p></td>
+    <td width="33%"><p align="center"><strong>Example</strong></p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;~&nbsp;&nbsp;</p></td>
+    <td width="51%"><p>Unary bitwise complement</p></td>
+    <td width="33%"><p>~op2</p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;&amp;</p></td>
+    <td width="51%"><p>Bitwise AND</p></td>
+    <td width="33%"><p>op1 &amp;    op2</p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;|&nbsp;</p></td>
+    <td width="51%"><p>Bitwise inclusive OR</p></td>
+    <td width="33%"><p>op1 | op2</p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;^&nbsp;&nbsp;</p></td>
+    <td width="51%"><p>Bitwise exclusive OR</p></td>
+    <td width="33%"><p>op1 ^ op2</p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;&lt;&lt;&nbsp;</p></td>
+    <td width="51%"><p>Signed left shift</p></td>
+    <td width="33%"><p>op1    &lt;&lt; op2</p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;&gt;&gt;</p></td>
+    <td width="51%"><p>Signed right sift</p></td>
+    <td width="33%"><p>op1    &gt;&gt; op2</p></td>
+  </tr>
+  <tr>
+    <td width="15%"><p>&nbsp;&gt;&gt;&gt;</p></td>
+    <td width="51%"><p>Unsigned right shift</p></td>
+    <td width="33%"><p>op1    &gt;&gt;&gt; op2</p></td>
+  </tr>
+</table>
+<p>&nbsp;Lets understand these operators in brief :<br />
+    <strong>I. Unary Bitwise Complement (&quot;~&quot;) :</strong><br />
+  The <strong>unary bitwise  complement</strong> (<strong>&quot;~&quot;) </strong>operator&nbsp; takes a single bit and  inverts the level of that bit pattern and can be applied to any of the integral  types. In this case, the value of a bit which is <strong>0</strong> become <strong>1</strong> and <strong>vice  versa</strong>. For example the value <strong>7</strong> to a variable <strong>&quot;x&quot;</strong> is  represented in binary as <strong>0111</strong>. But after applying <strong>&quot;~&quot;</strong> operator, the operation will be performed on each bit pattern which will return <strong>1000</strong> to the variable and the value <strong>8 </strong>in the <strong>decimal format</strong>.&nbsp;Lets  use the table to understand bitwise complement operation.</p>
+<table border="1" cellspacing="0" cellpadding="0" width="17%">
+  <tr>
+    <td width="56%"><br />
+        <strong>Operand</strong></td>
+    <td width="43%"><p><strong>&nbsp;Result</strong></p></td>
+  </tr>
+  <tr>
+    <td width="56%"><p>&nbsp;0</p></td>
+    <td width="43%"><p>&nbsp;1</p></td>
+  </tr>
+  <tr>
+    <td width="56%"><p>&nbsp;1</p></td>
+    <td width="43%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="56%"><p>&nbsp;1</p></td>
+    <td width="43%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="56%"><p>&nbsp;0</p></td>
+    <td width="43%"><p>&nbsp;1</p></td>
+  </tr>
+</table>
+<p><strong>II. Bitwise AND</strong> (<strong>&amp;): </strong><br />
+  The <strong>Bitwise AND</strong> (<strong>&amp;) </strong>operator performs the bitwise <strong>AND</strong> operation on each parallel pair of  bits of two operands. The result is <strong>1, </strong>if corresponding bits are <strong>1 </strong>in  both operands. Otherwise, the result is <strong>0</strong>. Lets understand the AND  operations using truth table:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp; <strong>(AND)</strong></p>
+<table border="1" cellspacing="0" cellpadding="0" width="23%">
+  <tr>
+    <td width="33%"><br />
+        <strong>&nbsp;A</strong></td>
+    <td width="33%"><p><strong>&nbsp;B</strong></p></td>
+    <td width="34%"><p><strong>&nbsp;Result</strong></p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="34%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="34%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="34%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="33%"><p>&nbsp;1&nbsp;</p></td>
+    <td width="34%"><p>&nbsp;1</p></td>
+  </tr>
+</table>
+<p><strong>III. Bitwise  inclusive OR</strong> <strong>( | ):</strong><br />
+  The <strong>Bitwise inclusive  OR</strong> ( <strong>|</strong> ) operator performs the bitwise <strong>inclusive </strong><strong>OR</strong> operation on each parallel pair of bits of two operands. In <strong>each pair</strong>,  the result is <strong>1,</strong> if either first <strong>or</strong> second bit is <strong>1</strong> (or  both are <strong>1</strong>). Otherwise the result is <strong>0</strong>. Lets see the table of  using inclusive operations.<br />
+  Lets understand the inclusive OR operations using <strong>truth table:</strong><br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>&nbsp;&nbsp;&nbsp;</strong>&nbsp;&nbsp;&nbsp;&nbsp; <strong>(OR)</strong></p>
+<table border="1" cellspacing="0" cellpadding="0" width="23%">
+  <tr>
+    <td width="33%"><br />
+        <strong>&nbsp;A</strong></td>
+    <td width="33%"><p><strong>&nbsp;B</strong></p></td>
+    <td width="34%"><p><strong>&nbsp;Result</strong></p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="34%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="34%"><p>&nbsp;1</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="34%"><p>&nbsp;1</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="34%"><p>&nbsp;1</p></td>
+  </tr>
+</table>
+<p><strong>IV. Bitwise exclusive OR</strong> <strong>(^):</strong> <br />
+  The <strong>Bitwise exclusive  OR</strong> (<strong>^</strong>) performs the <strong>exclusive or (</strong><strong>XOR</strong><strong>)</strong> operation i.e.&nbsp;  The result in each position is <strong>1</strong> if the two bits are different, and <strong>0</strong> if they are the same. Lets understand the  exclusive OR operations using <strong>truth table</strong>:</p>
+<table border="1" cellspacing="0" cellpadding="0" width="23%">
+  <tr>
+    <td width="33%"><br />
+        <strong>&nbsp;A</strong></td>
+    <td width="33%"><p><strong>&nbsp;B</strong></p></td>
+    <td width="34%"><p><strong>&nbsp;Result</strong></p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="34%"><p>&nbsp;0</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="34%"><p>&nbsp;1</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;0</p></td>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="34%"><p>&nbsp;1</p></td>
+  </tr>
+  <tr>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="33%"><p>&nbsp;1</p></td>
+    <td width="34%"><p>&nbsp;0</p></td>
+  </tr>
+</table>
+<p><strong>Bit Shifts Operators:</strong><br />
+  The <strong>computer  processor</strong> has the registers including a fixed number of available <strong>bits</strong> for storing numerals. So it is possible to &quot;<strong>shift out&quot;</strong> some  bits of the register at one end, and &quot;<strong>shift in&quot;</strong> from the other  end. The number of bits are shifted within the range mode of&nbsp; 32.<br />
+  The <strong>bit shifts</strong> operators are used to perform bitwise operations on the binary representation  of an integer instead of its numerical value. In this operation, the bit shifts  operators don't operate the pairs of corresponding bits rather the digits are <strong>moved</strong>,  or <strong>shifted</strong> in a computer register either to the <strong>left</strong> or <strong>right</strong> according to the distance specified by a number.<br />
+  <strong>Sign Bit:</strong><br />
+  A <strong>sign bit</strong> is  found in the left most position of the number and is know as <strong>most  significant bit</strong> <strong>(MSB) </strong>which indicates the status of a number i.e.  the number is <strong>positive</strong> or <strong>negative</strong>. If the value of the sign bit  is <strong>0 </strong>then the number is <strong>positive</strong>; otherwise the number is <strong>negative</strong>,  if the value of the sign bit is <strong>1</strong>.<br />
+  Now lets understand these operators in brief.&nbsp;<br />
+  <strong>I. Signed Left Shift</strong> <strong>(&quot;</strong><strong>&lt;&lt;</strong><strong>&quot;) :</strong><br />
+  The signed left shift  (&quot;&lt;&lt;&quot;) operator shifts a&nbsp;<strong> bit (</strong>or<strong> bits)</strong> to the <strong>left</strong> by the distance specified in the right operand. In this  case, the <strong>leftmost digit</strong> is shifted at the <strong>end</strong> of the register,  and a new <strong>0</strong> is shifted into the <strong>rightmost </strong>position. No matter,  the number is <strong>positive</strong> or <strong>negative</strong>; In both of case the leading  bit position is always filled with a <strong>zero</strong>. <br />
+  <img src="images\02-Operators and Assignments_clip_image001.gif" alt="1" width="175" height="116" /><br />
+  This diagram shows that,  all bits of the upper position were shifted to the left by the distance of 1;  and the Zero was shifted to the right most position. Thus the result is  returned as 11100.<br />
+  Another expression <strong>&quot;2&lt;&lt;2&quot;;&nbsp; </strong>shifts all  bits of the number <strong>2 </strong>to the<strong> left</strong> placing a zero to the <strong>right</strong> for each blank place.&nbsp; Thus the value <strong>0010</strong> becomes <strong>1000 </strong>or <strong>8</strong> in decimal.<br />
+  <strong>II. Signed Right Shift (&quot;</strong><strong>&gt;&gt;</strong><strong>&quot;) :</strong><br />
+  The signed right shift  (&quot;&gt;&gt;&quot;) operator shifts a&nbsp;<strong> bit</strong> (or <strong>bits</strong>)  to the right by the distance specified in the right operand and fills the left  most bit by the <strong>sign bit</strong>. In this case the rightmost bit (or bits) is  shifted out, and a new <strong>0</strong> is filled with the <strong>sign bit</strong> into the  high-order bits to the <strong>left</strong> position if the left operand is positive;  otherwise <strong>1,</strong> if the left operand is negative. This technique is known as<strong> sign extension</strong>.<br />
+  <img src="images\02-Operators and Assignments_clip_image002.gif" alt="1" width="130" height="116" /><br />
+  This diagram shows that,  all bits of the upper position were shifted to the<strong> right</strong> distance  specified by <strong>1</strong>;&nbsp; Since the sign bit of this number indicates it as  a positive number so the <strong>0</strong> is shifted to the right most position. Thus  the result is returned as <strong>00011 </strong>or <strong>3</strong> in decimal.<br />
+  Another expression <strong>&quot;2&gt;&gt;2&quot;;&nbsp; </strong>shifts all  bits of the number <strong>2 </strong>to the<strong> right</strong> placing a <strong>zero</strong> to the <strong>left</strong> for each blank place.&nbsp; Thus the value <strong>0010</strong> becomes <strong>0000 </strong>or <strong>0</strong> in decimal.<br />
+  When signed left or signed right shifting operation is  performed then&nbsp; the<strong> sign bit</strong> is ignored i.e. all the bits except  the sign bit can be moved but the sign bit stays the same. Thus a signed left  or signed right shift (&lt;&lt; and &gt;&gt;) operator never causes a number to  change its sign. A positive number will always stay positive and a negative  number will always stay negative. But the result for a negative number is  different.<br />
+  For example, if we take a negative number as <strong>-50</strong> then  this&nbsp; value is represented in binary as <strong>11001110</strong> then the  expression <strong>&quot;-50&gt;&gt;2&quot;; </strong>will return the result as <strong>11110011 </strong>or<strong> -13 </strong>in decimal. <br />
+  <strong>III.  Unsigned Right Shift</strong> (<strong>&quot;</strong><strong>&gt;&gt;&gt;</strong><strong>&quot;)</strong><br />
+  The unsigned right shift  (&quot;&gt;&gt;&gt;&quot;)<strong> </strong>operator behave like the signed right shift  operator. i.e. it shifts a bit (or bits) to the right. But unlike  &quot;&gt;&gt;&quot; operator, this operator always shifts <strong>zeros </strong>into  the leftmost position by the distance specified in the right operand. So the  result of applying the<strong> &gt;&gt;&gt;</strong>operator is always positive.<br />
+  For example, the  expression <strong>&quot;14&gt;&gt;&gt;2&quot;;&nbsp; </strong>shifts all bits of the number <strong>14 </strong>to the<strong> right</strong> placing a <strong>zero</strong> to the <strong>left</strong> for each blank place&nbsp; Thus the value <strong>1110</strong> becomes <strong>0011 </strong>or <strong>3</strong> in decimal.<br />
+  An unsigned shift operation of a negative number generally  returns the result in a positive number, because any unsigned right shift  operation replaces the leading sign bit with a <strong>zero</strong> which indicates a  positive number.<br />
+  Lets have an example  where two variables <strong>&quot;x&quot;</strong> and <strong>&quot;y&quot;</strong> contain the  value 11 and 12 respectively. Thus the binary value for each variable are as :<br />
+  <strong>x = 1 0 1 1<br />
+    y = 1 1 0 0</strong></p>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td nowrap="nowrap" valign="top"><p><strong>public&nbsp;class&nbsp;</strong>BitwiseOperators&nbsp;{<br />
+      &nbsp;&nbsp;&nbsp;<strong>public&nbsp;</strong>BitwiseOperators(&nbsp;)&nbsp;{ <br />
+      &nbsp;&nbsp;<strong>int&nbsp;</strong>a&nbsp;=&nbsp;11;&nbsp;//1&nbsp;0&nbsp;1&nbsp;1<br />
+      &nbsp;&nbsp;<strong>int&nbsp;</strong>b&nbsp;=&nbsp;12;&nbsp;//1&nbsp;1&nbsp;0&nbsp;0<br />
+      &nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;a&nbsp;&amp;&nbsp;b&nbsp;:&nbsp;&quot;+(a&nbsp;&amp;&nbsp;b));<br />
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;a&nbsp;|&nbsp;b&nbsp;:&nbsp;&quot;+(a&nbsp;|&nbsp;b));<br />
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;a&nbsp;^&nbsp;b&nbsp;:&nbsp;&quot;+(a&nbsp;^&nbsp;b));<br />
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;~a&nbsp;:&nbsp;&quot;+(~a));<br />
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;a&nbsp;&lt;&lt;&nbsp;b&nbsp;:&nbsp;&quot;+(a&nbsp;&lt;&lt;&nbsp;b));<br />
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;a&nbsp;&gt;&gt;&nbsp;b&nbsp;:&nbsp;&quot;+(a&nbsp;&gt;&gt;&nbsp;b));<br />
+      <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(&quot;a&nbsp;&gt;&gt;&gt;&nbsp;b&nbsp;:&nbsp;&quot;+(a&nbsp;&gt;&gt;&gt;&nbsp;b));<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} <br />
+      &nbsp;&nbsp;&nbsp;<strong>public&nbsp;static&nbsp;void&nbsp;</strong>main(String&nbsp;args[]){<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>new&nbsp;</strong>BitwiseOperators();<br />
+      &nbsp;&nbsp;&nbsp;}<br />
+      } </p></td>
+  </tr>
+</table>
+<p><strong>Output of the Program:</strong>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0" width="25%">
+  <tr>
+    <td width="100%"><br />
+      a &amp; b : 8<br />
+      a | b : 15<br />
+      a ^ b : 7<br />
+      ~a : -12<br />
+      a &lt;&lt; b : 45056<br />
+      a &gt;&gt; b : 0<br />
+      a &gt;&gt;&gt; b : 0 </td>
+  </tr>
+</table>
+<h2><a name="4">2.3. Additional reading: Data representation in computer</h2>
+<p><em>*  Signed magnitude</em><br />
+  The <strong>signed magnitude</strong> (also referred to as <strong>sign  and magnitude</strong>) representation is most familiar to us as the base 10 number  system. A plus or minus sign to the left of a number indicates whether the  number is positive or negative as in +12_10 or -12_10. In the binary signed  magnitude representation the leftmost bit is used for the sign, which takes on  a value of 0 or 1 for `+' or `-', respectively. The remaining bits contain the  absolute magnitude. Consider representing (+12)_10 and (-12)_10 in an eight-bit  format: <br />
+  (+12)_10 = (00001100)_2<br />
+  (-12)_10 = (10001100)_2<br />
+  The negative number is formed by simply changing the sign  bit in the positive number from 0 to 1. Notice that there are both positive and  negative representations for zero: 00000000 and 10000000.<br />
+  There are eight bits in this example format, and all bit  patterns represent valid numbers, so there are 2^8 = 256 possible patterns.  Only 2^8 - 1 = 255 different numbers can be represented, however, since +0 and  -0 represent the same number.<br />
+  We will make use of the signed magnitude representation  when we look at floating point numbers in Section 2.2.<br />
+  <em>*  One's complement</em><br />
+  In the <strong>one's complement</strong> representation, the leftmost  bit is 0 for positive numbers and is 1 for negative numbers, as it is for the  signed magnitude representation. A negation is made by changing 1's to 0's and  changing 0's to 1's, which is known as <strong>complementing</strong> the bits. Consider  again representing (+12)_10 and (-12)_10 in an eight-bit format, now using the  one's complement representation: <br />
+  (+12)_10 = (00001100)_2<br />
+  (-12)_10 = (11110011)_2<br />
+  Note again that there are representations for both +0 and  -0, which are 00000000 and 11111111, respectively. As a result, there are only  2^8 - 1 = 255 different numbers that can be represented even though there are  2^8 different bit patterns.<br />
+  The one's complement representation is not commonly used.  This is at least partly due to the difficulty in making comparisons when there  are two representations for 0.<br />
+  <em>*  Two's complement</em><br />
+  In the <strong>two's complement</strong> representation, the leftmost  bit is 0 for positive numbers and is 1 for negative numbers. A negation is made  by adding 1 to the one's complement negation. Consider again representing  (+12)_10 and (-12)_10 in an eight-bit format, this time using the two's  complement representation: <br />
+  (+12)_10 = (00001100)_2<br />
+  (-12)_10 = (11110100)_2<br />
+  The negative number is obtained by simply adding 1 to the  one's complement negation, which corresponds to the one's complement bit  pattern for -11: (-12 + 1)_10 = (-11)_10 = (11110100)_2. There is only one  representation of 0 for this format which is 00000000. To see that this is  true, consider forming the negative of (+0)_10, which has the bit pattern:<br />
+  (+0)_10 = (00000000)_2<br />
+  Forming the one's complement of (00000000)_2 produces  (11111111)_2 and adding 1 to it yields (00000000)_2, thus (-0)_10 =  (00000000)_2. The carry out of the leftmost position is discarded in two's  complement addition (except when detecting an <strong>overflow</strong> condition, which  is described in Chapter 10). Since there is only one representation for 0, and  since all bit patterns are valid, there are 2^8 = 256 different numbers that  can be represented.<br />
+  There is an equal number of positive and negative numbers.  Zero is considered to be a positive number because its sign bit is 0. The  positive numbers start at 0, but the negative numbers start at -1, and so the  magnitude of the most negative number is one greater than the magnitude of the  most positive number. The positive number with the largest magnitude is +127,  and the negative number with the largest magnitude is -128. There is thus no  positive number that can be represented that corresponds to the negative of  -128. If we try to form the two's complement negative of -128, then we will  arrive at a negative number, as shown below:<br />
+  (-128)_10 = (10000000)_2<br />
+  <br />
+  ||<br />
+  <br />
+  \/<br />
+  <br />
+  01111111<br />
+  <br />
+  +          1<br />
+  <br />
+  ------------<br />
+  <br />
+  (10000000)_2<br />
+  The two's complement representation is common in  conventional computers, and we will use it throughout the book.</p>
+<h2><a name="2"></h2>
+<h2><a name="3" id="3"></a>3. Keywords and Identifiers</h2>
+<p><strong>Java Keywords  and Reserved Words</strong><br />
+  <img src="images\01-Language Fundamentals_clip_image002.jpg" alt="" width="661" height="329" /></p>
+<p><strong>Identifiers</strong></p>
+<ul>
+  <li>An <em>identifier </em>is a word used by a programmer  to name a variable, method, class, or label.</li>
+  <li>An identifier must begin with a letter, a dollar  sign ($), or an underscore (_); subsequent characters may be letters, dollar  signs, underscores, or digits.</li>
+</ul>
+<h2><a name="3"><a name="4" id="4"></a>4. Primitive Data Types</h2>
+<ul>
+  <li>A <em>primitive </em>is <u>a simple non-object</u> data type that represents a single value. Java&rsquo;s primitive data types are.</li>
+  <ul>
+    <li>boolean</li>
+    <li>char</li>
+    <li>byte</li>
+    <li>short</li>
+    <li>int</li>
+    <li>long</li>
+    <li>float</li>
+    <li>double</li>
+  </ul>
+</ul>
+<p>Usually a char literal can be expressed by enclosing the  desired character in single quotes, as shown here:<br />
+  char c = &rsquo;w&rsquo;;<br />
+  Of course, this technique works only if the desired  character is available on the keyboard at hand.<br />
+  Another way to express a char literal is as a Unicode value  specified using four hexadecimal digits,<br />
+  preceded by \u, with the entire expression in single quotes.  For example:<br />
+  char c1 = &rsquo;\u4567&rsquo;; or char c1 = 0x4567;<br />
+  Java supports a few escape sequences for denoting special  characters<br />
+  The char type is a Unicode character in Java, rather than an  ASCII character. That means that any character (regardless of language) can be  represented with a char variable. That's why a char variable requires 2 bytes  of storage rather than the 1 byte that is required for all ASCII characters. <br />
+  <img src="images\01-Language Fundamentals_clip_image004.jpg" alt="" width="598" height="392" /></p>
+<h2><a name="4"><a name="5" id="5"></a>5. Literals</h2>
+<ul>
+  <li>A <em>literal </em>is a <u>value specified in the  program source</u>, as opposed to one determined at runtime.</li>
+  <li>Literals can represent <u>primitive</u> or <u>string</u> variables and may appear on the <u>right side</u> of assignments or in method  calls. You cannot assign values into literals, so they <u>cannot appear on the  left side</u> of assignments.</li>
+  <li>For example:</li>
+</ul>
+<p>            A <em>string  literal </em>is a sequence of characters enclosed in double quotes.<br />
+  String s = &ldquo;Characters in strings are 16-bit Unicode.&rdquo;;<br />
+  char c=&lsquo;w&rsquo;;</p>
+<h2><a name="5"><a name="6" id="6"></a>6. Arrays</h2>
+<ul>
+  <li>A Java <em>array </em>is an ordered collection of  primitives, object references, or other arrays.</li>
+  <li>Java arrays are <u>homogeneous</u>: except as  allowed by polymorphism.</li>
+  <li>To create and use an array, you must follow  three steps:</li>
+</ul>
+<p><strong>1. </strong>Declaration<br />
+  <strong>2. </strong>Construction <br />
+  <strong>3. </strong>Initialization</p>
+<ul>
+  <li>type[] identifier; //declaration</li>
+  <li>identifier=new type[size]; //construction</li>
+</ul>
+<p>Multi-dimension Arrays:</p>
+<ul>
+  <li>int[][] myInts = new int[3][4];</li>
+</ul>
+<p><img src="images\01-Language Fundamentals_clip_image006.jpg" alt="" width="386" height="308" /></p>
+<h2><a name="6"><a name="7" id="7"></a>7. Importing</h2>
+<ul>
+  <li>Import statement brings &ldquo;name&rdquo; into the source  file&rsquo;s <em>namespace</em>. (<em>A namespace is a kind of place—not a physical  place, but an abstract place such as a directory or a source file—that contains  items with unique names</em>).</li>
+  <li>Syntax:</li>
+</ul>
+<p>import packageName.*;<br />
+  or<br />
+  import packageName.ClassName;</p>
+<p><strong>static import</strong></p>
+<ul>
+  <li>Without static imports, you have to do the  following:</li>
+</ul>
+<p>import java.awt.Color;<br />
+  …<br />
+  myColor = Color.GREEN;</p>
+<ul>
+  <li>With a static import, you can import the name  &ldquo;GREEN&rdquo; into your namespace:</li>
+</ul>
+<p>import static  java.awt.Color.GREEN;<br />
+  …<br />
+  myColor = GREEN;</p>
+<h2><a name="7"><a name="8" id="8"></a>8. Class Fundamentals</h2>
+<p><strong>Class Paths</strong></p>
+<ul>
+  <li>When the Java compiler or the Virtual Machine  needs a classfile, it searches all the locations listed in its <u>classpath</u>.  The classpath is formed by merging:</li>
+</ul>
+<p>CLASSPATH environment variable  and<br />
+  -<em>classpath</em> or <em>-cp</em> command line arguments. </p>
+<ul>
+  <li>The members of a classpath may be directories or  jar files.</li>
+</ul>
+<p><strong>The <em>main() </em>Method</strong></p>
+<ul>
+  <li>The main() method is the entry point for standalone  Java applications.</li>
+  <li>The signature for main() is</li>
+</ul>
+<p>            public  static void main(String[] args)</p>
+<ul>
+  <li>args is that the user might have entered on the  command line. </li>
+  <li>For example, consider the following command  line:</li>
+</ul>
+<p>            java Mapper  France Belgium</p>
+<p><strong>Variables and Initialization</strong><br />
+  Java supports variables of three different lifetimes:</p>
+<ul>
+  <li><strong>Member variable </strong>A <em>member variable </em>of  a class is created when an instance is created, and it is destroyed when the  object is destroyed.</li>
+  <li><strong>Automatic variable </strong>An <em>automatic  variable </em>of a method is created on entry to the method and exists only  during execution of the method.</li>
+  <li><strong>Class variable </strong>A <em>class variable </em>(also  known as a <em>static variable</em>) is created when the class is loaded and is  destroyed when the class is unloaded.</li>
+</ul>
+<p><strong>Value variables</strong>: int k; float x; double y;<br />
+  <strong>Reference variables</strong>: Character ch; String s; Object  t; </p>
+<h2><a name="8"><a name="9" id="9"></a>9. Argument Passing: By Reference or by Value</h2>
+<ul>
+  <li>When Java passes an argument into a method call,  a <em><u>copy</u></em>of the argument is actually passed.</li>
+  <li>This is also true when the argument to be passed  is an object rather than a primitive.<strong> Why? !!!</strong></li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>Object Reference</strong></p>
+<ul>
+  <li>Java programs do not deal directly with objects.  When an object is constructed, the constructor returns a value—a bit  pattern—that uniquely identifies the object. This value is known as a <em>reference </em>to the object.</li>
+  <li>For example:</li>
+</ul>
+<p>Student s;<br />
+  s = new Student(11078,&ldquo;John&rdquo;);<br />
+  <strong>How to Create a Reference to a Primitive?</strong><br />
+  Simply pass an array of one primitive element over the  method call.</p>
+<h2><a name="9"><a name="10" id="10"></a>10. Garbage Collection</h2>
+<ul>
+  <li>In Java, you <u>never explicitly free memory</u> that you have allocated; instead, Java provides <u>automatic garbage collection</u>. </li>
+  <li>The runtime system keeps track of the memory  that is allocated and is able to determine whether that memory is still  useable. How?</li>
+</ul>
+<p>Out of scope<br />
+  or<br />
+  Assign to null</p>
+<h2><a name="10"><a name="11" id="11"></a>11. Control flow statements</h2>
+<ul>
+  <li>The if-then and if-then-else Statements</li>
+  <li>The switch Statement: works with the byte, short, char, and int primitive data types. It also works with <em>enumerated types</em> (discussed in<a target="_top" href="https://docs.oracle.com/javase/tutorial/java/javaOO/enum.html"> Enum Types</a>), the <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> class, and a few special classes that wrap certain primitive types: <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Character.html">Character</a>, <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Byte.html">Byte</a>, <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Short.html">Short</a>, and <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> (discussed in <a target="_top" href="https://docs.oracle.com/javase/tutorial/java/data/index.html">Numbers and Strings</a>). </li>
+  <li>The while and do-while Statements</li>
+  <li>The for Statement</li>
+  <li>Branching Statements:break, continue, return </li>
+</ul>
+<p>&nbsp; </p>
+<p>&nbsp; </p>
+</body>
+</html>

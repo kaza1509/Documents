@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a>
+<h1>07-Collections</h1>
+<ol style="list-style-type:none">
+  <li> <a href="#1">The Collections Framework</a>
+    <ul>
+      <li><a href="#2"><strong>The <em>Collection </em>interfaces and  Iteration</strong></a>
+      <li><a href="#3"><strong>Lists</strong></a>      
+      <li><strong><a href="#4">Queue</a></strong>
+      <li><strong><a href="#5">Deque </a></strong>
+      <li><a href="#6"><strong>Sets</strong></a>
+      <li><a href="#7"><strong>Maps</strong></a>
+      <li><a href="#8"><strong>Collections and Arrays  classes</strong></a>      
+    </ul>
+  </li>
+</ol>
+<h3><a name="1" id="1"></a>1. The Collections Framework</h3>
+<ul>
+  <li>The Java 2 platform includes a new <em>collections  framework</em>. </li>
+  <li>A <em>collection</em> is an object that represents  a group of objects.</li>
+  <li>The Collections Framework is a unified  architecture for representing and manipulating collections.</li>
+  <li>The collections framework as a whole is not  threadsafe. </li>
+  <li><strong>Reduces programming effort</strong> by providing  useful data structures and algorithms so you don't have to write them yourself. </li>
+  <li><strong>Increases performance</strong> by providing  high-performance implementations of useful data structures and algorithms. </li>
+  <li><strong>Provides interoperability between unrelated  APIs</strong> by establishing a common language to pass collections back and forth. </li>
+  <li><strong>Reduces the effort required to learn APIs</strong> by eliminating the need to learn multiple ad hoc collection APIs. </li>
+  <li><strong>Reduces the effort required to design and  implement APIs</strong> by eliminating the need to produce ad hoc collections APIs. </li>
+  <li><strong>Fosters software reuse</strong> by providing a  standard interface for collections and algorithms to manipulate them.</li>
+</ul>
+<h3>1.1. The <em>Collection </em>interfaces and Iteration<a></a></h3>
+<p><strong>Collection Interfaces</strong></p>
+<ul>
+  <li>There are 07 <em>collection interfaces:</em></li>
+</ul>
+<ol>
+  <ol>
+    <li>The most basic interface is:
+      <ul>
+        <li>Collection</li>
+      </ul>
+    </li>
+  </ol>
+  <ul>
+    <li>5 interfaces extend Collection: 
+      <ul>
+        <li>Set </li>
+        <li>List</li>
+        <li>SortedSet.</li>
+        <li>Queue</li>
+        <li>Deque </li>
+      </ul>
+    </li>
+  </ul>
+  <ol>
+    <li>2 collection interfaces do not extend  Collection:
+      <ul>
+        <li>Map</li>
+        <li>SortedMap</li>
+      </ul>
+    </li>
+  </ol>
+</ol>
+<p><img src="images/08-colls-coreInterfaces.gif" width="402" height="146" /></p>
+<p>&nbsp;</p>
+<ul>
+  <li>The Collection interface contains about a dozen  methods that describe common operations on groups of objects.</li>
+</ul>
+<p><img src="images\08-Lang and util packages_clip_image006.jpg" alt="" width="636" height="484" /></p>
+<p><strong>Collection Interfaces and classes summary</strong><br />
+  <img src="images\08-Lang and util packages_clip_image008.jpg" alt="" width="528" height="261" /></p>
+<p><strong>Using Iterators  sample</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="506" valign="top"><br />
+      public void dumpCollection(Collection c) {<br />
+      System.out.println(&ldquo;Collection    has &rdquo; + c.size()+&rdquo; elements.&rdquo;);<br />
+      <strong>Iterator</strong> iter = c.<strong>iterator()</strong>;<br />
+      while    (iter.hasNext())<br />
+      System.out.println(&ldquo;Next    element is &rdquo; + iter.next());<br />
+      } </td>
+  </tr>
+</table>
+<h3><a name="3" id="3"></a>1.2. Lists<a></a></h3>
+<ol>
+  <li>A List keeps it elements in the <u>order</u> in  which they were added. </li>
+  <li>Each element of a List has an index, starting  from 0.</li>
+</ol>
+<p>List addition methods</p>
+<ol>
+  <li>void  add(int index, Object x)</li>
+  <li>Object  get(int index)</li>
+  <li>int  indexOf(Object x)</li>
+  <li>Object  remove(int index)</li>
+</ol>
+<p><strong>List Implementing Classes</strong></p>
+<ol>
+  <ol>
+    <li>AbstractList</li>
+    <li>ArrayList</li>
+    <li>LinkedList: <em>linked lists can be used as a  stack, queue, or double-ended queue (deque)</em></li>
+    <li>Vector<strong> </strong>(is synchronized)</li>
+  </ol>
+</ol>
+<h3><a name="4" id="4"></a>1.3. Queu<strong>e</strong></h3>
+<p>A <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html">Queue</a> is a collection for holding elements prior to processing. Besides basic Collection operations, queues provide additional insertion, removal, and inspection operations. The Queue interface follows.</p>
+<div>
+  <pre>public interface Queue&lt;E&gt; extends Collection&lt;E&gt; {     
+E element();      
+boolean offer(E e);      
+E peek();      
+E poll();      
+E remove();  
+}  </pre>
+</div>
+<p>Each Queue method exists in two forms: (1) one throws an exception if the operation fails, and (2) the other returns a special value if the operation fails (either null or false, depending on the operation). The regular structure of the interface is illustrated in <span id="table:queue-structure">the following table</span>.</p>
+<table summary="queue-structure" border="1">
+  <caption id="queue-structure">
+  <strong>Queue Interface Structure</strong>
+  </caption>
+  <tbody>
+    <tr>
+      <th id="h1">Type of Operation</th>
+      <th id="h2">Throws exception</th>
+      <th id="h3">Returns special value</th>
+    </tr>
+    <tr>
+      <td headers="h1">Insert</td>
+      <td headers="h2">add(e)</td>
+      <td headers="h3">offer(e)</td>
+    </tr>
+    <tr>
+      <td headers="h1">Remove</td>
+      <td headers="h2">remove()</td>
+      <td headers="h3">poll()</td>
+    </tr>
+    <tr>
+      <td headers="h1">Examine</td>
+      <td headers="h2">element()</td>
+      <td headers="h3">peek()</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<p><strong><a name="5" id="5"></a>1.4. Deque  </strong></p>
+<p>Deque interface is a richer abstract data type than both Stack and Queue because it implements both stacks and queues at the same time. The <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/Deque.html">Deque</a> interface, defines methods to access the elements at both ends of the Deque instance. Methods are provided to insert, remove, and examine the elements. Predefined classes like <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/ArrayDeque.html">ArrayDeque</a> and <a target="_blank" href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html">LinkedList</a> implement the Deque interface.</p>
+<table summary="Basic methods in the Deque interface" border="1" cellpadding="3" cellspacing="1">
+  <caption id="deque-methods">
+  <strong>Deque Methods</strong>
+  </caption>
+  <tbody>
+    <tr>
+      <th id="h1">Type of Operation</th>
+      <th id="h2">First Element (Beginning of the Deque instance)</th>
+      <th id="h3">Last Element (End of the Deque instance)</th>
+    </tr>
+    <tr>
+      <td headers="h1"><strong>Insert</strong></td>
+      <td headers="h2">addFirst(e)<br />
+        offerFirst(e)</td>
+      <td headers="h3">addLast(e)<br />
+        offerLast(e)</td>
+    </tr>
+    <tr>
+      <td headers="h1"><strong>Remove</strong></td>
+      <td headers="h2">removeFirst()<br />
+        pollFirst()</td>
+      <td headers="h3">removeLast()<br />
+        pollLast()</td>
+    </tr>
+    <tr>
+      <td headers="h1"><strong>Examine</strong></td>
+      <td headers="h2">getFirst()<br />
+        peekFirst()</td>
+      <td headers="h3">getLast()<br />
+        peekLast()</td>
+    </tr>
+  </tbody>
+</table>
+<h3><a name="6" id="6"></a>1.5. Sets</h3>
+<ol>
+  <li>Lists are based on an ordering of their members.  Sets have no concept of order.</li>
+  <li>A Set is just a cluster of references to  objects.</li>
+  <li>Sets may not contain duplicate elements.</li>
+  <li>Sets use the equals() method, not the ==  operator, to check for duplication of elements.</li>
+</ol>
+<p>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="349" valign="top"><p>void addTwice(Set set) {<br />
+      set.clear();<br />
+      Point p1    = new Point(10, 20);<br />
+      Point p2    = new Point(10, 20);<br />
+      set.add(p1);<br />
+      set.add(p2);<br />
+      System.out.println(set.size());    // output is 1<br />
+      }</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<ol>
+  <li>Set extends Collection but does not add any  additional methods. </li>
+  <li>The two most commonly used implementing classes  are:
+    <ul>
+      <li>HashSet
+        <ul>
+          <li>Constant time performance for the basic  operations (add, remove, contains and size). </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <ul>
+    <li>TreeSet 
+      <ul>
+        <li>Guarantees that the sorted set will be in  ascending element order.</li>
+        <li>log(n) time cost for the basic operations (add,  remove and contains). </li>
+      </ul>
+    </li>
+  </ul>
+</ol>
+<p><strong>HashSet or TreeSet?</strong></p>
+<ol>
+  <li>If you care about <u>iteration order</u>, use a  Tree Set and pay the time penalty. </li>
+  <li>If iteration order doesn&rsquo;t matter, use the  higher-performance Hash Set.</li>
+</ol>
+<p><strong>How to TreeSet  ordering elements?</strong></p>
+<p>Tree Sets rely on all their elements  implementing the java.lang.Comparable.</p>
+<p>            public int  compareTo(Object x)</p>
+<p>Returns a positive number if the current object  is &ldquo;greater than&rdquo; x, by whatever definition of &ldquo;greater than&rdquo; the class itself  wants to use.</p>
+<ol>
+</ol>
+<p><strong>TreeSet sample</strong><br />
+  static void sortRandoms(int nRandoms)<br />
+  {<br />
+  TreeSet set  = new TreeSet();<br />
+  for (int  i=0; i&lt;nRandoms; i++)<br />
+  set.add(Math.random());<br />
+  Iterator  iter = set.iterator();<br />
+  while  (iter.hasNext())<br />
+  System.out.println(iter.next());<br />
+  }</p>
+<h3><a name="7" id="7"></a>1.6. Maps</h3>
+<ol>
+  <li>Map doesn&rsquo;t implement the java.util.Collection  interface.</li>
+  <li>A Map combines <em>two </em>collections, called  keys and values.</li>
+  <li>The Map&rsquo;s job is to associate exactly one value  with each key.</li>
+  <li>A Map like a dictionary.</li>
+  <li>Maps check for key uniqueness the equals()  method, not the == operator.</li>
+  <li>Java&rsquo;s two most important Map classes:
+    <ul>
+      <li>HashMap (map keys are unpredictable order).</li>
+      <li>TreeMap (map keys are natural order)-&gt; all  keys must implement Comparable.</li>
+    </ul>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<h3><a name="8" id="8"></a>1.7. Collections and Arrays  classes</h3>
+<p>The java.util package contains two support classes,  called Collections  and Arrays. These<br />
+  provide static methods that operate on collections and  arrays.<br />
+  The methods of Collections tend to be  advanced, beyond the scope of the Programmer&rsquo;s<br />
+  Exam. The simpler ones include<br />
+  <strong>static boolean disjoint(Collection c1, Collection c2) </strong>Returns  true  if the two<br />
+  collections have no elements in common.<br />
+  <strong>static int frequency(Collection c, Object ob) </strong>Returns  the number of elements in<br />
+  c that are equal to ob.<br />
+  <strong>static Object max(Collection c) </strong>Returns the maximum  element of c according to the<br />
+  natural ordering of the elements.<br />
+  <strong>static Object min(Collection c) </strong>Returns the maximum  element of c according to the<br />
+  natural ordering of the elements.<br />
+  <strong>static void reverse(List list) </strong>Reverses the order  of the elements in the specified List.<br />
+  <strong>static void shuffle(List list) </strong>Randomly rearranges  the List&rsquo;s elements.<br />
+  <strong>static void sort(List list) </strong>Rearranges the List&rsquo;s elements  into their natural order.</p>
+<p>The methods of Arrays support sorting and  searching of arrays. There is also a method that<br />
+  converts an array to a list. The important methods of this  class are<br />
+  <strong>static void asList(Object[] arr) </strong>Returns a list  representing array arr. Changing an<br />
+  element in the List also changes the corresponding element  of the array.<br />
+  <strong>static void sort(byte[] arr) </strong>Rearranges the List&rsquo;s  elements into their natural order.<br />
+  This method is extensively overloaded, with versions that  take arrays of each primitive type, as<br />
+  well as a version that takes an array of Object.<br />
+  <strong>static int binarySearch(byte[] arr, byte key) </strong>Efficiently  searches the array and<br />
+  returns the index of key. The array&rsquo;s elements must  be sorted before the method is called. This<br />
+  method is extensively overloaded, with versions that take  arrays and keys of each primitive type,<br />
+  as well as a version that takes an array of Object  and an Object key.<br />
+  <strong>static boolean equals(Object[] a1, Object[] a2) </strong>Returns  true  if the arrays have<br />
+  the same length, and each element in a1 is equal  to the corresponding element in a2.</p>
+<h3>&nbsp;</h3>
+</body>
+</html>

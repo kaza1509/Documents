@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+
+<body>
+<p><a href="..\index.htm">Return to Readings</a> </p>
+<h1>02-Classes and Objects </h1>
+<ul>
+  <li><a href="#1">Benefits of Object-Oriented implementation</a></li>
+  <li><a href="#2">Coupling and Cohesion</a></li>
+  <li><a href="#3">Class</a></li>
+  <li><a href="#4">Object</a></li>
+  <li><a href="#5">Using object </a></li>
+</ul>
+<h2><a name="1" id="1"></a>1. Benefits of  Object-Oriented implementation</h2>
+<ul>
+  <li>The important features of the OO paradigm. </li>
+  <ul>
+    <li>Encapsulation</li>
+    <li>Inheritance</li>
+  </ul>
+</ul>
+<p>Encapsulation</p>
+<ul>
+  <li>Data members: </li>
+  <ul>
+    <li>describe instances of that class</li>
+    <li>private accessibility</li>
+    <li>all behavior should be accessed only via methods  (ensure that the nature of those variables is irrelevant outside the object).</li>
+  </ul>
+</ul>
+<p>Why need Encapsulation?</p>
+<ul>
+  <li>Make code that is more reliable and robust.</li>
+  <li>Re-use:</li>
+  <ul>
+    <li>composition (&ldquo;has a&rdquo; relation) </li>
+    <li>or inheritance (&ldquo;is a&rdquo; relation)</li>
+  </ul>
+</ul>
+<h2> <a name="2" id="2"></a>2. Coupling  and Cohesion</h2>
+<ul>
+  <li>The terms &ldquo;coupling&rdquo; and &ldquo;cohesion&rdquo; describe two  related qualities of object-oriented programs.</li>
+</ul>
+<p><em>Coupling</em></p>
+<ul>
+  <li><em>Coupling </em>is an object&rsquo;s reliance on  knowledge of the internals of another entity&rsquo;s implementation.</li>
+  <li>When object A is tightly coupled to object B, a  programmer who wants to use or modify A is required to have an inappropriately  extensive expertise in how to use B.</li>
+</ul>
+<p><em>Cohesion</em><br />
+    <em>Cohesion </em>is the degree to which a class or method  resists being broken down into smaller pieces. <br />
+  Study the Telescope class</p>
+<ul>
+  <li>Methods:</li>
+  <ul>
+    <li>aim</li>
+    <li>focus</li>
+    <li>imageProcess</li>
+  </ul>
+</ul>
+<p>…</p>
+<ul>
+  <li>The aiming and focusing methods might call each  other, but they wouldn&rsquo;t call the image-processing methods or access the image-processing  data</li>
+  <li>So a class like Telescope that can easily be  split into distinct elements probably models not one but two (or more!)  real-world objects.</li>
+</ul>
+ 
+<div id="PageTitle">
+  <h2><a name="3" id="3"></a>3. Class</h2>
+</div>
+<div id="PageContent">
+  <p>In the real world, you'll often find many individual objects all of the same kind. There may be thousands of other bicycles in existence, all of the same make and model. Each bicycle was built from the same set of blueprints and therefore contains the same components. In object-oriented terms, we say that your bicycle is an <em>instance</em> of the <em>class of objects</em> known as bicycles. A <em>class</em> is the blueprint from which individual objects are created.</p>
+</div>
+<p>In general, class declarations can include these components, in order:</p>
+<ol>
+  <li>Modifiers such as <em>public</em>, <em>private</em>, and a number of others that you will encounter later.</li>
+  <li>The class name, with the initial letter capitalized by convention.</li>
+  <li>The name of the class's parent (superclass), if any, preceded by the keyword <em>extends</em>. A class can only <em>extend</em> (subclass) one parent.</li>
+  <li>A comma-separated list of interfaces implemented by the class, if any, preceded by the keyword <em>implements</em>. A class can <em>implement</em> more than one interface.</li>
+  <li>The class body, surrounded by braces, {}.</li>
+</ol>
+<p><img src="images/02-class-Sample.PNG" width="706" height="1087" /></p>
+<div id="div"> 
+  <h3><strong>Members of a class </strong>
+  </h3>
+  <h3>3.1. Declaring Member Variables</h3>
+</div><div id="div2">
+  <p>There are several kinds of variables:</p>
+  <ul>
+    <li>Member variables in a class—these are called <em>fields</em>.</li>
+    <li>Variables in a method or block of code—these are called <em>local variables</em>.</li>
+    <li>Variables in method declarations—these are called <em>parameters</em>.</li>
+  </ul>
+  <p>The Bicycle class uses the following lines of code to define its fields:</p>
+  <div>
+    <pre>public int cadence;  public int gear;  public int speed; </pre>
+  </div>
+  <p>Field declarations are composed of three components, in order:</p>
+  <ol>
+    <li>Zero or more modifiers, such as public or private.</li>
+    <li>The field's type.</li>
+    <li>The field's name.</li>
+  </ol>
+  <p>The fields of Bicycle are named cadence, gear, and speed and are all of data type integer (int). The public keyword identifies these fields as public members, accessible by any object that can access the class.</p>
+  <h3>Access Modifiers</h3>
+  <p>The first (left-most) modifier used lets you control what other classes have access to a member field. For the moment, consider only public and private. Other access modifiers will be discussed later.</p>
+  <ul>
+    <li>public modifier—the field is accessible from all classes.</li>
+    <li>private modifier—the field is accessible only within its own class.</li>
+  </ul>
+  <div id="div3">
+    <h3>3.2. Defining Methods</h3>
+  </div>
+  <div id="div4">
+    <p>Here is an example of a typical method declaration:</p>
+    <div>
+      <pre>public double calculateAnswer(double wingSpan, int numberOfEngines,double length, double grossTons) {    
+  //do the calculation here  
+}
+
+</pre>
+      Naming a Method
+      <p>Although a method name can be any legal identifier, code conventions restrict method names. By convention, method names should be a verb in lowercase or a multi-word name that begins with a verb in lowercase, followed by adjectives, nouns, etc. In multi-word names, the first letter of each of the second and following words should be capitalized. Here are some examples:</p>
+      <div>
+        <pre>run  
+runFast  
+getBackground  
+getFinalData
+
+</pre>
+        <h3><br>
+          3.3. Providing Constructors for Your Classes</h3>
+        <div id="div5"></div>
+        <div id="div6">
+          <p>A class contains constructors that are invoked to create objects from the class blueprint. Constructor declarations look like method declarations—except that they use the name of the class and have no return type. For example, Bicycle has one constructor:</p>
+          <div>
+            <pre>public Bicycle(int startCadence, int startSpeed, int startGear) {      
+gear = startGear;    
+cadence = startCadence;      
+speed = startSpeed;  
+}  </pre>
+          </div>
+          <p>To create a new Bicycle object called myBike, a constructor is called by the new operator:</p>
+          <div>
+            <pre>Bicycle myBike = new Bicycle(30, 0, 8); </pre>
+          </div>
+          <p>new Bicycle(30, 0, 8) creates space in memory for the object and initializes its fields.</p>
+          <p>Although Bicycle only has one constructor, it could have others, including a no-argument constructor:</p>
+          <div>
+            <pre>public Bicycle() {      gear = 1;      cadence = 10;      speed = 0;  }  </pre>
+          </div>
+          <p>Bicycle yourBike = new Bicycle(); invokes the no-argument constructor to create a new Bicycle object called yourBike.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2><a name="4" id="4"></a>4. Object</h2>
+<p>Aclass provides the blueprint for objects; you create an object from a class. Each of the following statements taken from the <a target="_blank" href="https://docs.oracle.com/javase/tutorial/java/javaOO/examples/CreateObjectDemo.java" onclick="showCode('../../displayCode.html', 'examples/CreateObjectDemo.java'); return false;">CreateObjectDemo</a> program creates an object and assigns it to a variable:</p>
+<div>
+  <pre><strong>Point originOne</strong> = new Point(23, 94);  <strong>Rectangle rectOne</strong> = new Rectangle(originOne, 100, 200);  <strong>Rectangle rectTwo</strong> = new Rectangle(50, 100);  </pre>
+</div>
+<p>The first line creates an object of the <a target="_blank" href="https://docs.oracle.com/javase/tutorial/java/javaOO/examples/Point.java" onclick="showCode('../../displayCode.html', 'examples/Point.java'); return false;">Point</a> class, and the second and third lines each create an object of the <a target="_blank" href="https://docs.oracle.com/javase/tutorial/java/javaOO/examples/Rectangle.java" onclick="showCode('../../displayCode.html', 'examples/Rectangle.java'); return false;">Rectangle</a> class.</p>
+<p>Each of these statements has three parts (discussed in detail below):</p>
+<ol>
+  <li><strong>Declaration</strong>: The code set in <strong>bold</strong> are all variable declarations that associate a variable name with an object type.</li>
+  <li><strong>Instantiation</strong>: The new keyword is a Java operator that creates the object.</li>
+  <li><strong>Initialization</strong>: The new operator is followed by a call to a constructor, which initializes the new object.</li>
+</ol>
+<div>
+  <pre>public class Point {      
+public int x = 0;      
+public int y = 0;<strong>      
+//constructor      
+public Point(int a, int b) {          
+x = a;          
+y = b;      
+}</strong>  
+}  </pre>
+</div>
+<p>This class contains a single constructor. You can recognize a constructor because its declaration uses the same name as the class and it has no return type. The constructor in the Point class takes two integer arguments, as declared by the code (int a, int b). The following statement provides 23 and 94 as values for those arguments:</p>
+<div>
+  <pre>Point originOne = new Point(23, 94);</pre>
+  <p><img src="images/02-objects-oneRef.gif" width="323" height="196" /></p>
+  <div>
+    <pre>Rectangle rectOne = new Rectangle(originOne, 100, 200);  </pre>
+  </div>
+  <p>This calls one of Rectangle's constructors that initializes origin to originOne. Also, the constructor sets width to 100 and height to 200. Now there are two references to the same Point object—an object can have multiple references to it, as shown in the next figure:</p>
+  <p><img src="images/02-objects-multipleRefs.gif" width="396" height="350" /></p>
+</div>
+<div id="div7">
+  <h2><a name="5" id="5"></a>5. Using Objects</h2>
+</div>
+<div id="div8">
+  <h3>5.1. Referencing an Object's Fields</h3>
+  <p>For example, we can add a statement <em>within</em> the Rectangle class that prints the width and height:</p>
+  <div>
+    <pre>System.out.println(&quot;Width and height are: &quot; + width + &quot;, &quot; + height);  </pre>
+  </div>
+  <p>In this case, width and height are simple names.</p>
+  <p>Code that is outside the object's class must use an object reference or expression, followed by the dot (.) operator, followed by a simple field name, as in:</p>
+  <div>
+    <pre>objectReference.fieldName
+
+</pre>
+    <h3><br>
+      5.2. Calling an Object's Methods</h3>
+  </div>
+  <p>You also use an object reference to invoke an object's method. You append the method's simple name to the object reference, with an intervening dot operator (.). A</p>
+  <div>
+    <pre>objectReference.methodName(argumentList);  </pre>
+  </div>
+  <p>or:</p>
+  <div>
+    <pre>objectReference.methodName();  </pre>
+  </div>
+  <p>The Rectangle class has two methods: getArea() to compute the rectangle's area and move() to change the rectangle's origin. Here's the CreateObjectDemo code that invokes these two methods:</p>
+  <div>
+    <pre>System.out.println(&quot;Area of rectOne: &quot; + rectOne.getArea());  ...  rectTwo.move(40, 72);  </pre>
+  </div>
+  <p>The first statement invokes rectOne's getArea() method and displays the results. The second line moves rectTwo because the move() method assigns new values to the object's origin.x and origin.y.</p>
+  <p>As with instance fields, <em>objectReference</em> must be a reference to an object. You can use a variable name, but you also can use any expression that returns an object reference. The new operator returns an object reference, so you can use the value returned from new to invoke a new object's methods:</p>
+  <div>
+    <pre>new Rectangle(100, 50).getArea()  </pre>
+  </div>
+  <p>The expression new Rectangle(100, 50) returns an object reference that refers to a Rectangle object. As shown, you can use the dot notation to invoke the new Rectangle's getArea() method to compute the area of the new rectangle.</p>
+</div>
+<p>&nbsp;</p>
+<h2><a name="4"></h2>
+</body>
+</html>
