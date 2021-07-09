@@ -1,0 +1,113 @@
+ * LỮU TRỮ CHƠI/XỬ LÍ VỚI NHIỀU DATA/OBJECT
+  THÌ TA CẦN ĐI MUA CÁI TÚI/GIỎI/BALO/TỦ/THÙNG ĐỂ ĐỰNG NHIỀU ĐỒ
+  MUA CÁI TỦ XÂY CÁI PHÒNG CHÍNH LÀ NEW CÁI TÚI(), NEW CÁI TỦ(), NEW CĂN PHÒNG()
+  MỘT MÓN ĐỒ THẬT LÀ THÙNG CHỨA ĐƯỢC TẠO RA ĐỂ TA BỎ ĐỒ VÀO -> DO ĐÓ PHẢI NEW CÁI THÙNG CHƯA LÀ CHẮC CHẮN RỒI
+  
+  QUAN ĐIỂM LẬP TRÌNH THÌ NEW MỚI CÓ VÙNG RAM ĐỂ LƯU TRỮ INFO + HÀM XỬ LÍ INFO THEO ENCAPSULATION 
+  OBJECT TRONG RAM CHÍNH TƯƠNG ĐƯƠNG MÓN ĐỒ THẬT NGOÀI ĐỜI, ĐIỆN THOẠI TRÊN TAY CÓ MÀU SẮC GIÁ TIỀN, HÀNH ĐỘNG NGHE GỌI, CHỤP ẢNH
+  BẠN PHẢI MUA VỀ NHÀ SẢN XUẤT PHẢI TẠO RA MỚI CÓ MÀ XÀI
+  
+  MÌNH TRỪU TƯỢNG HÓA MÓN ĐỒ THẬT THÀNH OBJET TRONG LẬP TRÌNH THÌ CŨNG CẦN PHẢ NEW ĐỂ CÓ VÙNG RAM, DATA + HÀNH ĐỘNG
+  
+  MUA TỦ ĐỰNG ĐỒ ĐỪNG NHIỀU ĐỒ TA PHẢI NEW TỦ() ĐỂ CÓ KHÔNG GIAN ĐỰNG ĐỒ VÀ CÁC HÀNH ĐỘNG TƯƠNG ỨNG
+
+  TỦ tuCuaTui = new TỦ(); //TRONG RAM SẼ CÓ 1 VÙNG KHÔNG GIAN ĐỂ ĐỰNG ĐỒ
+			  //NGOÀI ĐỜI TỦ SẼ CHIẾM 1 GÓC PHÒNG ĐỂ TA ĐỰNG ĐỒ
+  CÁI TỦ NÓ CHO MÌNH LÀM CÁI GÌ THÌ MÌNH LÀM CÁI ĐÓ/ENCAPSULATION/ABSTRACTION ĐẤY
+  MUA TIVI MÀ KHÔNG SMART, CHỈ XEM CAB THÔI, LÀM SAO DUYỆT WEB ĐƯỢC
+  MUA TIVI MÀ SMART THÌ MỚI DUYỆT WEB ĐƯỢC
+  ĐÓNG GÓI HÀNH ĐỘNG ĐI KÈM OBJECT. MUA CON DOG VỀ THÌ NÓ GIỠN VỚI MÌNH ĐƯỢC
+
+  tuCuaTui.addDoVao(món đồ đưa vào trong tủ)// TỦ CHO PHÉP MÌNH BỎ ĐỒ VÔ
+  Y CHANG LÒ NƯỚNG CHO PHÉP MÌNH BỎ CON GÀ VÀO ĐỂ NƯỚNG
+  loNuong loCuaTui = new LoNuong();//mua lò về chiếm góc phòng
+  loCuaTui.addDoNuong(con gà để nướng)
+
+  TỦ LÀ OBJECT CHỨA NHIỀU ĐỒ ĐAC KHÁC
+  1. MUA TỦ - tuCuaTui = new TỦ();
+  2. MUA ĐỒ ADD VÔ - tuCuaTui.addDoVao(món đồ đưa vào trong tủ) //MUA 1 MÓN ĐỒ THẢY VÔ TỦ
+
+  MUA CÁI TÚI, MUA CÁI GIỎ, THÙNG, NEW TÚI() NEW GIỎ(), CÓ KHÓA DÂY ĐỂ BỎ ĐỒ KHÁC VÔ MÌNH MUỐN CẤT
+  
+  tuiCuaTui.addMonDo(mua món đồ bỏ  vào túi - new món đồ() )
+  
+  CÓ HAI LOẠI TỦ:
+  1. TỦ LOẠI 1: FIX CỨNG SỐ ĐỒ ĐỂ VÔ, CHỈ ĐỂ, BỎ VÔ 1 SỐ GIỚI HẠN MÓN ĐỒ
+     CHÍNH LÀ MẢNG [SỐ ĐỒ ĐỂ VÔ]
+     MẢNG LÀ KHAI BÁO NHIỀU BIẾN, NHIỀU CHỖ CHỨA [FIX SỐ CHỖ]
+     MẢNG Y CHANG Ô TÔ CHỞ KHÁCH 16 CHỖ  
+		  RẠP PHIM A/PHÒNG CHIẾU A CÓ 100 GHẾ
+     CHỨA TỌA ĐỘ VÙNG NEW MÓN ĐỒ
+     [I] = NEW MÓN ĐÒ() CỨ THỎA MÁI NẰM ĐÂU ĐÓ, TA LƯU TỌA ĐỘ
+     STUDENT ARR[] = NEW STUDENT[100]
+     //SẼ CÓ 100 CHỖ NGỒI CHO SINH VIÊN À NHEN, CHƯA BẠN NÀO CỤ THỂ
+     //ARR CHÍNH LÀ BIẾN MÁ MÌ, GỌI TẮT CÁI TỦ CÓ 100 CHỖ
+     //TÊN MẢNG CHÍNH LÀ TÊN GỌI CHO 1 CÁI TỦ FIX SỐ CHỖ, VÌ NÓ TRỎ ĐẾN NEW [SỐ CHỖ]
+     //BỎ ĐỒ VÀO MẢNG MÀ KHÔNG CẦN DÙNG HÀM HAY HÀNH ĐỘNG CỦA TỦ MÀ CHO SỜ TRỰC TIẾP CHỖ ĐẺ
+     // ARR[0] = MÓN ĐÒ BỎ VÔ, NEW MÓN ĐỒ BỎ VÔ; 
+     //~~~ tuCuaToi.addMonDo(new món đồ);
+     //tuCuaTui vị trí 0 được cất món đồ, new món đồ
+
+     //món đồ new năm trong HEAP, nằm bên ngoài tủ, tủ chỉ lưu danh sách tham chiếu
+     //tủ chưa danh sách bệnh nhân, bệnh nhân nằm trong phòng điều trị
+     //giảng viên giữ danh sách sinh viên, sinh viên ở đâu cũng được
+
+* DÙ TỦ LOẠI 1 HAY 2 THÌ NÓ ĐỀU CHỨ NHIỀU MÓN ĐỒ: ĐỒ ĐỂ THẬT SỰ VÀ TRONG TỦ HAY CHỈ ĐỂ GIỮ DANH SÁCH THAM CHIẾU ĐỀU OKE
+  TỦ HỒ SƠ, GOOGLE MEET ĐỂ GIỮ DANH SÁCH THAM CHIẾU, DANH SÁCH KÍ TÊN CHỨ DS THAM CHIẾU
+  TỦ QUẦN ÁO CHỨA ĐỒ THẬT CHÍNH LÀ MẢNG PRIMITIVE VALUE LẤY SÀI LUÔN
+
+2. TỦ LOẠI 2: CO GIÃN SỐ ĐỒ ĐỂ DÙNG, THOẢI MÁI ĐỂ ĐỒ VÔ, CẦN THÊM CHỖ, CÓ THÊM CHỖ THÌ KHÔNG CẦN XIN, CỨ ĐỂ ĐỒ VÔ LÀ THÊM CHỖ, GIỐNG NỒI CƠM
+   THẠCH SANH, GIỐNG NHƯ GIẾNG KHƠI, MÚC NƯỚC THÌ LẠI CÓ NƯỚC 
+   ARRAYLIST, VECTOR      |   HASHSET, TREESET     | HASHMAP,   TREEMAP |
+   BAN ĐẦU NÓ KHÔNG CÓ CHỖ NÀO CẢ CỨ NHÉT ĐỒ VÔ LÀ TAO THÊM CHỖ, KHÔNG SỜ TRỰC TIẾP [I] VÀO VỊ TRÍ CHỖ
+   PHẢI XIN QUA DÂY KÉO, NGĂM, KHÓA, CÁNH CỬA, MỞ RA NHÉT ĐỒ VÔ 
+   TUCUATUI[I] = MÓN ĐỒ BỎ VÔ -> MẢNG
+   TUCUATUI.ADD(MÓN ĐỒ BỎ VÔ) BỎ ĐỒ VÔ QUA HÀNH ĐỘNG CỦA MÌNH HAY KHÔNG, KHÔNG SỜ TRỤC TIẾP NGĂN CHỨA THỨ [I]
+   BỎ VÔ TỰ LO BÊN TRONG
+
+   VẪN LÀ CODE NHƯ XƯA NAY: NEW TỦ, RỒI CHẤM GỌI HÀM HÀNH ĐỘNG CỦA TỦ, NEW RIÊNG ĐỂ VÔ
+   MUA TỦ VÀ MUA ĐỒ VÀ CẤT ĐỒ
+
+   NEW 3 LOẠI TỦ NÀY, GIÓNG CÁCH THƯƠNG HIÊU TÚI SÁCH BALO BẠN MUA
+   ARRAYLIST, VECTOR      |   HASHSET, TREESET     | HASHMAP,   TREEMAP |
+
+   ADDDO(MÓN ĐỒ KHÁC ĐI MUA) VÀ TỦ Ở NGĂN THỨ I NÀO ĐÓ NẾU NHÌN THEO KIỂU MẢNG
+ 
+   ĐỀU CHỨA THAM CHIẾU. LINH HOẠT TRONG VIỆC ĐỂ CÁC MÓN ĐỒ, BÊNH NHÂN ĐÂU CẦN DỒN VÀO PHÒNG BÁC SĨ MÀ BÁC SĨ VẪN ĐIỀU TRỊ ĐƯỢC VÌ CÓ DS 
+   BỆNH NHÂN TRONG TUT HỒ SƠ/EXEL
+
+   TỦ THẬT MUA VỀ ĐỂ XÀI, NEW ĐƯỢC, KHÔNG PHẢI LÀ ABSTRACT, HOÀN HẢO ĐỂ DÙNG FULL CODE VÀ HÀNH ĐỘNG
+CON   ARRAYLIST, VECTOR      |   HASHSET, TREESET     | HASHMAP,   TREEMAP |
+
+PHÂN LOẠI CAO HƠN CHO CÁI TỦ/GIỎ CỤA THỂ
+CHA		LIST				SET			MAP
+ABS/ITF	     DANH SÁCH 			     TẬP HỢP		  BỘ ÁNH XA TỪ NÀY RA KIA
+								    KEY, MÓN ĐỒ - VALUE
+          vào thứ tự nào
+          ra thứ tự nấy
+          có giãn size
+          vào trước ngồi[0]              Hashset lộn xộn thứ tự
+          vào sau ngồi [1]               TreeSet sắp xếp tự động
+					 Không được lặp lại món đồ lần 2
+Ngoài đời 
+	thống kế số vé bán	         đếm số người xem phim thực sự
+	số lượt người mua                không đếm số lượt
+	số lượt người ghé thăm           mõi người chỉ xh 1 lần, không hơn
+	1 người có thể đếm nhiều lần     dù 2 3 n lần
+
+CÁC TỦ LIST(ARRAYLIST, VECTOR,....)
+       SET(HASHSET, TREESET): KO CHO TRÙNG (LỘN XỘN - SẮP XẾP)
+       MAP(HASHMAP, TREEMAP):.................................
+ ==> ĐỀU CHỨA BÊN TRONG CO GIÃN NGĂN TỦ THÍCH THÊM THÌ THÊM, KHÔNG ĐẤY DOREMON, LƯU CON TRỎ, ADD CON TRỎ VÀO, VÙNG NEW CỦA MÓN ĐỒ THOẢI MÁI
+     NẰM Ở BÊN HEAP, MẢNG OBJECT CŨNG Y CHANG NHƯ VẬY, CHƯA THAM CHIẾU, LƯU CON TRỎ ADD LẤY QUA [I] VÀ VÙNG NEW CỦA MÓN ĐỒ THOẢI MÁI TRONG H
+     HEAP, Y CHANG NHƯ QUẢN LÍ DANH SÁCH NGOÀI ĐỜI CO GIÃN HAY KHÔNG CÓ GIÃN -> COLLECTIONS THÌ CO GIÃN CÒN MẢNG THƯỜNG THÌ KHÔNG CO GIÃN
+       
+
+
+
+
+
+
+
+
+
