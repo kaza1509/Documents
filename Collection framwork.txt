@@ -1,0 +1,71 @@
+* LỮU TRỮ CHƠI/XỬ LÍ VỚI NHIỀU DATA/OBJECT
+  THÌ TA CẦN ĐI MUA CÁI TÚI/GIỎI/BALO/TỦ/THÙNG ĐỂ ĐỰNG NHIỀU ĐỒ
+  MUA CÁI TỦ XÂY CÁI PHÒNG CHÍNH LÀ NEW CÁI TÚI(), NEW CÁI TỦ(), NEW CĂN PHÒNG()
+  MỘT MÓN ĐỒ THẬT LÀ THÙNG CHỨA ĐƯỢC TẠO RA ĐỂ TA BỎ ĐỒ VÀO -> DO ĐÓ PHẢI NEW CÁI THÙNG CHƯA LÀ CHẮC CHẮN RỒI
+  
+  QUAN ĐIỂM LẬP TRÌNH THÌ NEW MỚI CÓ VÙNG RAM ĐỂ LƯU TRỮ INFO + HÀM XỬ LÍ INFO THEO ENCAPSULATION 
+  OBJECT TRONG RAM CHÍNH TƯƠNG ĐƯƠNG MÓN ĐỒ THẬT NGOÀI ĐỜI, ĐIỆN THOẠI TRÊN TAY CÓ MÀU SẮC GIÁ TIỀN, HÀNH ĐỘNG NGHE GỌI, CHỤP ẢNH
+  BẠN PHẢI MUA VỀ NHÀ SẢN XUẤT PHẢI TẠO RA MỚI CÓ MÀ XÀI
+  
+  MÌNH TRỪU TƯỢNG HÓA MÓN ĐỒ THẬT THÀNH OBJET TRONG LẬP TRÌNH THÌ CŨNG CẦN PHẢ NEW ĐỂ CÓ VÙNG RAM, DATA + HÀNH ĐỘNG
+  
+  MUA TỦ ĐỰNG ĐỒ ĐỪNG NHIỀU ĐỒ TA PHẢI NEW TỦ() ĐỂ CÓ KHÔNG GIAN ĐỰNG ĐỒ VÀ CÁC HÀNH ĐỘNG TƯƠNG ỨNG
+
+  TỦ tuCuaTui = new TỦ(); //TRONG RAM SẼ CÓ 1 VÙNG KHÔNG GIAN ĐỂ ĐỰNG ĐỒ
+			  //NGOÀI ĐỜI TỦ SẼ CHIẾM 1 GÓC PHÒNG ĐỂ TA ĐỰNG ĐỒ
+  CÁI TỦ NÓ CHO MÌNH LÀM CÁI GÌ THÌ MÌNH LÀM CÁI ĐÓ/ENCAPSULATION/ABSTRACTION ĐẤY
+  MUA TIVI MÀ KHÔNG SMART, CHỈ XEM CAB THÔI, LÀM SAO DUYỆT WEB ĐƯỢC
+  MUA TIVI MÀ SMART THÌ MỚI DUYỆT WEB ĐƯỢC
+  ĐÓNG GÓI HÀNH ĐỘNG ĐI KÈM OBJECT. MUA CON DOG VỀ THÌ NÓ GIỠN VỚI MÌNH ĐƯỢC
+
+  tuCuaTui.addDoVao(món đồ đưa vào trong tủ)// TỦ CHO PHÉP MÌNH BỎ ĐỒ VÔ
+  Y CHANG LÒ NƯỚNG CHO PHÉP MÌNH BỎ CON GÀ VÀO ĐỂ NƯỚNG
+  loNuong loCuaTui = new LoNuong();//mua lò về chiếm góc phòng
+  loCuaTui.addDoNuong(con gà để nướng)
+
+  TỦ LÀ OBJECT CHỨA NHIỀU ĐỒ ĐAC KHÁC
+  1. MUA TỦ - tuCuaTui = new TỦ();
+  2. MUA ĐỒ ADD VÔ - tuCuaTui.addDoVao(món đồ đưa vào trong tủ) //MUA 1 MÓN ĐỒ THẢY VÔ TỦ
+
+  MUA CÁI TÚI, MUA CÁI GIỎ, THÙNG, NEW TÚI() NEW GIỎ(), CÓ KHÓA DÂY ĐỂ BỎ ĐỒ KHÁC VÔ MÌNH MUỐN CẤT
+  
+  tuiCuaTui.addMonDo(mua món đồ bỏ  vào túi - new món đồ() )
+  
+  CÓ HAI LOẠI TỦ:
+  1. TỦ LOẠI 1: FIX CỨNG SỐ ĐỒ ĐỂ VÔ, CHỈ ĐỂ, BỎ VÔ 1 SỐ GIỚI HẠN MÓN ĐỒ
+     CHÍNH LÀ MẢNG [SỐ ĐỒ ĐỂ VÔ]
+     MẢNG LÀ KHAI BÁO NHIỀU BIẾN, NHIỀU CHỖ CHỨA [FIX SỐ CHỖ]
+     MẢNG Y CHANG Ô TÔ CHỞ KHÁCH 16 CHỖ  
+		  RẠP PHIM A/PHÒNG CHIẾU A CÓ 100 GHẾ
+     CHỨA TỌA ĐỘ VÙNG NEW MÓN ĐỒ
+     [I] = NEW MÓN ĐÒ() CỨ THỎA MÁI NẰM ĐÂU ĐÓ, TA LƯU TỌA ĐỘ
+     STUDENT ARR[] = NEW STUDENT[100]
+     //SẼ CÓ 100 CHỖ NGỒI CHO SINH VIÊN À NHEN, CHƯA BẠN NÀO CỤ THỂ
+     //ARR CHÍNH LÀ BIẾN MÁ MÌ, GỌI TẮT CÁI TỦ CÓ 100 CHỖ
+     //TÊN MẢNG CHÍNH LÀ TÊN GỌI CHO 1 CÁI TỦ FIX SỐ CHỖ, VÌ NÓ TRỎ ĐẾN NEW [SỐ CHỖ]
+     //BỎ ĐỒ VÀO MẢNG MÀ KHÔNG CẦN DÙNG HÀM HAY HÀNH ĐỘNG CỦA TỦ MÀ CHO SỜ TRỰC TIẾP CHỖ ĐẺ
+     // ARR[0] = MÓN ĐÒ BỎ VÔ, NEW MÓN ĐỒ BỎ VÔ; 
+     //~~~ tuCuaToi.addMonDo(new món đồ);
+     //tuCuaTui vị trí 0 được cất món đồ, new món đồ
+
+     //món đồ new năm trong HEAP, nằm bên ngoài tủ, tủ chỉ lưu danh sách tham chiếu
+     //tủ chưa danh sách bệnh nhân, bệnh nhân nằm trong phòng điều trị
+     //giảng viên giữ danh sách sinh viên, sinh viên ở đâu cũng được
+     //
+     						 
+
+* TA CÓ HAI CÁCH 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
