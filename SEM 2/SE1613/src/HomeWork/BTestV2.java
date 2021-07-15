@@ -5,7 +5,7 @@
  */
 package HomeWork;
 
-import java.util.Collections;
+import java.util.*;
 
 /**
  *
