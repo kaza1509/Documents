@@ -5,6 +5,7 @@
  */
 package HW;
 
+import com.sun.imageio.plugins.jpeg.JPEG;
 import java.util.*;
 
 /**
@@ -531,12 +532,12 @@ public class HW {
     //lấy 1 mảng các số từ chuỗi
     public String[] takeNumberToString(String s) {
         for (int i = 0; i < s.length(); i++) {
-            if(!Character.isDigit(s.charAt(i))) {
+            if (!Character.isDigit(s.charAt(i))) {
                 s = s.replace(s.charAt(i), ' ');
             }
         }
         s = s.trim();
-        String []k = s.split("\\s+");
+        String[] k = s.split("\\s+");
         return k;
     }
 
@@ -572,7 +573,7 @@ public class HW {
     public int f34(String s) {
         int sum = 0;
         for (int i = 0; i < takeNumberToString(s).length; i++) {
-            sum+=Integer.parseInt(takeNumberToString(s)[i]);
+            sum += Integer.parseInt(takeNumberToString(s)[i]);
         }
         return sum;
     }
@@ -583,8 +584,9 @@ public class HW {
         int max = Integer.parseInt(k[0]);
         for (int i = 0; i < k.length; i++) {
             int x = Integer.parseInt(k[i]);
-            if(x > max)
+            if (x > max) {
                 max = x;
+            }
         }
         return max;
     }
@@ -599,9 +601,9 @@ public class HW {
     public int f37(String s) {
         int avg = 0;
         for (int i = 0; i < takeNumberToString(s).length; i++) {
-            avg+=Integer.parseInt(takeNumberToString(s)[i]);
+            avg += Integer.parseInt(takeNumberToString(s)[i]);
         }
-        avg/=takeNumberToString(s).length;
+        avg /= takeNumberToString(s).length;
         return avg;
     }
 
@@ -609,8 +611,8 @@ public class HW {
     public int f38(String s) {
         int sum = 0;
         for (int i = 0; i < takeNumberToString(s).length; i++) {
-            if(checkPrime(Integer.parseInt(takeNumberToString(s)[i]))) {
-                sum+=Integer.parseInt(takeNumberToString(s)[i]);
+            if (checkPrime(Integer.parseInt(takeNumberToString(s)[i]))) {
+                sum += Integer.parseInt(takeNumberToString(s)[i]);
             }
         }
         return sum;
@@ -620,7 +622,7 @@ public class HW {
     public int f39(String s) {
         int count = 0;
         for (int i = 0; i < takeNumberToString(s).length; i++) {
-            if(checkPrime(Integer.parseInt(takeNumberToString(s)[i]))) {
+            if (checkPrime(Integer.parseInt(takeNumberToString(s)[i]))) {
                 count++;
             }
         }
@@ -633,85 +635,189 @@ public class HW {
         for (int i = 0; i < takeNumberToString(s).length; i++) {
             a.add(Integer.parseInt(takeNumberToString(s)[i]));
         }
-        
+
         ArrayList<Integer> c = new ArrayList<>();
         for (int i = 0; i < a.size(); i++) {
             int count = 0;
             for (int j = i; j < a.size(); j++) {
-                if(a.get(i) == a.get(j))
+                if (a.get(i) == a.get(j)) {
                     count++;
+                }
             }
             c.add(count);
         }
         int index = c.indexOf(Collections.max(c));
         return a.get(index);
     }
-    
+
     //-------------------------- SUPPORT METHOD Q4 --------------------------
-    
-    
     //==================== f4 ==================== 
     //1. đảo ngược tất cả các ký tự trong chuỗi |abc12 ->21cba
     public String f41(String s) {
         StringBuilder sb = new StringBuilder(s);
         return sb.reverse().toString();
     }
-    
-    //2. đảo ngược nửa đầu các ký tự của chuỗi không tính ký tự giữa |abc123456 --> 1cba23456
+
+    //2. đảo ngược nửa đầu các ký tự của chuỗi không tính ký tự giữa |abc123456 --> 1cba23456 //1234
     public String f42(String s) {
-        
-        return null;
+        String k = s.substring(0, s.length() / 2);
+        StringBuilder sb = new StringBuilder(k);
+        String a = sb.reverse().toString();
+
+        s = s.replaceAll(k, a);
+        return s;
     }
-    
+
     //3. đảo ngược tất cả các từ trong chuỗi |a1 a2 b3 c4 -> c4 b3 a2 a1
     public String f43(String s) {
-        
-        return null;
+        String k[] = s.split("\\s+");
+        String a = "";
+        for (int i = k.length - 1; i >= 0; i--) {
+            a += k[i] + " ";
+        }
+        return a;
     }
-    
-    //4. đảo ngược nửa cuối các từ trong chuỗi ko tính từ ở giữa |a1 a2 b3 c4 -> a1 a2c4 b3
+
+    //4. đảo ngược nửa cuối các từ trong chuỗi ko tính từ ở giữa |a1 a2 b3 c4 -> a1 a2 c4 b3
     public String f44(String s) {
-        
-        return null;
+        String[] k = s.split("\\s+");
+        String a = " ";
+        if (k.length % 2 == 0) {
+            //a1 a2 b3 c4 -> a1 a2 c4 b3
+            for (int i = k.length - 1; i >= k.length / 2; i--) {
+                a += k[i] + " ";
+            }
+            String b = " ";
+            for (int i = k.length / 2; i < k.length; i++) {
+                b += k[i] + " ";
+            }
+            s = s.replace(b.trim(), a.trim());
+        } else {
+            //a1 a2 b3 c4 d5 -> a1 a2 b3 d5 c4
+            for (int i = k.length - 1; i > k.length / 2; i--) {
+                a += k[i] + " ";
+            }
+            String b = " ";
+            for (int i = k.length / 2 + 1; i < k.length; i++) {
+                b += k[i] + " ";
+            }
+            s = s.replace(b.trim(), a.trim());
+        }
+        return s.trim();
     }
-    
+
     //5. sort nửa đầu các từ trong chuỗi theo thứ tự tăng dần của từ điển (khong tinh tu chinh giữa)
     //cong hoa xa hoi chu nghia viet nam -> cong hoa hoi xa chu nghia viet nam
     public String f45(String s) {
-        
-        return null;
+        String[] k = s.split("\\s+");
+        String a = "";
+        for (int i = 0; i < k.length / 2; i++) {
+            a += k[i] + " ";
+        }
+        a = a.trim();
+
+        String b[] = a.split("\\s+");
+        for (int i = 0; i < b.length - 1; i++) {
+            for (int j = i + 1; j < b.length; j++) {
+                if (b[i].compareTo(b[j]) > 0) {
+                    String t = b[i];
+                    b[i] = b[j];
+                    b[j] = t;
+                }
+            }
+        }
+        String c = "";
+        for (int i = 0; i < b.length; i++) {
+            c += b[i] + " ";
+        }
+        s = s.replace(a.trim(), c.trim());
+        return s;
     }
-    
+
     //6. sort tất cả các từ thỏa mãn điều kiện abc
     public String f46(String s) {
-        
+        //tự nghĩ
         return null;
     }
-    
+
     //7. sort tất cả các ký tự không phải là space theo thứ tự tăng dần của ACSII code: a1 b2 c4 -->12 4a bc
     public String f47(String s) {
+        String k = "";
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != ' ') {
+                k += s.charAt(i);
+            }
+        }
+        char a[] = k.toCharArray();
+        for (int i = 0; i < a.length - 1; i++) {
+            for (int j = i + 1; j < a.length; j++) {
+                if (a[i] > a[j]) {
+                    char t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                }
+            }
+        }
+
+        int j = 0;
+        char b[] = s.toCharArray();
+        for (int i = 0; i < b.length; i++) {
+            if (b[i] != ' ') {
+                b[i] = a[j];
+                j++;
+            }
+        }
+        String h = " ";
+        for (int i = 0; i < b.length; i++) {
+            h+=b[i];
+        }
         
-        return null;
+        return h;
     }
-    
+
     //8. xóa bỏ từ đầu tiên dài nhất trong chuỗi
     //cong hoa xa hoi12 chu nghia viet nam -> cong hoa xa chu nghia viet nam
     public String f48(String s) {
-        
-        return null;
+        String k[] = s.split("\\s+");
+        String b = "";
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < k.length; i++) {
+            list.add(k[i].length());
+            b+=k[i]+" ";
+        }
+        int index = list.indexOf(Collections.max(list));
+        String remo = k[index];
+        b = b.replaceAll(remo+" ", "");
+        return b;
     }
-    
+
     //9. xóa bỏ từ đầu tiên (cuối cùng) thỏa mãn điều kiện abc
     public String f49(String s) {
-        
+        //tự nghĩ
         return null;
     }
-    
+
     //10. thay thế từ có chứa ký tự số đầu tiên bằng "Hello"
     //cong hoa xa12 hoi chu1 nghia2 --> cong hoa Hello hoi chu1 nghia2
     public String f410(String s) {
-        
-        return null;
+        String k[] = s.split("\\s+");
+        int index = 0;
+        boolean flag = false;
+        for (int i = 0; i < k.length; i++) {
+            for (int j = 0; j < k[i].length(); j++) {
+                if(Character.isDigit(k[i].charAt(j))) {
+                    index = i;
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag)
+                break;
+        }
+        String c = k[index];
+        System.out.println(c);
+        s = s.replaceAll(c, "Hello");
+        return s;
     }
-    
+
 }

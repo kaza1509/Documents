@@ -81,8 +81,17 @@ public class MainQ1234 {
         //System.out.println("Số các số nguyên tố trong chuỗi: "+hw.f39(s));
         //System.out.println("Số "+hw.f310(s)+" có tần xuất xuất hiện nhiều nhất");
         
-        //========================== Q3 ==========================
-        String s = "abc12";
-        System.out.println("Đảo ngược chuỗi: "+hw.f41(s));
+        //========================== Q4 ==========================
+        String s = "cong hoa xa12 hoi chu1 nghia2";
+        System.out.println("The source string: "+s);
+        System.out.println("------------------------------");
+        //System.out.println("Đảo ngược chuỗi: "+hw.f41(s));
+        //System.out.println("Đảo ngược nửa đầu chuỗi: "+hw.f42(s));
+        //System.out.println("Đảo ngược tất cả các từ trong chuỗi: "+hw.f43(s));
+        //System.out.println("Đảo ngược nửa cuối chuỗi: "+hw.f44(s));
+        //System.out.println("Sort nửa đầu tăng dần của từ: "+hw.f45(s));
+        //System.out.println("Sort tất cả kí tự không phải là space: "+hw.f47(s));
+        //System.out.println("Xóa bỏ từ đầu tiên dài nhất: "+hw.f48(s));
+        System.out.println("Xóa bỏ từ đầu tiên có chứa số: "+hw.f410(s));
     }
 }
