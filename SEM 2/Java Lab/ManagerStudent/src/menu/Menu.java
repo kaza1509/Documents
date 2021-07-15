@@ -26,11 +26,13 @@ public class Menu {
         System.out.println("2.Output student.");
         System.out.println("3.Show student has max - min mark.");
         System.out.println("4.Search student following rollNo.");
-        System.out.println("5.Sort student following A -> Z.");
+        System.out.println("5.Sort student following name A -> Z.");
         System.out.println("6.Sort student have scholarship decreasing.");
-        System.out.println("7.Exit program.");
+        System.out.println("7.Change student in position by RollNo.");
+        System.out.println("8. Reset position data");
+        System.out.println("9.Exit program.");
         System.out.println("===============================================");
-        System.out.print("Please, Input your choice(1 -> 7): ");
+        System.out.print("Please, Input your choice(1 -> 9): ");
     }
 
     public void inputStudent(ArrayList<Student> listStudent) {
@@ -117,5 +119,32 @@ public class Menu {
         });
         
         outputStudent(listStudent);
+    }
+    
+    public void changeInfoByRollNo(ArrayList<Student> listStudent) {
+        CheckValidate c = new CheckValidate();
+        System.out.print("Input rollNo(HEXXXXXX): ");
+        String rollNo = c.getAnID();
+        int changeIndex = -1;
+        
+        for (int i = 0; i < listStudent.size(); i++) {
+            if(listStudent.get(i).getRollNo().equals(rollNo)) {
+                changeIndex = i;
+                break;
+            }
+        }
+        
+        if(changeIndex != -1) {
+            Student e = new Student();
+            e.input();
+            listStudent.set(changeIndex, e);
+        }
+        else {
+            System.err.println("RollNo "+rollNo+" not found");
+        }
+    }
+    
+    public void resetPositionData(ArrayList<Student> listStudent) {
+        
     }
 }

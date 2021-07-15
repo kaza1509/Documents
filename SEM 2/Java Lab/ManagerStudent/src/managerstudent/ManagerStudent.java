@@ -69,6 +69,16 @@ public class ManagerStudent {
                 }
 
                 case 7: {
+                    m.changeInfoByRollNo(listStudent);
+                    break;
+                }
+                
+                case 8: {
+                    
+                    break;
+                }
+                
+                case 9: {
                     System.out.println("You exited program.");
                     System.exit(0);
                 }
