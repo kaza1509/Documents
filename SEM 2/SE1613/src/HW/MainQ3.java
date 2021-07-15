@@ -33,8 +33,11 @@ public class MainQ3 {
         
         print(list);
         
-        //System.out.println("Test case f110: "+mt.f110(list, 37, ""));
-        //mt.f10(list, 0, "");
-        System.out.println("Phổ biến: "+mt.f9(list, 0, ""));
+        //System.out.println("Số lượng tivi có size > x: "+mt.f11(list, 40, ""));
+        //System.out.println("Số lượng tivi có tên chưa chuỗi s: "+mt.f12(list, 0, "An"));
+        //System.out.println("Tổng giá số tivi có giá > x: "+mt.f13(list, 8, ""));
+        
+        //System.out.println("Size nhỏ hơn gần nhất với x: "+mt.f110(list, 37, ""));
+        //System.out.println("Phổ biến: "+mt.f19(list, 0, ""));
     }
 }
