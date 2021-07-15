@@ -68,13 +68,21 @@ public class MainQ1234 {
         //hw.f220(ar);
         
         //========================== Q3 ==========================
-        String s = "s12b3 a5s1 b17 a5s 12b3a5";
+        //String s = "s12b3a5";
         //System.out.println("Có "+hw.f31(s)+" kí tự là số"); //f31
         //System.out.println("Có "+hw.f32(s)+" số trong chuỗi");
         //System.out.println("Tổng các chữ số trong chuỗi là: "+hw.f33(s));
         //System.out.println("Tổng các số xuất hiện trong chuỗi là: "+hw.f34(s));
         //System.out.println("Max của chuỗi là: "+hw.f35(s));
-        System.out.println("Số "+hw.f310(s)+" có tần xuất xuất hiện nhiều nhất");
         //hw.f36(s);
+        //System.out.println("Giá trị trung bình trong chuỗi là: "+hw.f37(s));;
+        //hw.f38(s);
+        //System.out.println("Tổng các số nguyên tố trong chuỗi: "+hw.f38(s));
+        //System.out.println("Số các số nguyên tố trong chuỗi: "+hw.f39(s));
+        //System.out.println("Số "+hw.f310(s)+" có tần xuất xuất hiện nhiều nhất");
+        
+        //========================== Q3 ==========================
+        String s = "abc12";
+        System.out.println("Đảo ngược chuỗi: "+hw.f41(s));
     }
 }

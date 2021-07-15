@@ -591,26 +591,40 @@ public class HW {
 
     //6. Tìm và trả về số từ trong chuỗi thỏa mãn điều kiện abc
     public int f36(String s) {
-
+        //tự nghĩ
         return 0;
     }
 
     //7. Tính và trả về phần nguyên của giá trị trung bình của các số xuất hiện trong chuỗi <s12b3a2> ->5
     public int f37(String s) {
-
-        return 0;
+        int avg = 0;
+        for (int i = 0; i < takeNumberToString(s).length; i++) {
+            avg+=Integer.parseInt(takeNumberToString(s)[i]);
+        }
+        avg/=takeNumberToString(s).length;
+        return avg;
     }
 
     //8. Tính và trả về tổng các số là nguyên tố có trong chuỗi <s12b3a5> -> 8
     public int f38(String s) {
-
-        return 0;
+        int sum = 0;
+        for (int i = 0; i < takeNumberToString(s).length; i++) {
+            if(checkPrime(Integer.parseInt(takeNumberToString(s)[i]))) {
+                sum+=Integer.parseInt(takeNumberToString(s)[i]);
+            }
+        }
+        return sum;
     }
 
     //9. Đếm và trả về số các số là nguyên tố có trong chuỗi <s12b3a5> -> 2
     public int f39(String s) {
-
-        return 0;
+        int count = 0;
+        for (int i = 0; i < takeNumberToString(s).length; i++) {
+            if(checkPrime(Integer.parseInt(takeNumberToString(s)[i]))) {
+                count++;
+            }
+        }
+        return count;
     }
 
     //10. Tìm và trả về số có tần suất xuất hiện lớn nhất trong chuỗi <s12b3 a5s1 b17 a5s 12b3a5>->5
@@ -632,4 +646,72 @@ public class HW {
         int index = c.indexOf(Collections.max(c));
         return a.get(index);
     }
+    
+    //-------------------------- SUPPORT METHOD Q4 --------------------------
+    
+    
+    //==================== f4 ==================== 
+    //1. đảo ngược tất cả các ký tự trong chuỗi |abc12 ->21cba
+    public String f41(String s) {
+        StringBuilder sb = new StringBuilder(s);
+        return sb.reverse().toString();
+    }
+    
+    //2. đảo ngược nửa đầu các ký tự của chuỗi không tính ký tự giữa |abc123456 --> 1cba23456
+    public String f42(String s) {
+        
+        return null;
+    }
+    
+    //3. đảo ngược tất cả các từ trong chuỗi |a1 a2 b3 c4 -> c4 b3 a2 a1
+    public String f43(String s) {
+        
+        return null;
+    }
+    
+    //4. đảo ngược nửa cuối các từ trong chuỗi ko tính từ ở giữa |a1 a2 b3 c4 -> a1 a2c4 b3
+    public String f44(String s) {
+        
+        return null;
+    }
+    
+    //5. sort nửa đầu các từ trong chuỗi theo thứ tự tăng dần của từ điển (khong tinh tu chinh giữa)
+    //cong hoa xa hoi chu nghia viet nam -> cong hoa hoi xa chu nghia viet nam
+    public String f45(String s) {
+        
+        return null;
+    }
+    
+    //6. sort tất cả các từ thỏa mãn điều kiện abc
+    public String f46(String s) {
+        
+        return null;
+    }
+    
+    //7. sort tất cả các ký tự không phải là space theo thứ tự tăng dần của ACSII code: a1 b2 c4 -->12 4a bc
+    public String f47(String s) {
+        
+        return null;
+    }
+    
+    //8. xóa bỏ từ đầu tiên dài nhất trong chuỗi
+    //cong hoa xa hoi12 chu nghia viet nam -> cong hoa xa chu nghia viet nam
+    public String f48(String s) {
+        
+        return null;
+    }
+    
+    //9. xóa bỏ từ đầu tiên (cuối cùng) thỏa mãn điều kiện abc
+    public String f49(String s) {
+        
+        return null;
+    }
+    
+    //10. thay thế từ có chứa ký tự số đầu tiên bằng "Hello"
+    //cong hoa xa12 hoi chu1 nghia2 --> cong hoa Hello hoi chu1 nghia2
+    public String f410(String s) {
+        
+        return null;
+    }
+    
 }
