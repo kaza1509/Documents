@@ -26,7 +26,7 @@ public class MainQ3 {
         list.add(new TV("SONY", 42, 8.7));
         list.add(new TV("SAMSUNG", 45, 10.7));
         list.add(new TV("PANASONIC", 36, 6.5));
-        list.add(new TV("NISSAN", 49, 11));
+        list.add(new TV("NISSAN", 49, 10.6));
         list.add(new TV("VOSWAGAN", 21, 4));
         list.add(new TV("VINGAS", 36, 7.6));
         
@@ -53,9 +53,15 @@ public class MainQ3 {
         //mt.f26(list, 44, "");
         //mt.f27(list, 0, "");
         //mt.f28(list, 0, "");
-        mt.f29(list, 0, "");
+        //mt.f29(list, 0, "");
         //mt.f210(list, 0, "");
         //mt.f211(list, 0, "");
-        //mt.f212(list, 0, "");
+        mt.f212(list, 0, "");
+        //mt.f31(list, 0, s);
+        //mt.f32(list, 0, s);
+        //mt.f33(list, 0, s);
+        //mt.f34(list, 0, s);
+        //mt.f35(list, 0, s);
+        //mt.f36(list, 0, s);
     }
 }

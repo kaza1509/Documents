@@ -317,60 +317,98 @@ public class MyTV {
 
     //9. Đổi vị trí TV có price lớn nhất với TV có price bé nhất
     public void f29(ArrayList<TV> a, int x, String s) {
-        ArrayList<TV> ar = a;
-        Collections.sort(ar, new Comparator<TV>() {
-            @Override
-            public int compare(TV o1, TV o2) {
-                if(o1.getPrice() > o2.getPrice())
-                    return -1;
-                else 
-                    return 1;
-            }
-        });
-        
-        double minPrice = ar.get(ar.size()-1).getPrice();
-        double maxPrice = ar.get(0).getPrice();
-        ar.clear();
-        
-        int indexMin = 0, indexMax = 0;
+        int indexMaxPrice = 0, indexMinPrice = 0;
+        double maxPrice = a.get(0).getPrice(), minPrice = a.get(0).getPrice();
         
         for (int i = 0; i < a.size(); i++) {
-            if(a.get(i).getPrice() == minPrice) {
-                indexMin = i;
-                break;
+            if(a.get(i).getPrice() > maxPrice) {
+                maxPrice = a.get(i).getPrice();
+                indexMaxPrice = i;
+            }
+            if(a.get(i).getPrice() < minPrice) {
+                minPrice = a.get(i).getPrice();
+                indexMinPrice = i;
             }
         }
         
-        for (int i = 0; i < a.size(); i++) {
-            if(a.get(i).getPrice() == maxPrice) {
-                indexMax = i;
-                break;
-            }
-        }
-        
-        System.out.println(indexMin);
-        System.out.println(indexMax);
-        
+        TV tv = a.get(indexMinPrice);
+        a.set(indexMinPrice, a.get(indexMaxPrice));
+        a.set(indexMaxPrice, tv);
         
         print(a);
     }
 
     //10. Đổi vị trí TV có size lớn nhất và TV có size bé nhất
     public void f210(ArrayList<TV> a, int x, String s) {
-
+        //tương tự như price ở câu 9 nhé
         print(a);
     }
 
     //11. Đổi vị trí TV có size lớn nhất cho TV có price lớn nhất nhất
     public void f211(ArrayList<TV> a, int x, String s) {
-
+        System.out.println("Đổi vị trí TV có size lớn nhất cho TV có price lớn nhất:");
+        int maxSize = a.get(0).getSize();
+        double maxPrice = a.get(0).getPrice();
+        
+        int indexMaxPrice = 0, indexMaxSize = 0;
+        
+        for (int i = 0; i < a.size(); i++) {
+            if(a.get(i).getPrice() > maxPrice) {
+                maxPrice = a.get(i).getPrice();
+                indexMaxPrice = i;
+            }
+            if(a.get(i).getSize() > maxSize) {
+                maxSize = a.get(i).getSize();
+                indexMaxSize = i;
+            }
+        }
+        
+        TV tv = a.get(indexMaxSize);
+        a.set(indexMaxSize, a.get(indexMaxPrice));
+        a.set(indexMaxPrice, tv);
+        
         print(a);
     }
 
     //12. đổi chỗ vị trí TV có price lớn thứ 2 đầu tiên với TV có size bé nhất
     public void f212(ArrayList<TV> a, int x, String s) {
-
+        
         print(a);
     }
-
+    
+    //1. Tìm và trả về tên của TV có giá lớn nhất
+    public String f31(ArrayList<TV> a, int x, String s) {
+        
+        return null;
+    }
+    
+    //2. Tìm và trả về tên của TV có size lớn nhất
+    public String f32(ArrayList<TV> a, int x, String s) {
+        
+        return null;
+    }
+    
+    //3. Tìm và trả về tên của TV đầu tiên có price gần với giá trị trung bình củaprice trong list
+    public String f33(ArrayList<TV> a, int x, String s) {
+        
+        return null;
+    }
+    
+    //4. Tìm và trả về tên TV phổ biến nhất trong list
+    public String f34(ArrayList<TV> a, int x, String s) {
+        
+        return null;
+    }
+    
+    //5. Tìm và trả về tên của TV đầu tiên mà có size phổ biến nhất trong list
+    public String f35(ArrayList<TV> a, int x, String s) {
+        
+        return null;
+    }
+    
+    //6. Tìm và trả về tên của TV đầu tiên có size >=x và có tên chứa s đã cho
+    public String f36(ArrayList<TV> a, int x, String s) {
+        
+        return null;
+    }
 }
