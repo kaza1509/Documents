@@ -372,6 +372,36 @@ public class MyTV {
 
     //12. đổi chỗ vị trí TV có price lớn thứ 2 đầu tiên với TV có size bé nhất
     public void f212(ArrayList<TV> a, int x, String s) {
+        int indexMaxPrice = 0, indexMinSize = 0;
+        double maxPrice = a.get(0).getPrice();
+        
+        int minSize = a.get(0).getSize();
+        
+        //Tìm vị trí maxPrice, minSize;
+        for (int i = 0; i < a.size(); i++) {
+            if(a.get(i).getSize() < minSize) {
+                minSize = a.get(i).getSize();
+                indexMinSize = i;
+            }
+            if(a.get(i).getPrice() > maxPrice) {
+                maxPrice = a.get(i).getPrice();
+                indexMaxPrice = i;
+            }
+        }
+        
+        //Tìm vị trí của secondPrice;
+        int indexSecondPrice = 0;
+        double secondPrice = a.get(0).getPrice();
+        for (int i = 0; i < a.size(); i++) {
+            if(a.get(i).getPrice() > secondPrice && a.get(i).getPrice() < maxPrice) {
+                secondPrice = a.get(i).getPrice();
+                indexSecondPrice = i;
+            }
+        }
+        //Đổi chỗ giữa secondPrice và minSize;
+        TV tv = a.get(indexSecondPrice);
+        a.set(indexSecondPrice, a.get(indexMinSize));
+        a.set(indexMinSize, tv);
         
         print(a);
     }
@@ -388,7 +418,7 @@ public class MyTV {
         return null;
     }
     
-    //3. Tìm và trả về tên của TV đầu tiên có price gần với giá trị trung bình củaprice trong list
+    //3. Tìm và trả về tên của TV đầu tiên có price gần với giá trị trung bình của price trong list
     public String f33(ArrayList<TV> a, int x, String s) {
         
         return null;
